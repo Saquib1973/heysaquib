@@ -43,6 +43,29 @@ const Page = () => {
       )
     })
   }
+  const colors = [
+    'bg-green-600 dark:bg-green-400',
+    'bg-blue-600 dark:bg-blue-400',
+    'bg-yellow-600 dark:bg-yellow-400',
+    'bg-red-600 dark:bg-red-400',
+    'bg-indigo-600 dark:bg-indigo-400',
+    'bg-pink-600 dark:bg-pink-400',
+    'bg-purple-600 dark:bg-purple-400',
+    'bg-gray-600 dark:bg-gray-400',
+    'bg-teal-600 dark:bg-teal-400',
+    'bg-orange-600 dark:bg-orange-400',
+    'bg-cyan-600 dark:bg-cyan-400',
+    'bg-lime-600 dark:bg-lime-400',
+    'bg-violet-600 dark:bg-violet-400',
+    'bg-lightBlue-600 dark:bg-lightBlue-400',
+    'bg-emerald-600 dark:bg-emerald-400',
+    'bg-rose-600 dark:bg-rose-400',
+    'bg-cyan-600 dark:bg-cyan-400',
+    'bg-fuchsia-600 dark:bg-fuchsia-400',
+    'bg-sky-600 dark:bg-sky-400',
+    'bg-amber-600 dark:bg-amber-400',
+  ]
+  const length = colors.length
 
   return (
     <StaggerAnimation>
@@ -72,10 +95,10 @@ const Page = () => {
                     } -rotate-180`}
                   />
                 </div>
-                <div className="relative max-h-[80vh] w-full md:max-w-[80vw] overflow-auto">
+                <div className="relative max-h-[80vh] w-full md:max-w-[80vw] h-full">
                   <Image
                     alt="test"
-                    className="m-2 object-contain"
+                    className={`m-2 object-contain `}
                     style={{ maxHeight: '80vh', maxWidth: '80vw' }}
                     src={data?.img[image].src}
                   />
@@ -120,34 +143,36 @@ const Page = () => {
         <div>
           <h1 className="amiko-h1">Gallery</h1>
           <div className="grid grid-cols-2 transition md:grid-cols-3 mx-auto gap-0.5 p-4 px-1">
-            {images?.map((img, index) => (
-              <div
-                key={index}
-                className={`relative h-full cursor-pointer transition-all ${
-                  img.liked ? 'row-span-2 col-span-2' : ''
-                }`}
-              >
-                <Image
-                  onClick={() => setImage(index)}
-                  src={img.src}
-                  alt="test"
-                  className="w-full min-h-full brightness-[40%] grayscale hover:grayscale-0 hover:brightness-100 transition"
-                />
-                <button
-                  className="absolute bottom-2 right-2"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    toggleLike(index)
-                  }}
+            {images?.map((img, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`relative h-full cursor-pointer transition ${
+                    colors[index % length]
+                  } ${img.liked ? 'row-span-2 col-span-2' : ''}`}
                 >
-                  <Like
-                    className={`${
-                      img.liked ? 'text-red-500' : 'text-gray-500'
-                    }`}
+                  <Image
+                    onClick={() => setImage(index)}
+                    src={img.src}
+                    alt="test"
+                    className={`w-full min-h-full brightness-[40%] grayscale hover:grayscale-0 hover:brightness-100 transition `}
                   />
-                </button>
-              </div>
-            ))}
+                  <button
+                    className="absolute bottom-2 right-2"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      toggleLike(index)
+                    }}
+                  >
+                    <Like
+                      className={`${
+                        img.liked ? 'text-red-500' : 'text-gray-500'
+                      }`}
+                    />
+                  </button>
+                </div>
+              )
+            })}
           </div>
         </div>
 

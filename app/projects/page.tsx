@@ -34,10 +34,10 @@ const page = () => {
                     <span
                       className={`text-sm border ml-4 px-2 max-h-min rounded-md tracking-wide flex items-center gap-1 max-w-fit ${
                         project.status === 'live'
-                          ? 'bg-green-50 text-green-500 border-green-500 dark:bg-green-900 dark:text-green-100 dark:border-green-100'
+                          ? 'bg-green-50 text-green-500 border-green-500 dark:bg-green-600 dark:text-green-100 dark:border-green-300'
                           : project.status === 'building'
-                          ? 'bg-yellow-50 text-yellow-600 border-yellow-600  dark:bg-yellow-900 dark:text-yellow-100 dark:border-yellow-100'
-                          : 'bg-red-50 text-red-500 border-red-500  dark:bg-red-900 dark:text-red-100 dark:border-red-100'
+                          ? 'bg-yellow-50 text-yellow-600 border-yellow-600  dark:bg-yellow-600 dark:text-yellow-100 dark:border-yellow-300'
+                          : 'bg-red-50 text-red-500 border-red-500  dark:bg-red-600 dark:text-red-100 dark:border-red-300'
                       }`}
                     >
                       {project.status}
