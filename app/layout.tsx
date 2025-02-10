@@ -5,6 +5,7 @@ import Footer from '@/components/footer-component'
 import Header from '@/components/header-component'
 import { ViewTransitions } from 'next-view-transitions'
 import { Analytics } from '@vercel/analytics/react'
+import Starfield from '@/components/Starfield'
 export const metadata: Metadata = {
   title: 'Hey! Saquib ☺️',
   description: 'Welcome to the portfolio site of Saquib Ali.',
@@ -25,7 +26,9 @@ export default function RootLayout({
         >
           <Analytics />
           <Header />
-          <>{children}</>
+          <>
+            <Starfield />
+            {children}</>
           <Footer />
         </body>
       </ViewTransitions>

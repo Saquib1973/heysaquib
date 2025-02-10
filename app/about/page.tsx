@@ -30,11 +30,11 @@ export const links = [
     href: 'https://www.instagram.com/sacubeli/#',
     icon: <Instagram />,
   },
-  {
-    name: 'resume',
-    href: 'https://drive.google.com/file/d/1a5tBPdkgfUi3My75upcW69VVQD8RPjwD/view',
-    icon: <>Resume</>,
-  },
+  // {
+  //   name: 'resume',
+  //   href: 'https://drive.google.com/file/d/1a5tBPdkgfUi3My75upcW69VVQD8RPjwD/view',
+  //   icon: <>Resume</>,
+  // },
 ]
 const page = () => {
   lastUpdated = getDateHelper()
@@ -63,10 +63,21 @@ const page = () => {
           </p>
           <div className="flex items-center justify-end gap-2 mr-4 py-4">
             {links.map((link, index) => (
-              <Link href={link.href} target='_blank' key={index}>
+              <Link href={link.href} target="_blank" key={index}>
                 {link.icon}
               </Link>
             ))}
+          </div>
+          <div className="flex justify-end w-full">
+            <Link
+            target="_blank"
+              href={
+                'https://drive.google.com/file/d/1a5tBPdkgfUi3My75upcW69VVQD8RPjwD/view'
+              }
+              className='border border-dashed w-full text-center border-yellow-4 p-0.5 rounded-md px-2 shadow-inner bg-white-2 dark:bg-black-2 dark:text-gray-1 '
+            >
+              Resume
+            </Link>
           </div>
         </div>
         <div className="ml-4 md:ml-10 text-base">

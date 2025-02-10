@@ -83,7 +83,7 @@ const ProjectCard = ({
       transition={{ delay: index * 0.5, duration: 1 }}
     >
       <div
-        className={`relative mouse-pointer block h-full group bg-gray-200 dark:bg-black-2`}
+        className={`relative mouse-pointer block h-full group bg-gray-200 dark:bg-black-0`}
         // tabIndex="0"
       >
         <motion.div

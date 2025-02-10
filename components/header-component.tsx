@@ -36,7 +36,7 @@ const Header = () => {
 
   return (
     <div className="flex border-b transition bg-white-1 dark:bg-black-1 border-gray-0 mb-1 dark:border-black-0 justify-between items-center sticky top-0 left-0 z-50 h-fit font-happymonkey p-3 md:p-4">
-      <div className="flex gap-2 font-light md:font-semibold tracking-wide md:gap-4 max-sm:text-sm">
+      <div className="flex gap-2 tracking-wide md:gap-4 max-sm:text-sm">
         {headerLinks.map((link, index) => {
           return (
             <Link
