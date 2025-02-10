@@ -18,7 +18,7 @@ const page = () => {
       transition={{ delay: 0.4, duration: 1 }}
       className="section"
     >
-      <p className="rampart-h1 projects">Project</p>
+      <p className="rampart-h1 projects">Projects</p>
       <div className="grid grid-cols-1 lg:mx-1 lg:grid-cols-2 h-full gap-4 md:gap-6 py-4 md:py-6 md:pt-16">
         {featuredProjects.map((project, index) => {
           return (
@@ -41,7 +41,7 @@ const page = () => {
       <div className="flex justify-end mt-3 md:mt-6 items-center">
         <TransitionLink
           href="/projects"
-          className="flex gap-1 group items-center text-green text-lg transition underline-offset-4 hover:underline"
+          className="flex gap-1 group items-center text-base transition underline-offset-4 hover:underline"
         >
           View All Projects
           <svg
@@ -83,7 +83,7 @@ const ProjectCard = ({
       transition={{ delay: index * 0.5, duration: 1 }}
     >
       <div
-        className={`relative mouse-pointer block h-full group bg-gray-200 dark:bg-black-0`}
+        className={`relative mouse-pointer block h-full group bg-gray-200 dark:bg-black-2`}
         // tabIndex="0"
       >
         <motion.div
@@ -118,7 +118,7 @@ const ProjectCard = ({
 
               <time
                 dateTime={date}
-                className="absolute top-0 right-2 bg-white  group-hover:border-yellow-4 transition dark:bg-black-1 border-1 -translate-y-2.5 whitespace-nowrap text-sm max-md:text-xs border p-1 pb-0.5"
+                className="absolute top-0 right-2 bg-white  group-hover:border-yellow-4 transition dark:bg-black-1 border-1  -translate-y-2.5 whitespace-nowrap text-sm max-md:text-xs border p-1 pb-0.5"
               >
                 {date}
               </time>

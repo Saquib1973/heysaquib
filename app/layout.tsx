@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { rampart, amiko, happymonkey } from '../public/utils/fonts'
 import './globals.css'
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
+import Footer from '@/components/footer-component'
+import Header from '@/components/header-component'
 import { ViewTransitions } from 'next-view-transitions'
 import { Analytics } from '@vercel/analytics/react'
 export const metadata: Metadata = {

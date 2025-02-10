@@ -44,10 +44,10 @@ const Tech = () => {
           {techstack.map((tech, i) => (
             <motion.div
               key={i}
-              className={` cursor-pointer border-l-4 rounded-r-md border-transparent transition-all bg-blackFade  p-2 py-1 max-md:text-sm  ${
+              className={` cursor-pointer border-r-4 border-b-4 rounded-l-md border-transparent transition  p-2 py-1 max-md:text-sm  ${
                 tech.type.includes(page) || page === 'all'
                   ? 'text-gray-800 shadow-sm bg-yellow-2 dark:border-yellow-800 dark:bg-yellow-4 dark:shadow-inner dark:text-white border-yellow-4  '
-                  : 'amiko-p border-gray-100 bg-white-0 dark:bg-gray-0 line-through'
+                  : 'border-white-2 dark:border-black-2 dark:text-gray-2 text-gray-1 bg-white-0  dark:bg-black-1 line-through'
               }`}
               initial={{ opacity: 0, y: 10, x: 5 }}
               animate={{ opacity: 1, y: 0, x: 0 }}

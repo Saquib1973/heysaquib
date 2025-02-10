@@ -10,6 +10,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import Github from '@/components/svg/Github'
+import {default as LinkLogo} from '@/components/svg/Link'
 
 type ProjectImages = {
   src: any
@@ -130,6 +132,28 @@ const Page = () => {
           <h1 className="amiko-h1 mb-2">Overview</h1>
           <p>{data?.detail}</p>
         </div>
+        <div className="flex justify-end sticky top-[61px] md:top-[69px] z-50 bg-white-1 dark:bg-black-1 md:text-xl px-3 gap-2 py-2  md:py-3">
+          {data?.git && (
+            <Link
+              target="_blank"
+              href={data.git}
+              className="transition link-text flex gap-1 items-center"
+            >
+              {/* <Github /> */}
+              Github
+            </Link>
+          )}
+          {data?.link && (
+            <Link
+              target="_blank"
+              href={data.link}
+              className="transition link-text flex gap-1 items-center"
+            >
+              {/* <LinkLogo /> */}
+              Live
+            </Link>
+          )}
+        </div>
 
         <div className="py-4">
           <h1 className="amiko-h1 mb-2">Description</h1>
@@ -174,27 +198,6 @@ const Page = () => {
               )
             })}
           </div>
-        </div>
-
-        <div className="flex gap-2 sticky bottom-0 p-2 left-0">
-          {data?.git && (
-            <Link
-              target="_blank"
-              href={data.git}
-              className="border w-1/2 p-2 py-4 bg-white-1 shadow-inner shadow-gray-1 dark:bg-black-1 text-center"
-            >
-              Github
-            </Link>
-          )}
-          {data?.link && (
-            <Link
-              target="_blank"
-              href={data.link}
-              className="border w-1/2 p-2 py-4 bg-white-1 shadow-inner shadow-gray-1 dark:bg-black-1 text-center"
-            >
-              Live
-            </Link>
-          )}
         </div>
       </div>
     </StaggerAnimation>

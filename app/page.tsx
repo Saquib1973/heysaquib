@@ -3,9 +3,9 @@ import Image from 'next/image'
 import FadeInAnimation from './../components/FadeInAnimation'
 import Arrow from '@/components/svg/Arrow'
 import StaggerAnimation from '@/components/StaggerAnimation'
-import Tech from '@/components/techstack-home'
-import Projects from '@/components/projects-home'
-import Blogs from '@/components/blogs-home'
+import Tech from '@/components/techstack-home-section'
+import Projects from '@/components/projects-home-section'
+import Blogs from '@/components/blogs-home-section'
 import { links } from './about/page'
 
 export default function Home() {
@@ -17,11 +17,21 @@ const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
       <StaggerAnimation>
         {/* About Section */}
         <AboutSection />
-        <div className='flex text-light justify-end items-center pr-10 gap-1'>
+        <div className="flex text-light justify-end items-center pr-10 gap-1">
           {updatedLinks.map((link, index) => (
-            <Link href={link.href} className='capitalize' target="_blank" key={index}>
-              {link.name} {index<updatedLinks.length-1 ? ` /`:""}
-            </Link>
+            <div
+                key={index}
+                className="cursor-pointer"
+            >
+              <Link
+                href={link.href}
+                className="capitalize hover:link-text transition"
+                target="_blank"
+              >
+                {link.name}
+              </Link>
+              {index < updatedLinks.length - 1 ? ` /` : ''}
+            </div>
           ))}
         </div>
         <div className="w-[80%] mt-8 mb-2 max-md:hidden h-[1px] dark:bg-gray-800 bg-gray-200 mx-auto" />
@@ -38,7 +48,7 @@ const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
 
 const AboutSection = () => {
   return (
-    <div className="flex max-md:flex-col section justify-center items-center px-1 py-6 gap-1">
+    <div className="flex max-md:flex-col section justify-center items-center px-1 gap-1">
       <Image
         className="mx-auto aspect-square w-full max-md:hidden -z-10 rounded-sm md:w-44 saquib-image"
         src="/assets/about-saquib.jpg"
