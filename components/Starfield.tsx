@@ -1,4 +1,5 @@
 'use client'
+import { usePathname } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 interface ColorPalette {
@@ -249,11 +250,11 @@ const Starfield = () => {
       window.removeEventListener('resize', resizeCanvas)
     }
   }, [])
-
+  let pathname = usePathname().split("/");
   return (
     <canvas
       ref={canvasRef}
-      className="-z-[500]"
+      className={`-z-[500] ${pathname.length >2 && pathname[1]==="blogs" && pathname[2] ? "hidden" : ""}`}
       style={{ position: 'fixed', top: 0, left: 0 }}
     />
   )

@@ -22,6 +22,7 @@ Project content format :
   img?: { src: any; text: string }[]
   date: string
   featured: boolean
+  minor?: boolean
 }
 export type ProjectType =
   | 'frontend'

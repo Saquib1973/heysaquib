@@ -40,7 +40,8 @@ import recalll4 from '@/public/assets/projects/recalll/4.png'
 import recalll5 from '@/public/assets/projects/recalll/5.png'
 import recalll6 from '@/public/assets/projects/recalll/6.png'
 import recalll7 from '@/public/assets/projects/recalll/7.png'
-
+//BreakBricks
+import breakbricks1 from "@/public/assets/projects/breakbricks/breakbricks1.gif"
 const Recall: ProjectInterface = {
   id: 'recalll',
   name: 'Recalll',
@@ -393,7 +394,8 @@ const QuillBot: ProjectInterface = {
     git: 'https://github.com/Saquib1973/Firebase_Authentication_App',
     date: '2021-25',
     featured: false,
-  }
+}
+
   const Portfolio: ProjectInterface = {
     id: 'portfolio',
     name: 'Portfolio',
@@ -407,12 +409,39 @@ const QuillBot: ProjectInterface = {
     img: [{ src: null, text: 'test' }],
     date: '2021-25',
     featured: false,
+}
+  const BreakBricks: ProjectInterface = {
+    id: 'breakbricks',
+    name: 'BreakBricks',
+    status: 'live',
+    description: [
+      'BreakBricks: The Ultimate Browser-Based Gaming Experience',
+      'BreakBricks is a fully interactive web-based gaming platform that lets users play engaging arcade-style games right in their browser. The project features a dynamic gaming experience with real-time leaderboards, smooth animations, and an adaptive UI.',
+      'It is built with Next.js for the frontend, Tailwind CSS for styling, Framer Motion for animations, and Node.js for the backend. The game mechanics are implemented using the HTML5 Canvas API for smooth rendering. TypeScript ensures type safety and enhances code maintainability.',
+    ],
+    type: ['frontend', 'design'],
+    img: [{ src: breakbricks1, text: 'Gameplay' }],
+    detail:
+      'An interactive gaming platform that lets users play and compete in arcade-style browser games with real-time score tracking and an engaging UI.',
+    tags: [
+      'Next.js',
+      'Tailwind CSS',
+      'Framer Motion',
+      'TypeScript',
+      'Canvas API',
+    ],
+    link: 'https://breakbricks.vercel.app/',
+    git: 'https://github.com/Saquib1973/breakout',
+    date: 'Feb 2025',
+    featured: false,
   }
+
 export const Projects: ProjectInterface[] = [
   {...Recall,featured:true},
   { ...Urlwee,featured:true },
-  { ...Vallet },
+  { ...Vallet,minor:true },
   { ...Nyaylok,featured:true },
+  {...BreakBricks,minor:true},
   { ...YourHR },
   { ...AcademiaStacks,featured:true },
   { ...IssueTracker },

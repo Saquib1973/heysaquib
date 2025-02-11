@@ -11,6 +11,9 @@ const page = () => {
   const featuredProjects: ProjectInterface[] = Projects.filter(
     (project) => project.featured
   )
+  const minorProject: ProjectInterface[] = Projects.filter(
+    (project) => project.minor
+  )
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -38,28 +41,66 @@ const page = () => {
           )
         })}
       </div>
-      <div className="flex justify-end mt-3 md:mt-6 items-center">
-        <TransitionLink
-          href="/projects"
-          className="flex gap-1 group items-center text-base transition underline-offset-4 hover:underline"
-        >
-          View All Projects
-          <svg
-            className={`text-xl text-green group-hover:rotate-0 rotate-45 group-hover:text-yellow-500 hover:scale-110 group-hover:translate-x-0.5 transition-all group-hover:-translate-y-0.5"}`}
-            stroke="currentColor"
-            fill="none"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
+
+      <div className="py-4">
+        <h2 className="amiko text-lg text-yellow-4">Minor Projects</h2>
+        <div className="py-3">
+          {minorProject.map((project, index) => (
+            <Link
+              href={'/projects/' + project.id}
+              key={index}
+              className="flex justify-between hover:border-white-2 transition border-b border-dashed border-gray-2 py-1 my-1 text-light"
+            >
+              <div className="flex gap-0.5 items-center">
+                {project.name}
+                <span
+                  className={`text-xs border ml-4 px-1 max-h-min rounded-md tracking-wide flex items-center gap-1 max-w-fit ${
+                    project.status === 'live'
+                      ? 'bg-green-50 text-green-500 border-green-500 dark:bg-green-600 dark:text-green-100 dark:border-green-300'
+                      : project.status === 'building'
+                      ? 'bg-yellow-50 text-yellow-600 border-yellow-600  dark:bg-yellow-600 dark:text-yellow-100 dark:border-yellow-300'
+                      : 'bg-red-50 text-red-500 border-red-500  dark:bg-red-600 dark:text-red-100 dark:border-red-300'
+                  }`}
+                >
+                  {project.status}
+                  <span
+                    className={`h-1 w-1 animate-pulse rounded-full ${
+                      project.status === 'live'
+                        ? 'bg-green-500'
+                        : project.status === 'building'
+                        ? 'bg-yellow-600'
+                        : 'bg-red-500'
+                    } animate-blink`}
+                  />
+                </span>
+              </div>
+              <span className='text-xs'>{project.date}</span>
+            </Link>
+          ))}
+        </div>
+        <div className="flex justify-end mt-3 md:mt-6 items-center">
+          <TransitionLink
+            href="/projects"
+            className="flex gap-1 group items-center text-base transition underline-offset-4 hover:underline"
           >
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
-          </svg>
-        </TransitionLink>
+            View All Projects
+            <svg
+              className={`text-xl text-green group-hover:rotate-0 rotate-45 group-hover:text-yellow-500 hover:scale-110 group-hover:translate-x-0.5 transition-all group-hover:-translate-y-0.5"}`}
+              stroke="currentColor"
+              fill="none"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </TransitionLink>
+        </div>
       </div>
     </motion.div>
   )
