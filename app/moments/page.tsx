@@ -7,7 +7,7 @@ const page = () => {
     <div>
       <div className="px-2">
         <h1 className="rampart-h1 mb-8">MOMENTS</h1>
-        <MusicPlayer className="md:hidden" />
+        <MusicPlayer className="md:hidden sticky top-[62px] z-50 left-0" />
         <div className="columns-2 md:columns-3 space-y-1 gap-1">
           {moments.map((moment, index) => {
             return (
