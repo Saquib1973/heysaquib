@@ -1,19 +1,111 @@
 'use client'
 import { moments } from '@/public/assets/moments'
 import Image, { type StaticImageData } from 'next/image'
-import React, { useEffect, useState } from 'react'
-const page = () => {
+import React, { useEffect, useState, useCallback } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import Close from '@/components/svg/Close'
+import Play from '@/components/svg/Play'
+import Pause from '@/components/svg/Pause'
+
+const SPOTIFY_ORIGIN = 'https://open.spotify.com'
+
+const Page = () => {
+  const [selectedImage, setSelectedImage] = useState<number | null>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [spotifyRef, setSpotifyRef] = useState<HTMLIFrameElement | null>(null)
+  const [hasStartedMusic, setHasStartedMusic] = useState(false)
+
+  const nextSlide = useCallback(() => {
+    if (selectedImage === null) return
+
+    const nextIndex = selectedImage + 1
+    setSelectedImage(nextIndex <= (moments.length - 1) ? nextIndex : 0)
+  }, [selectedImage])
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+    if (isPlaying) {
+      interval = setInterval(nextSlide, 3000)
+      // Only start music if it hasn't been started before
+      if (!hasStartedMusic) {
+        spotifyRef?.contentWindow?.postMessage({ command: 'play' }, SPOTIFY_ORIGIN)
+        setHasStartedMusic(true)
+      }
+    }
+    return () => clearInterval(interval)
+  }, [isPlaying, nextSlide, spotifyRef, hasStartedMusic])
+
+  const toggleSlideshow = () => {
+    setIsPlaying(!isPlaying)
+    if (!isPlaying && selectedImage === null) {
+      setSelectedImage(0)
+    }
+  }
+
   return (
     <div>
+      <AnimatePresence mode="wait">
+        {selectedImage !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed w-full h-full inset-0 overflow-hidden select-none flex justify-center items-center shadow-md bg-white-1 p-4 py-8 dark:bg-black-1 border z-[1000]"
+          >
+            <div className="absolute top-2 right-2 flex gap-2 z-10">
+              <button
+                onClick={toggleSlideshow}
+                className="p-2 hover:bg-white-1 dark:hover:bg-black-1 rounded-full transition-colors"
+              >
+                {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+              </button>
+              <button
+                onClick={() => {
+                  setSelectedImage(null)
+                  setIsPlaying(false)
+                  spotifyRef?.contentWindow?.postMessage({ command: 'pause' }, SPOTIFY_ORIGIN)
+                  setHasStartedMusic(false)
+                }}
+              >
+                <Close />
+              </button>
+            </div>
+            <Image
+              alt={moments[selectedImage].data.description}
+              src={moments[selectedImage].src}
+              className="max-h-[80vh] max-w-[90vw] object-contain"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="px-2">
-        <h1 className="rampart-h1 mb-8">MOMENTS</h1>
-        <MusicPlayer className="md:hidden sticky top-[62px] z-50 left-0" />
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="rampart-h1">MOMENTS</h1>
+          <button
+            onClick={() => {
+              toggleSlideshow()
+              if (isPlaying) {
+                spotifyRef?.contentWindow?.postMessage({ command: 'pause' }, SPOTIFY_ORIGIN)
+                setHasStartedMusic(false)
+              }
+            }}
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-white-1 dark:hover:bg-black-2 hover:bg-white-2 dark:bg-black-1 border transition-colors"
+          >
+            {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+            <span>Slideshow</span>
+          </button>
+        </div>
+        <MusicPlayer
+          className="md:hidden sticky top-[62px] z-50 left-0"
+          setSpotifyRef={setSpotifyRef}
+        />
         <div className="columns-2 md:columns-3 space-y-1 gap-1">
           {moments.map((moment, index) => {
             return (
               <ImageWrapper
                 i={index}
-                key={index}
+                key={index+10}
                 src={moment.src}
                 alt={moment.data.description}
                 time={moment.data.date}
@@ -21,12 +113,16 @@ const page = () => {
             )
           })}
 
-          <MusicPlayer className="max-md:hidden" />
+          <MusicPlayer
+            className="max-md:hidden"
+            setSpotifyRef={setSpotifyRef}
+          />
         </div>
       </div>
     </div>
   )
 }
+
 const ImageWrapper = ({
   src,
   alt,
@@ -82,10 +178,19 @@ const ImageWrapper = ({
     </div>
   )
 }
-const MusicPlayer = ({ className }: { className: string }) => {
+
+const MusicPlayer = ({
+  className,
+  setSpotifyRef
+}: {
+  className: string;
+  setSpotifyRef: (ref: HTMLIFrameElement | null) => void;
+}) => {
   return (
     <div className={`flex justify-center items-center w-full ${className}`}>
       <iframe
+        ref={setSpotifyRef}
+        title="Spotify Music Player"
         src="https://open.spotify.com/embed/playlist/5ETraR6wgvcNjQnh3vBFcB?utm_source=generator&theme=0"
         frameBorder="0"
         className="md:aspect-[0.789] w-full max-h-fit"
@@ -95,4 +200,5 @@ const MusicPlayer = ({ className }: { className: string }) => {
     </div>
   )
 }
-export default page
+
+export default Page

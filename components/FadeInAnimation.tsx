@@ -29,8 +29,8 @@ const FadeInAnimation = ({
       {React.Children.map(children, (child) => (
         <motion.div
           variants={{
-            initial: { opacity: 0, y: 5 },
-            animate: { opacity: 1, y: 0 },
+            initial: { opacity: 0, y: 5 , filter:"blur(5px)" },
+            animate: { opacity: 1, y: 0 , filter:"blur(0px)" },
           }}
         >
           {child}

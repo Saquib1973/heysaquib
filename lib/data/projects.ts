@@ -439,7 +439,7 @@ const QuillBot: ProjectInterface = {
 export const Projects: ProjectInterface[] = [
   {...Recall,featured:true},
   { ...Urlwee,featured:true },
-  { ...Vallet,minor:true },
+  { ...Vallet,minor:false },
   { ...Nyaylok,featured:true },
   {...BreakBricks,minor:true},
   { ...YourHR },

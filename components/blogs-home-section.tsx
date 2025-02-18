@@ -3,6 +3,7 @@ import Link from 'next/link'
 import fs from 'fs'
 import matter from 'gray-matter'
 import { getAllPosts } from '@/lib/getPost'
+import BlogTimeComponent from './BlogTimeComponent'
 const dirContent = fs.readdirSync('blogs', 'utf-8')
 
 const blogs = getAllPosts();
@@ -21,11 +22,7 @@ export default async function HomePage() {
               {blog.title}
             </h1>
             <div className="text-light text-xs min-w-fit transition group-hover:text-black-2 max-sm:hidden dark:group-hover:text-white-2">
-              {new Date(blog.date).toLocaleDateString('en-GB', {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric',
-              })}
+              <BlogTimeComponent date={blog.date} />
             </div>
           </Link>
         ))}

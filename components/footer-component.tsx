@@ -16,9 +16,7 @@ const Footer = () => {
       const seconds = now.getSeconds().toString().padStart(2, '0')
       const ampm = hours >= 12 ? 'PM' : 'AM'
 
-      // Convert hours from 24-hour to 12-hour format
       hours = hours % 12 || 12
-
       setTime(`${hours}:${minutes}:${seconds} ${ampm}`)
     }
 
@@ -61,7 +59,13 @@ const Footer = () => {
             github
             <Arrow />
           </Link>
-          for more "code".
+          for more "code". Check
+          <Link
+            href={'/moments'}
+            className="link-text inline-block text-nowrap"
+            >
+            snaps<Arrow />
+          </Link>
         </div>
         <div className="flex py-0.5 justify-between text-xs md:text-sm items-end text-gray-2">
           <p>Made with ❤️ by Saquib</p>

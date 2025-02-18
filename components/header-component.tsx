@@ -1,18 +1,18 @@
 'use client'
 import { headerLinks } from '@/lib/header-links'
 import { Link } from 'next-view-transitions'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Moon from './svg/Moon'
+import Open from './svg/Open'
 import Sun from './svg/Sun'
-import Resume from './svg/Resume'
-import { usePathname, useRouter } from 'next/navigation'
 
 const Header = () => {
   const [theme, setTheme] = useState<string | null>(null)
   const pathname = usePathname();
 
   useEffect(() => {
-    const currTheme = localStorage.getItem('sacube.theme') || 'light'
+    const currTheme = localStorage.getItem('sacube.theme') ?? 'light'
     setTheme(currTheme)
 
     if (currTheme === 'dark') {
@@ -42,13 +42,15 @@ const Header = () => {
             <Link
               key={index}
               href={link.href}
-              className={`${
+              target={link.name==="Resume" ? "_blank" : undefined}
+              className={`flex gap-1  justify-center items-center ${
                 pathname === link.href
                   ? 'text-yellow-600 dark:text-yellow-4'
                   : ''
               }`}
             >
               {link.name}
+              {link.name === "Resume" && <Open />}
             </Link>
           )
         })}

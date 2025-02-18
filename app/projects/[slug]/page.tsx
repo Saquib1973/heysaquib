@@ -71,13 +71,13 @@ const Page = () => {
 
   return (
     <StaggerAnimation>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {image !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed w-full h-full inset-0 overflow-hidden select-none flex justify-center items-center shadow-md bg-white-1 p-4 py-8 dark:bg-black-1 border z-[100]"
+            className="fixed w-full h-full inset-0 overflow-hidden select-none flex justify-center items-center shadow-md bg-white-1 p-4 py-8 dark:bg-black-1 border z-[1000]"
           >
             <button
               className="absolute top-2 right-2 z-10"
@@ -86,39 +86,31 @@ const Page = () => {
               <Close />
             </button>
             {data?.img && (
-              <div className="relative flex items-center justify-around">
-                <div
-                  className="max-md:absolute max-md:-left-2 cursor-pointer z-[200]"
+              <div className="relative flex items-center justify-around w-full px-4 md:px-12">
+                <button
+                  className="absolute left-6 md:left-16 top-1/2 -translate-y-1/2 p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors z-[200]"
                   onClick={() => setImage(image - 1 >= 0 ? image - 1 : image)}
+                  disabled={image - 1 < 0}
                 >
-                  <Next
-                    className={`${
-                      image - 1 >= 0 ? '' : 'opacity-0'
-                    } -rotate-180`}
-                  />
-                </div>
-                <div className="relative max-h-[80vh] w-full md:max-w-[80vw] h-full">
+                  <Next className={`${image - 1 >= 0 ? '' : 'opacity-50'} -rotate-180 w-8 h-8 md:w-10 md:h-10`} />
+                </button>
+
+                <div className="relative max-h-[85vh] w-full max-w-[85vw] md:max-w-[75vw] h-full mx-auto">
                   <Image
-                    alt="test"
-                    className={`m-2 object-contain `}
-                    style={{ maxHeight: '80vh', maxWidth: '80vw' }}
+                    alt={data?.img[image].text || "Project image"}
+                    className="m-2 object-contain w-full h-full"
+                    style={{ maxHeight: '80vh' }}
                     src={data?.img[image].src}
                   />
                 </div>
-                <div
-                  className="max-md:absolute max-md:-right-2 cursor-pointer"
-                  onClick={() =>
-                    setImage(
-                      image + 1 < (data?.img?.length || 0) ? image + 1 : image
-                    )
-                  }
+
+                <button
+                  className="absolute right-6 md:right-16 top-1/2 -translate-y-1/2 p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+                  onClick={() => setImage(image + 1 <= ((data?.img?.length ?? 0) - 1) ? image + 1 : image)}
+                  disabled={image + 1 > ((data?.img?.length ?? 0) - 1)}
                 >
-                  <Next
-                    className={`${
-                      data?.img?.length > image + 1 ? '' : 'opacity-0'
-                    }`}
-                  />
-                </div>
+                  <Next className={`${image + 1 <= ((data?.img?.length ?? 0) - 1) ? '' : 'opacity-50'} w-8 h-8 md:w-10 md:h-10`} />
+                </button>
               </div>
             )}
           </motion.div>
@@ -159,7 +151,7 @@ const Page = () => {
           <h1 className="amiko-h1 mb-2">Description</h1>
           <ul className="list">
             {data?.description.map((desc, index) => (
-              <li key={index}>{desc}</li>
+              <li key={index+10}>{desc}</li>
             ))}
           </ul>
         </div>
@@ -170,7 +162,7 @@ const Page = () => {
             {images?.map((img, index) => {
               return (
                 <div
-                  key={index}
+                  key={index+10}
                   className={`relative h-full cursor-pointer transition ${
                     colors[index % length]
                   } ${img.liked ? 'row-span-2 col-span-2' : ''}`}

@@ -7,6 +7,7 @@ import Tech from '@/components/techstack-home-section'
 import Projects from '@/components/projects-home-section'
 import Blogs from '@/components/blogs-home-section'
 import { links } from './about/page'
+import PenUnderline from '@/components/PenUnderline';
 
 export default function Home() {
 const allowedLinks = ['github', 'linkedin', 'leetcode', 'resume']
@@ -62,7 +63,8 @@ const AboutSection = () => {
           <h1 className="rampart-h1 about">ABOUT</h1>
           <div className="txt-light">
             <span className="font-semibold yellow-text-0">
-              Hi, I’m Saquib Ali! <span className='text-2xl'>👋</span>
+              Hi, I’m <PenUnderline text="Saquib Ali!" />{' '}
+              <span className="text-2xl">👋</span>
             </span>
             <br />
             I’m a final-year B.Tech ECE (Hons) student at {` `}

@@ -1,6 +1,6 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface ColorPalette {
   SHOOTING_STAR: [string, string]
@@ -102,8 +102,7 @@ class ShootingStar {
     this.opacity -= SHOOTING_STAR_CONFIG.FADE_RATE
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    const isDarkMode = document.documentElement.classList.contains('dark')
+  draw(ctx: CanvasRenderingContext2D, isDarkMode: boolean) {
     ctx.save()
     ctx.strokeStyle = isDarkMode
       ? COLORS.SHOOTING_STAR[1]
@@ -128,6 +127,22 @@ const Starfield = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const parallaxOffset = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
   const shootingStars = useRef<ShootingStar[]>([])
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  useEffect(() => {
+    const updateDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'))
+    }
+    updateDarkMode()
+
+    const observer = new MutationObserver(updateDarkMode)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -185,7 +200,6 @@ const Starfield = () => {
       }
 
       draw(ctx: CanvasRenderingContext2D) {
-        const isDarkMode = document.documentElement.classList.contains('dark')
         ctx.fillStyle = isDarkMode ? COLORS.STAR[1] : COLORS.STAR[0]
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
@@ -220,7 +234,6 @@ const Starfield = () => {
 
     const update = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      const isDarkMode = document.documentElement.classList.contains('dark')
       ctx.fillStyle = isDarkMode ? COLORS.BACKGROUND[1] : COLORS.BACKGROUND[0]
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       ctx.save()
@@ -236,7 +249,7 @@ const Starfield = () => {
       }
       shootingStars.current.forEach((shootingStar, index) => {
         shootingStar.update()
-        shootingStar.draw(ctx)
+        shootingStar.draw(ctx, isDarkMode)
         if (shootingStar.isDead(canvas)) {
           shootingStars.current.splice(index, 1)
         }
@@ -249,7 +262,7 @@ const Starfield = () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('resize', resizeCanvas)
     }
-  }, [])
+  }, [isDarkMode])
   let pathname = usePathname().split("/");
   return (
     <canvas

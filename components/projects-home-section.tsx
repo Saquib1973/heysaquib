@@ -16,8 +16,8 @@ const page = () => {
   )
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 40 ,filter:"blur(5px)" }}
+      animate={{ opacity: 1, y: 0 ,filter:"blur(0px)" }}
       transition={{ delay: 0.4, duration: 1 }}
       className="section"
     >
