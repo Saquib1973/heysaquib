@@ -29,5 +29,14 @@ const happymonkey = localfont({
   ],
   variable: '--font-happymonkey',
 })
+const neue = localfont({
+  src: [
+    {
+      path: '../fonts/ComicNeue-Regular.ttf',
+      weight: '400',
+    },
+  ],
+  variable: '--font-neue',
+})
 
-export { rampart, amiko, happymonkey }
+export { rampart, amiko, happymonkey, neue }

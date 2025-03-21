@@ -11,8 +11,9 @@ export default {
     extend: {
       fontFamily: {
         rampart: ['var(--font-rampart)'],
-        amiko: ['var(--font-amike)'],
+        amiko: ['var(--font-amiko)'],
         happymonkey: ['var(--font-happymonkey)'],
+        neue: ['var(--font-neue)'],
       },
       borderRadius: {
         lg: 'var(--radius)',

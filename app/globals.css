@@ -8,6 +8,7 @@
 }
 
 * {
+  scroll-behavior: smooth;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -27,8 +28,12 @@
     @apply font-happymonkey text-4xl lg:text-5xl text-black-1 dark:text-white-1 font-semibold tracking-wide py-4
   }
 
+
   .amiko-h1 {
     @apply font-amiko text-3xl dark:text-yellow-400 text-yellow-500 mb-2 tracking-wide
+  }
+  .neue-h1 {
+    @apply font-neue text-3xl dark:text-yellow-400 text-yellow-500 mb-2 tracking-wide
   }
 
   /* h2 */
@@ -44,6 +49,10 @@
     @apply font-amiko text-xl underline underline-offset-8 pb-1 tracking-wide
   }
 
+  .neue-h2{
+    @apply font-neue text-xl underline underline-offset-8 pb-1 tracking-wide
+  }
+
   /* p */
   .happymonkey-p {
     @apply font-happymonkey text-sm lg:text-base dark:text-gray-1 text-gray-2 font-light
@@ -54,6 +63,9 @@
   }
   .amiko-p {
     @apply font-amiko max-lg:text-sm dark:text-gray-1 text-gray-2
+  }
+  .neue-p{
+    @apply font-neue max-lg:text-sm dark:text-gray-1 text-gray-2
   }
 
   /* colors */
@@ -122,11 +134,6 @@
   .image {
     @apply rounded-xl w-full h-full
   }
-
-  .link {
-    @apply text-purple-400 underline
-  }
-
 
   .transition {
     @apply transition-all duration-300 ease-in-out

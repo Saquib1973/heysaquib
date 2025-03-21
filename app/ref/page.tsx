@@ -39,11 +39,14 @@ const page = () => {
         <h1 className='happymonkey-h1'>happymonkey-h1</h1>
         <h1 className='amiko-h1'>amiko-h1</h1>
         <h1 className='rampart-h1'>rampart-h1</h1>
+        <h1 className='neue-h1'>neue-h1</h1>
         <h1 className='happymonkey-h2'>happymonkey-h2</h1>
         <h1 className='amiko-h2'>amiko-h2</h1>
         <h1 className='rampart-h2'>rampart-h2</h1>
+        <h1 className='neue-h2'>neue-h2</h1>
         <h1 className='amiko-p'>amiko-p : Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum, dolore.</h1>
         <h1 className='happymonkey-p'>happymonkey-p : Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum, dolore.</h1>
+        <h1 className='neue-p'>neue-p : Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum, dolore.</h1>
       </div>
     </div>
   )

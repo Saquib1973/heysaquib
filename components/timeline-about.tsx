@@ -23,10 +23,7 @@ const Timeline = () => {
               resume
             </Link>
             , or take a sneak peak into my {`life `}
-            <Link
-              href={'/moments'}
-              className="link-text"
-            >
+            <Link href={'/moments'} className="link-text">
               here
             </Link>
             .
@@ -34,22 +31,38 @@ const Timeline = () => {
         </FadeInAnimation>
 
         <StaggerAnimation delay={0.2}>
-          {/* 2021–2025 */}
-          <div className="timeline -block py-6 my-4 border-b border-gray-300 dark:border-gray-700">
-            <h1 className="timeline-heading">2021–2025</h1>
+          <div className="timeline-block py-6 my-4 border-b border-gray-300 dark:border-gray-700">
+            <h1 className="timeline-heading">2025 - Present</h1>
             <ul className="list-disc txt-light pl-6">
               <li>
-                🎓 B.Tech in Electronics and Communication Engineering
+                💼 Full Stack Intern at{' '}
+                  Fursat Farms
               </li>
               <ul className="list-disc pl-6 text-light-2 text-sm">
                 <li>
+                  Contributed to the development of <Link href="https://beasportsai.com" className="link-text">beasportsai.com</Link>
+                  , a football SaaS platform
+                </li>
+              </ul>
+            </ul>
+          </div>
+
+          {/* 2021–2025 */}
+          <div className="timeline-block py-6 my-4 border-b border-gray-300 dark:border-gray-700">
+            <h1 className="timeline-heading">2021–2025</h1>
+            <ul className="list-disc txt-light pl-6">
+              <li>🎓 B.Tech in Electronics and Communication Engineering</li>
+              <ul className="list-disc pl-6 text-light-2 text-sm">
+                <li>
                   {'Student '}
-                  <Link href={'https://iiitranchi.ac.in/'} className="link-text">
+                  <Link
+                    href={'https://iiitranchi.ac.in/'}
+                    className="link-text"
+                  >
                     @IIIT Ranchi
                   </Link>
                 </li>
                 <li>Overall CGPA: 8.97</li>
-
               </ul>
             </ul>
           </div>
@@ -60,7 +73,7 @@ const Timeline = () => {
             <ul className="list-disc txt-light pl-6">
               <li>📚 Took a year drop to prepare for JEE</li>
               <ul className="list-disc pl-6 text-light-2 text-sm">
-                <li >
+                <li>
                   With a good score I manage to secure a seat in IIIT Ranchi.
                 </li>
               </ul>
@@ -84,7 +97,7 @@ const Timeline = () => {
             <h1 className="timeline-heading">2015–2018</h1>
             <ul className="list-disc txt-light pl-6">
               <li>🌍 Moved to Tanzania</li>
-              <ul className="list-disc pl-6 text-light-2 text-sm" >
+              <ul className="list-disc pl-6 text-light-2 text-sm">
                 <li>Student at Indian School Dar es Salaam</li>
                 <li>
                   Achieved Matriculation (Class X) with an aggregate of 87%.

@@ -34,15 +34,33 @@ const Header = () => {
     }
   }
 
+  const [horizontal, setHorizontal] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHorizontal(window.scrollY);
+    }
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [])
+
+
+  console.log(horizontal)
+
+
   return (
-    <div className="flex border-b transition bg-white-1 dark:bg-black-1 border-gray-0 mb-1 dark:border-black-0 justify-between items-center sticky top-0 left-0 z-50 h-fit font-happymonkey p-3 md:p-4">
+    <div
+      className={`flex border-b transition bg-white-1 dark:bg-black-1 ${horizontal > 10 ? 'border-gray-0  ' : 'border-transparent'} mb-1 dark:border-black-0 justify-between items-center sticky top-0 left-0 z-50 h-fit font-neue p-3 md:p-4`}
+    >
       <div className="flex gap-2 tracking-wide md:gap-4 max-sm:text-sm">
         {headerLinks.map((link, index) => {
           return (
             <Link
               key={index}
               href={link.href}
-              target={link.name==="Resume" ? "_blank" : undefined}
+              target={link.name === 'Resume' ? '_blank' : undefined}
               className={`flex gap-1  justify-center items-center ${
                 pathname === link.href
                   ? 'text-yellow-600 dark:text-yellow-4'
@@ -50,7 +68,7 @@ const Header = () => {
               }`}
             >
               {link.name}
-              {link.name === "Resume" && <Open />}
+              {link.name === 'Resume' && <Open />}
             </Link>
           )
         })}

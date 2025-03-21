@@ -8,7 +8,7 @@ import Projects from '@/components/projects-home-section'
 import Blogs from '@/components/blogs-home-section'
 import { links } from './about/page'
 import PenUnderline from '@/components/PenUnderline';
-
+import Experience from '@/components/experience-home-section';
 export default function Home() {
 const allowedLinks = ['github', 'linkedin', 'leetcode', 'resume']
 const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
@@ -39,6 +39,7 @@ const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
         {/* Skills Section */}
         <Tech />
         {/* Project */}
+        <Experience />
         <Projects />
         <Blogs />
         {/* <CertificateSection /> */}

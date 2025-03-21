@@ -1,22 +1,53 @@
-import image1 from './saban.jpg';
-import image2 from './saquib.png';
-import image3 from './saquib2.png';
-import image4 from './saquib.jpg';
-import image5 from "./saquib01.jpg"
-import image6 from "./saquib02.jpg"
-import image7 from "./saquib03.jpeg"
-import image8 from "./saquib04.jpeg"
-import image9 from "./saquib05.jpg"
-import image10 from "./saquib06.jpg"
-export const moments = [
-  { src: image1 ,data:{description:"Saban on a cliff" , date:"2021-09-01"} },
-  { src: image2 ,data:{description:"Saquib on a cliff" , date:"2021-09-01"} },
-  { src: image3 ,data:{description:"Saquib on a cliff" , date:"2021-09-01"} },
-  { src: image4, data: { description: "Saquib on a cliff", date: "2021-09-01" } },
-  { src: image5, data: { description: "Saquib on a cliff", date: "2021-09-01" } },
-  { src: image6, data: { description: "Saquib on a cliff", date: "2021-09-01" } },
-  { src: image7, data: { description: "Saquib on a cliff", date: "2021-09-01" } },
-  { src: image8, data: { description: "Saquib on a cliff", date: "2021-09-01" } },
-  { src: image9, data: { description: "Saquib on a cliff", date: "2021-09-01" } },
-  { src: image10, data: { description: "Saquib on a cliff", date: "2021-09-01" } },
+import image01 from "./image01.jpg"
+import image02 from "./image02.jpg"
+import image03 from "./image03.jpg"
+import image04 from "./image04.jpg"
+import image05 from "./image05.jpg"
+import image06 from "./image06.jpg"
+import image07 from "./image07.webp"
+import image08 from "./image08.jpg"
+import image09 from "./image09.png"
+import image10 from "./image10.jpg"
+import image11 from "./image11.jpg"
+import image12 from "./image12.png"
+import image13 from "./image13.jpeg"
+import image14 from "./image14.jpeg"
+import image15 from "./image15.jpg"
+import image16 from "./image16.jpg"
+import image17 from "./image17.jpeg"
+import image18 from "./image18.jpg"
+
+import { StaticImageData } from 'next/image'
+
+type MomentType = "image" | "video";
+
+interface Moment {
+  src: string | StaticImageData;
+  data: {
+    description: string;
+    date: string;
+    type: MomentType;
+  };
+}
+
+export const moments: Moment[] = [
+  {src:image01,data:{description:"",date:"",type:"image"}},
+  {src:image02,data:{description:"",date:"",type:"image"}},
+  {src:image03,data:{description:"",date:"",type:"image"}},
+  {src:image04,data:{description:"",date:"",type:"image"}},
+  {src:image05,data:{description:"",date:"",type:"image"}},
+  {src:image06,data:{description:"",date:"",type:"image"}},
+  {src:image07,data:{description:"",date:"",type:"image"}},
+  { src: image08, data: { description: "", date: "", type: "image" } },
+  { src: image09, data: { description: "", date: "", type: "image" } },
+  { src: image10, data: { description: "", date: "", type: "image" } },
+  { src: image11, data: { description: "", date: "", type: "image" } },
+  { src: image12, data: { description: "", date: "", type: "image" } },
+  { src: image13, data: { description: "", date: "", type: "image" } },
+  { src: image14, data: { description: "", date: "", type: "image" } },
+  { src: image15, data: { description: "", date: "", type: "image" } },
+  { src: image16, data: { description: "", date: "", type: "image" } },
+  { src: image17, data: { description: "", date: "", type: "image" } },
+  { src: image18, data: { description: "", date: "", type: "image" } },
+  { src: "video01.mp4", data: { description: "", date: "", type: "video" } },
 ]

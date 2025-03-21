@@ -77,40 +77,63 @@ const Page = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed w-full h-full inset-0 overflow-hidden select-none flex justify-center items-center shadow-md bg-white-1 p-4 py-8 dark:bg-black-1 border z-[1000]"
+            className="fixed w-full h-full inset-0 overflow-hidden select-none flex justify-center items-center bg-white-1 dark:bg-black-1 backdrop-blur-sm z-[1000]"
           >
             <button
-              className="absolute top-2 right-2 z-10"
+              className="absolute top-4 right-4 z-10 p-2 hover:bg-white-1/10 dark:hover:bg-black-1/10 rounded-full transition-colors"
               onClick={() => setImage(null)}
             >
               <Close />
             </button>
             {data?.img && (
-              <div className="relative flex items-center justify-around w-full px-4 md:px-12">
-                <button
-                  className="absolute left-6 md:left-16 top-1/2 -translate-y-1/2 p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors z-[200]"
-                  onClick={() => setImage(image - 1 >= 0 ? image - 1 : image)}
-                  disabled={image - 1 < 0}
-                >
-                  <Next className={`${image - 1 >= 0 ? '' : 'opacity-50'} -rotate-180 w-8 h-8 md:w-10 md:h-10`} />
-                </button>
-
+              <div className="relative flex flex-col items-center justify-center w-full px-4 md:px-12">
                 <div className="relative max-h-[85vh] w-full max-w-[85vw] md:max-w-[75vw] h-full mx-auto">
                   <Image
                     alt={data?.img[image].text || "Project image"}
-                    className="m-2 object-contain w-full h-full"
+                    className="m-2 object-contain w-full h-full rounded-lg shadow-2xl"
                     style={{ maxHeight: '80vh' }}
                     src={data?.img[image].src}
                   />
+                  <div className="absolute bottom-0 left-2 -right-2 bg-gradient-to-t from-black-1 to-black-1/90 p-4 rounded-b-lg">
+                    <p className="text-white-1 text-sm md:text-base">{data?.img[image].text}</p>
+                    <p className="text-gray-1 text-xs md:text-sm mt-1">Image {image + 1} of {data?.img.length}</p>
+                  </div>
                 </div>
 
+                {/* Desktop Navigation Buttons */}
                 <button
-                  className="absolute right-6 md:right-16 top-1/2 -translate-y-1/2 p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+                  className="absolute left-6 md:left-16 top-1/2 -translate-y-1/2 p-3 hover:bg-white-1/10 dark:hover:bg-black-1/10 rounded-full transition-colors z-[200] hidden md:block"
+                  onClick={() => setImage(image - 1 >= 0 ? image - 1 : image)}
+                  disabled={image - 1 < 0}
+                >
+                  <Next className={`${image - 1 >= 0 ? 'text-yellow-4' : 'text-gray-1/50'} -rotate-180 w-8 h-8 md:w-10 md:h-10`} />
+                </button>
+
+                <button
+                  className="absolute right-6 md:right-16 top-1/2 -translate-y-1/2 p-3 hover:bg-white-1/10 dark:hover:bg-black-1/10 rounded-full transition-colors hidden md:block"
                   onClick={() => setImage(image + 1 <= ((data?.img?.length ?? 0) - 1) ? image + 1 : image)}
                   disabled={image + 1 > ((data?.img?.length ?? 0) - 1)}
                 >
-                  <Next className={`${image + 1 <= ((data?.img?.length ?? 0) - 1) ? '' : 'opacity-50'} w-8 h-8 md:w-10 md:h-10`} />
+                  <Next className={`${image + 1 <= ((data?.img?.length ?? 0) - 1) ? 'text-yellow-4' : 'text-gray-1'} w-8 h-8 md:w-10 md:h-10`} />
                 </button>
+
+                {/* Mobile Navigation Buttons */}
+                <div className="flex justify-center items-center gap-8 mt-6 md:hidden">
+                  <button
+                    className="p-4 bg-white-1/10 dark:bg-black-1/10 hover:bg-white-1/20 dark:hover:bg-black-1/20 rounded-full transition-colors"
+                    onClick={() => setImage(image - 1 >= 0 ? image - 1 : image)}
+                    disabled={image - 1 < 0}
+                  >
+                    <Next className={`${image - 1 >= 0 ? 'text-yellow-4' : 'text-gray-1/50'} -rotate-180 w-10 h-10`} />
+                  </button>
+                  <button
+                    className="p-4 bg-white-1/10 dark:bg-black-1/10 hover:bg-white-1/20 dark:hover:bg-black-1/20 rounded-full transition-colors"
+                    onClick={() => setImage(image + 1 <= ((data?.img?.length ?? 0) - 1) ? image + 1 : image)}
+                    disabled={image + 1 > ((data?.img?.length ?? 0) - 1)}
+                  >
+                    <Next className={`${image + 1 <= ((data?.img?.length ?? 0) - 1) ? 'text-yellow-4' : 'text-gray-1'} w-10 h-10`} />
+                  </button>
+                </div>
               </div>
             )}
           </motion.div>

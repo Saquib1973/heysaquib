@@ -1,19 +1,22 @@
 import React from 'react'
 
-const page = () => {
+const NotFoundPage = () => {
   return (
-    <div className='flex hscreen gap-2 justify-center flex-col items-center'>
-      <p className=' flex items-center justify-center text-6xl text-red-500'>4
-
-      <span className='text-3xl'>💀</span>
-        4</p>
-      <div>
-
-      Page Not Found
-      {/* <span className='text-3xl'>☠️</span> */}
-    </div>
+    <div className='py-40 flex flex-col items-center justify-center bg-gray-50'>
+      <div className='text-center space-y-6'>
+        <div className='relative'>
+          <h1 className='text-9xl font-bold text-gray-900'>
+            404
+          </h1>
+          <div className='absolute -bottom-4 left-1/2 transform w-24 h-1 bg-red-500'></div>
+        </div>
+        <h2 className='text-2xl font-semibold text-gray-700'>Page Not Found</h2>
+        <p className='text-gray-500 max-w-md mx-auto'>
+          The page you're looking for doesn't exist or has been moved.
+        </p>
       </div>
+    </div>
   )
 }
 
-export default page
+export default NotFoundPage

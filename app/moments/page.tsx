@@ -1,80 +1,332 @@
 'use client'
-import { moments } from '@/public/assets/moments'
-import Image, { type StaticImageData } from 'next/image'
-import React, { useEffect, useState, useCallback } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import Close from '@/components/svg/Close'
-import Play from '@/components/svg/Play'
 import Pause from '@/components/svg/Pause'
+import Play from '@/components/svg/Play'
+import { moments as importedMoments } from '@/public/assets/moments'
+import { AnimatePresence, motion } from 'framer-motion'
+import Image, { type StaticImageData } from 'next/image'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const SPOTIFY_ORIGIN = 'https://open.spotify.com'
+const PLAY_TIME = 4000 // milliseconds
+
+interface Moment {
+  src: string | StaticImageData;
+  data: {
+    description: string;
+    date: string;
+    type: "image" | "video";
+  };
+}
 
 const Page = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [spotifyRef, setSpotifyRef] = useState<HTMLIFrameElement | null>(null)
   const [hasStartedMusic, setHasStartedMusic] = useState(false)
+  const [showMusicModal, setShowMusicModal] = useState(false)
+  const [playWithMusic, setPlayWithMusic] = useState(false)
+  const [showCompletionModal, setShowCompletionModal] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [totalDuration, setTotalDuration] = useState(0)
+  const [slideshowStartTime, setSlideshowStartTime] = useState<number | null>(null)
+
+  const moments = useMemo<Moment[]>(() => importedMoments, [])
+
+  const totalSlideshowDuration = useMemo(() => {
+    return moments.reduce((total, moment) => {
+      return total + (moment.data.type === "video" ?
+        (document.querySelector('video')?.duration || 0) * 1000 :
+        PLAY_TIME)
+    }, 0)
+  }, [moments])
 
   const nextSlide = useCallback(() => {
     if (selectedImage === null) return
 
     const nextIndex = selectedImage + 1
-    setSelectedImage(nextIndex <= (moments.length - 1) ? nextIndex : 0)
-  }, [selectedImage])
+    if (nextIndex > moments.length - 1) {
+      setShowCompletionModal(true)
+      setIsPlaying(false)
+      if (playWithMusic) {
+        spotifyRef?.contentWindow?.postMessage({ command: 'pause' }, SPOTIFY_ORIGIN)
+        setHasStartedMusic(false)
+      }
+    } else {
+      setSelectedImage(nextIndex)
+    }
+  }, [selectedImage, playWithMusic, spotifyRef])
 
   useEffect(() => {
     let interval: NodeJS.Timeout
+    let progressInterval: NodeJS.Timeout
+    let videoEndHandler: ((e: Event) => void) | null = null
+    let startTime: number | null = null
+
     if (isPlaying) {
-      interval = setInterval(nextSlide, 3000)
-      // Only start music if it hasn't been started before
-      if (!hasStartedMusic) {
+      const currentMoment = moments[selectedImage || 0]
+      const isVideo = currentMoment.data.type === "video"
+      startTime = Date.now()
+
+      if (!slideshowStartTime) {
+        setSlideshowStartTime(Date.now())
+      }
+
+      const currentDuration = isVideo ?
+        (document.querySelector('video')?.duration || 0) * 1000 :
+        PLAY_TIME
+      setTotalDuration(currentDuration)
+
+      if (!isVideo) {
+        interval = setInterval(nextSlide, PLAY_TIME)
+      } else {
+        const videoElement = document.querySelector('video')
+        if (videoElement) {
+          videoElement.loop = false
+          videoEndHandler = () => nextSlide()
+          videoElement.addEventListener('ended', videoEndHandler)
+        }
+      }
+
+      if (!hasStartedMusic && playWithMusic) {
         spotifyRef?.contentWindow?.postMessage({ command: 'play' }, SPOTIFY_ORIGIN)
         setHasStartedMusic(true)
       }
+
+      progressInterval = setInterval(() => {
+        if (!startTime || !slideshowStartTime) return
+
+        const totalElapsed = Date.now() - slideshowStartTime
+
+        const overallProgress = Math.min((totalElapsed / totalSlideshowDuration) * 100, 100)
+        setProgress(overallProgress)
+      }, 50)
     }
-    return () => clearInterval(interval)
-  }, [isPlaying, nextSlide, spotifyRef, hasStartedMusic])
+
+    return () => {
+      clearInterval(interval)
+      clearInterval(progressInterval)
+      if (videoEndHandler) {
+        const videoElement = document.querySelector('video')
+        if (videoElement) {
+          videoElement.removeEventListener('ended', videoEndHandler)
+          videoElement.loop = true
+        }
+      }
+    }
+  }, [isPlaying, nextSlide, spotifyRef, hasStartedMusic, playWithMusic, selectedImage, moments, slideshowStartTime, totalSlideshowDuration])
+
+  useEffect(() => {
+    if (isPlaying) {
+      setSlideshowStartTime(Date.now())
+      setProgress(0)
+    } else {
+      setSlideshowStartTime(null)
+    }
+  }, [isPlaying])
+
+  useEffect(() => {
+    const videoElement = document.querySelector('video')
+    if (videoElement) {
+      videoElement.loop = !isPlaying
+    }
+  }, [isPlaying])
 
   const toggleSlideshow = () => {
-    setIsPlaying(!isPlaying)
-    if (!isPlaying && selectedImage === null) {
-      setSelectedImage(0)
+    if (!isPlaying) {
+      setShowMusicModal(true)
+    } else {
+      setIsPlaying(false)
+      if (playWithMusic) {
+        spotifyRef?.contentWindow?.postMessage({ command: 'pause' }, SPOTIFY_ORIGIN)
+        setHasStartedMusic(false)
+      }
+    }
+  }
+
+  const startSlideshow = (withMusic: boolean) => {
+    setPlayWithMusic(withMusic)
+    setShowMusicModal(false)
+    setIsPlaying(true)
+    setSelectedImage(0)
+    setProgress(0)
+  }
+
+  const handleReplay = () => {
+    setShowCompletionModal(false)
+    setIsPlaying(true)
+    setSelectedImage(0)
+    setProgress(0)
+    if (playWithMusic) {
+      spotifyRef?.contentWindow?.postMessage({ command: 'play' }, SPOTIFY_ORIGIN)
+      setHasStartedMusic(true)
+    }
+  }
+
+  const handleExit = () => {
+    setShowCompletionModal(false)
+    setSelectedImage(null)
+    setIsPlaying(false)
+    setProgress(0)
+    if (playWithMusic) {
+      spotifyRef?.contentWindow?.postMessage({ command: 'pause' }, SPOTIFY_ORIGIN)
+      setHasStartedMusic(false)
     }
   }
 
   return (
     <div>
       <AnimatePresence mode="wait">
+        {showCompletionModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed w-full h-full inset-0 bg-black-1/80 dark:bg-black-2/80 backdrop-blur-sm z-[1010] flex items-center justify-center"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white-0 dark:bg-black-1 p-8 rounded-lg border max-w-md w-full mx-4"
+            >
+              <h2 className="amiko-h1 text-center mb-2">Slideshow Completed!</h2>
+              <p className="text-center text-gray-2 dark:text-gray-1 mb-8">Would you like to watch it again?</p>
+
+              <div className="flex flex-col gap-4">
+                <button
+                  onClick={handleReplay}
+                  className="flex items-center justify-center gap-2 px-6 py-3 border rounded-full bg-yellow-4 hover:bg-yellow-3 transition-colors group"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                    <path d="M3 3v5h5" />
+                  </svg>
+                  <span>Watch Again</span>
+                </button>
+
+                <button
+                  onClick={handleExit}
+                  className="flex items-center justify-center gap-2 px-6 py-3 border rounded-full bg-white-2 dark:bg-black-2 hover:bg-white-1 dark:hover:bg-black-0 transition-colors group"
+                >
+                  <span>Exit</span>
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence mode="wait">
+        {showMusicModal && (
+          <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setShowMusicModal(false)}
+            className="fixed w-full h-full inset-0 bg-black-1/80 dark:bg-black-2/80 backdrop-blur-sm z-[1000] flex items-center justify-center"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white-0 dark:bg-black-1 p-8 rounded-lg border max-w-md w-full mx-4"
+            >
+              <h2 className="amiko-h1 text-center mb-2">Start Slideshow</h2>
+              <p className="text-center text-gray-2 dark:text-gray-1 mb-8">Would you like to play with background music?</p>
+
+              <div className="flex flex-col gap-4">
+                <button
+                  onClick={() => startSlideshow(true)}
+                  className="flex items-center justify-center gap-2 px-6 py-3 border rounded-full bg-yellow-4 hover:bg-yellow-3 transition-colors group"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                  </svg>
+                  <span>Yes, with Music</span>
+                </button>
+
+                <button
+                  onClick={() => startSlideshow(false)}
+                  className="flex items-center justify-center gap-2 px-6 py-3 border rounded-full bg-white-2 dark:bg-black-2 hover:bg-white-1 dark:hover:bg-black-0 transition-colors group"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                    <line x1="23" y1="9" x2="17" y2="15" />
+                    <line x1="17" y1="9" x2="23" y2="15" />
+                  </svg>
+                  <span>No, without Music</span>
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence mode="wait">
         {selectedImage !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed w-full h-full inset-0 overflow-hidden select-none flex justify-center items-center shadow-md bg-white-1 p-4 py-8 dark:bg-black-1 border z-[1000]"
+            className="fixed w-full h-full inset-0 overflow-hidden select-none flex flex-col justify-center items-center shadow-md bg-white-1 p-4 py-8 dark:bg-black-1 border z-[1000]"
           >
             <div className="absolute top-2 right-2 flex gap-2 z-10">
-              <button
-                onClick={toggleSlideshow}
-                className="p-2 hover:bg-white-1 dark:hover:bg-black-1 rounded-full transition-colors"
-              >
-                {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
-              </button>
               <button
                 onClick={() => {
                   setSelectedImage(null)
                   setIsPlaying(false)
+                  setShowCompletionModal(false)
                   spotifyRef?.contentWindow?.postMessage({ command: 'pause' }, SPOTIFY_ORIGIN)
                   setHasStartedMusic(false)
                 }}
+                className="p-2 hover:bg-white-2 dark:hover:bg-black-2 rounded-full transition-colors"
               >
                 <Close />
               </button>
             </div>
-            <Image
-              alt={moments[selectedImage].data.description}
-              src={moments[selectedImage].src}
-              className="max-h-[80vh] max-w-[90vw] object-contain"
-            />
+
+            <div className="relative flex items-center justify-center w-full px-4 md:px-12">
+              <div className="relative max-h-[85vh] w-full max-w-[85vw] md:max-w-[75vw] h-full mx-auto flex items-center justify-center">
+                {moments[selectedImage].data.type === "video" ? (
+                  <video
+                    src={`/assets/moments/${moments[selectedImage].src}`}
+                    className="m-2 object-contain w-full h-full"
+                    style={{ maxHeight: '80vh' }}
+                    autoPlay
+                    muted
+                  />
+                ) : (
+                  <Image
+                    alt={moments[selectedImage].data.description}
+                    src={moments[selectedImage].src}
+                    className="m-2 object-contain w-full h-full"
+                    style={{ maxHeight: '80vh' }}
+                  />
+                )}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white-2/90 dark:bg-black-2/90 backdrop-blur-sm px-4 py-2 rounded-full border text-sm">
+                  {moments[selectedImage].data.date}
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute bottom-4 left-0 right-0 px-4 md:px-12">
+              <div className="w-full bg-white-2 dark:bg-black-2 rounded-full h-2">
+                <div
+                  className="bg-yellow-4 h-2 rounded-full transition-all duration-50"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <div className="flex justify-between items-center mt-2 text-sm text-gray-2 dark:text-gray-1">
+                <div>
+                  {selectedImage + 1} of {moments.length}
+                </div>
+                <div>
+                  {Math.round(progress)}%
+                </div>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -109,6 +361,7 @@ const Page = () => {
                 src={moment.src}
                 alt={moment.data.description}
                 time={moment.data.date}
+                type={moment.data.type}
               />
             )
           })}
@@ -128,11 +381,13 @@ const ImageWrapper = ({
   alt,
   time,
   i,
+  type = "image",
 }: {
   src: string | StaticImageData
   alt: string
   time: string
   i: number
+  type?: "image" | "video"
 }) => {
   const rotate = ['1deg', '-1deg', '1.5deg']
   const [deg, setDeg] = useState('0deg')
@@ -166,11 +421,20 @@ const ImageWrapper = ({
 
   return (
     <div className={`group relative rotate-[${deg}] ${colors[i % length]}`}>
-      <Image
-        alt={alt}
-        src={src}
-        className={`row-span-2 md:grayscale group-hover:grayscale-0 max-h-[400px] transition-all duration-500 w-full`}
-      />
+      {type === "image" ? (
+        <Image
+          alt={alt}
+          src={src}
+          className={`row-span-2 md:grayscale group-hover:grayscale-0 max-h-[400px] transition-all duration-500 w-full`}
+        />
+      ) : (
+        <video
+          src={`/assets/moments/${src}`}
+          className="row-span-2 max-h-[400px] transition-all duration-500 w-full object-cover"
+          autoPlay
+          muted
+        />
+      )}
       <div className="opacity-0 group-hover:opacity-100 absolute -translate-y-1/2 group-hover:-translate-y-4 -translate-x-full left-0 flex flex-col top-1/2 bg-white-2 text-black-1 dark:bg-black-2 dark:text-white-1  p-2 rounded-l-md border text-center transition-all duration-500 text-sm tracking-tight z-50">
         {alt}
         <span className="text-xs text-light">{time}</span>

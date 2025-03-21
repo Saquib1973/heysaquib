@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { rampart, amiko, happymonkey } from '../public/utils/fonts'
+import { rampart, amiko, happymonkey, neue } from '../public/utils/fonts'
 import './globals.css'
 import Footer from '@/components/footer-component'
 import Header from '@/components/header-component'
@@ -22,12 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <ViewTransitions>
         <body
-          className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} font-amiko bg-white-1 dark:bg-black-1 dark:text-white antialiased mx-auto max-w-4xl transition`}
+          className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} ${neue.variable} font-neue bg-white-1 dark:bg-black-1 dark:text-white antialiased mx-auto max-w-4xl transition`}
         >
           <Analytics />
           <Header />
           <>
-            <Starfield />
+            {/* <Starfield /> */}
             {children}</>
           <Footer />
         </body>
