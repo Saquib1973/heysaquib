@@ -30,15 +30,22 @@ const Page = () => {
   const [progress, setProgress] = useState(0)
   const [totalDuration, setTotalDuration] = useState(0)
   const [slideshowStartTime, setSlideshowStartTime] = useState<number | null>(null)
+  const [totalSlideshowDuration, setTotalSlideshowDuration] = useState(0)
 
   const moments = useMemo<Moment[]>(() => importedMoments, [])
 
-  const totalSlideshowDuration = useMemo(() => {
-    return moments.reduce((total, moment) => {
-      return total + (moment.data.type === "video" ?
-        (document.querySelector('video')?.duration || 0) * 1000 :
-        PLAY_TIME)
-    }, 0)
+  // Calculate total slideshow duration on client side only
+  useEffect(() => {
+    const calculateTotalDuration = () => {
+      const duration = moments.reduce((total, moment) => {
+        return total + (moment.data.type === "video" ?
+          (document.querySelector('video')?.duration || 0) * 1000 :
+          PLAY_TIME)
+      }, 0)
+      setTotalSlideshowDuration(duration)
+    }
+
+    calculateTotalDuration()
   }, [moments])
 
   const nextSlide = useCallback(() => {
@@ -94,10 +101,9 @@ const Page = () => {
       }
 
       progressInterval = setInterval(() => {
-        if (!startTime || !slideshowStartTime) return
+        if (!startTime || !slideshowStartTime || !totalSlideshowDuration) return
 
         const totalElapsed = Date.now() - slideshowStartTime
-
         const overallProgress = Math.min((totalElapsed / totalSlideshowDuration) * 100, 100)
         setProgress(overallProgress)
       }, 50)
