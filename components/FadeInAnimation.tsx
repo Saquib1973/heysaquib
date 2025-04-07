@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 const FadeInAnimation = ({
   className,
   children,
-  duration = 0.8,
+  duration = 0.2,
   delay = 0.1,
 }: {
   className?: string
@@ -30,7 +30,10 @@ const FadeInAnimation = ({
         <motion.div
           variants={{
             initial: { opacity: 0, y: 5 , filter:"blur(5px)" },
-            animate: { opacity: 1, y: 0 , filter:"blur(0px)" },
+            animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+          }}
+          transition={{
+            duration
           }}
         >
           {child}

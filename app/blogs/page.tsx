@@ -1,19 +1,7 @@
 import FadeInAnimation from '@/components/FadeInAnimation'
 import Like from '@/components/svg/Like'
 import { getAllPosts } from '@/lib/getPost'
-import fs from 'fs'
-import matter from 'gray-matter'
 import Link from 'next/link'
-
-// Fetch blog data on the server side
-const getBlogs = () => {
-  const dirContent = fs.readdirSync('blogs', 'utf-8')
-  return dirContent.map((file) => {
-    const fileContent = fs.readFileSync(`blogs/${file}`, 'utf-8')
-    const { data } = matter(fileContent)
-    return data
-  })
-}
 
 export default function HomePage() {
   const blogs = getAllPosts()

@@ -32,3 +32,13 @@ export type ProjectType =
   | 'web3'
   | 'core'
   | 'others'
+
+export interface Experience {
+  company: string
+  role: string
+  duration: string
+  location: string
+  description: string[]
+  technologies: string[]
+    website?: string
+  }

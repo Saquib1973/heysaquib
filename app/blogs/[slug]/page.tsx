@@ -13,7 +13,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import OnThisPage from '@/components/on-this-page'
 import path from 'path'
-
+import FadeInAnimation from '@/components/FadeInAnimation'
 const postsDir = path.join(process.cwd(), 'content')
 
 type PageProps = {
@@ -54,30 +54,12 @@ export default async function Page({ params }: PageProps) {
         }),
       ],
     })
-  const newprocessor = unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypeDocument, { title: newData.title || 'Blog Post' })
-    .use(rehypeFormat)
-    .use(rehypeStringify)
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings)
-    .use(rehypePrettyCode, {
-      theme: 'github-dark',
-      transformers: [
-        transformerCopyButton({
-          visibility: 'always',
-          feedbackDuration: 3_000,
-        }),
-      ],
-    })
 
-  // const htmlContent = (await processor.process(content)).toString()
   const newHtmlContent = (await processor.process(newContent)).toString();
 
 
   return (
-    <>
+    <FadeInAnimation duration={0.5}>
 
       <div className="p-2 text-gray-800 dark:text-gray-100">
         {/* Blog Header */}
@@ -93,8 +75,6 @@ export default async function Page({ params }: PageProps) {
             <span>{newData.date}</span>
           </div>
         </header>
-        {/* Sidebar */}
-        <OnThisPage htmlContent={newHtmlContent} />
         {/* Main Content */}
         <div className="flex relative flex-col w-full lg:flex-row gap-1">
           {/* Blog Content */}
@@ -106,6 +86,6 @@ export default async function Page({ params }: PageProps) {
           </article>
         </div>
       </div>
-    </>
+    </FadeInAnimation>
   )
 }

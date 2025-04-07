@@ -1,0 +1,68 @@
+---
+title: "How to redirect user to previous page after signin"
+description: "A guide on implementing user redirection to previous page after login or registration"
+slug: "how-to-go-back-to-previous-url-after-register-or-login"
+date: "2025-02-03"
+author: "Saquib"
+image: "/typescript.webp"
+readingTime: "5 minutes"
+---
+
+```javascript
+if (session?.user?.role === 'admin') {
+  router.push('/admin')
+} else {
+  const previousPath = document.referrer
+  const previousUrl = previousPath ? new URL(previousPath) : null
+  const isPreviousRouteHomepage =
+    previousUrl &&
+    (previousUrl.pathname === '/' || previousUrl.pathname === '')
+
+  if (
+    previousUrl &&
+    !isPreviousRouteHomepage &&
+    previousUrl.origin === window.location.origin
+  ) {
+    router.back()
+  } else {
+    router.push('/learn')
+  }
+}
+```
+
+## How it works?
+
+If user is admin simply redirect to _"/admin"_
+```javascript
+if (session?.user?.role === 'admin') {
+  router.push('/admin')
+}
+```
+else we need to check whether user is coming from _"/"_ [Home Route] or a specific Route
+- if user comes from Home route redirect to a CTA page [here _"/learn"_]
+- else redirect to previous page
+
+
+previousPath stores the last page user was on
+```javascript
+const previousPath = document.referrer
+```
+
+parse previousPath into URL , now if the pathname for this previousUrl is _"/"_ or _""_ then the previous page might be home page to confirm check if the origin is same as current [what if the user is on some other page and comes to our login page from there]
+```javascript
+const previousPath = document.referrer
+const previousUrl = previousPath ? new URL(previousPath) : null
+const isPreviousRouteHomepage =
+  previousUrl &&
+  (previousUrl.pathname === '/' || previousUrl.pathname === '')
+
+if (
+  previousUrl &&
+  !isPreviousRouteHomepage &&
+  previousUrl.origin === window.location.origin
+) {
+  router.back()
+} else {
+  router.push('/learn')
+}
+```
