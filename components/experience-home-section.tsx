@@ -4,10 +4,7 @@ import FadeInAnimation from './FadeInAnimation'
 import { Badge } from './ui/badge'
 import Link from 'next/link'
 import { experiences } from '@/lib/data/experience'
-
-
-
-
+import ExperienceGallery from './ExperienceGallery'
 
 const ExperienceSection = () => {
   return (
@@ -51,14 +48,13 @@ const ExperienceSection = () => {
                 <p className="text-sm text-gray-600 dark:text-gray-400">{exp.location}</p>
               </div>
             </div>
+            <div className='text-gray-700 px-4 py-2 pb-4 dark:text-gray-300'>
+              {exp.content}
+            </div>
 
-            <ul className="list-disc list-inside space-y-1 mb-3">
-              {exp.description.map((item, i) => (
-                <li key={i} className="text-gray-700 dark:text-gray-300">{item}</li>
-              ))}
-            </ul>
+            {exp.images && <ExperienceGallery images={exp.images} />}
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mt-4">
               {exp.technologies.map((tech, i) => (
                 <Badge key={i} variant="outline" className="badge">
                   {tech}

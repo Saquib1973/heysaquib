@@ -15,7 +15,7 @@ const Tech = () => {
   ]
 
   return (
-    <div className="section">
+    <div className="section md:hidden">
       <FadeInAnimation>
         <h1 className="rampart-h1">SKILLS</h1>
       </FadeInAnimation>

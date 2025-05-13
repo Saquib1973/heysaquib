@@ -38,7 +38,8 @@ export interface Experience {
   role: string
   duration: string
   location: string
-  description: string[]
+  content: React.ReactNode
   technologies: string[]
-    website?: string
-  }
+  website?: string
+  images?: { src: string; alt: string }[]
+}

@@ -47,7 +47,6 @@ const Header = () => {
   }, [])
 
 
-  console.log(horizontal)
 
 
   return (

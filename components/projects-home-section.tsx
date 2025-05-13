@@ -7,6 +7,7 @@ import Link from 'next/link'
 import type { ProjectCardType } from '.'
 import { Badge } from './ui/badge'
 import { useRouter } from 'next/navigation'
+import Arrow from './svg/Arrow'
 
 const page = () => {
   const featuredProjects: ProjectInterface[] = Projects.filter(
@@ -206,18 +207,20 @@ const ProjectCard = ({
             <Link
               onClick={(e) => e.stopPropagation()}
               target="_blank"
-              className="link-text"
+              className="link-text group"
               href={repoLink}
             >
               Github
+              <Arrow className="animate-none" />
             </Link>
             <Link
               onClick={(e) => e.stopPropagation()}
               target="_blank"
-              className="link-text"
+              className="link-text group"
               href={liveLink}
             >
               Live
+              <Arrow className="animate-none" />
             </Link>
           </div>
         </motion.div>

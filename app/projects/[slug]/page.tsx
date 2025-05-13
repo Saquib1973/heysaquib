@@ -1,8 +1,8 @@
 'use client'
 import StaggerAnimation from '@/components/StaggerAnimation'
 import Close from '@/components/svg/Close'
-import Next from '@/components/svg/Next'
 import Like from '@/components/svg/Like'
+import Next from '@/components/svg/Next'
 import type { ProjectInterface } from '@/lib/data'
 import { Projects } from '@/lib/data/projects'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -10,8 +10,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Github from '@/components/svg/Github'
-import {default as LinkLogo} from '@/components/svg/Link'
 
 type ProjectImages = {
   src: any
@@ -89,14 +87,18 @@ const Page = () => {
               <div className="relative flex flex-col items-center justify-center w-full px-4 md:px-12">
                 <div className="relative max-h-[85vh] w-full max-w-[85vw] md:max-w-[75vw] h-full mx-auto">
                   <Image
-                    alt={data?.img[image].text || "Project image"}
+                    alt={data?.img[image].text || 'Project image'}
                     className="m-2 object-contain w-full h-full rounded-lg shadow-2xl"
                     style={{ maxHeight: '80vh' }}
                     src={data?.img[image].src}
                   />
                   <div className="absolute bottom-0 left-2 -right-2 bg-gradient-to-t from-black-1 to-black-1/90 p-4 rounded-b-lg">
-                    <p className="text-white-1 text-sm md:text-base">{data?.img[image].text}</p>
-                    <p className="text-gray-1 text-xs md:text-sm mt-1">Image {image + 1} of {data?.img.length}</p>
+                    <p className="text-white-1 text-sm md:text-base">
+                      {data?.img[image].text}
+                    </p>
+                    <p className="text-gray-1 text-xs md:text-sm mt-1">
+                      Image {image + 1} of {data?.img.length}
+                    </p>
                   </div>
                 </div>
 
@@ -106,15 +108,31 @@ const Page = () => {
                   onClick={() => setImage(image - 1 >= 0 ? image - 1 : image)}
                   disabled={image - 1 < 0}
                 >
-                  <Next className={`${image - 1 >= 0 ? 'text-yellow-4' : 'text-gray-1/50'} -rotate-180 w-8 h-8 md:w-10 md:h-10`} />
+                  <Next
+                    className={`${
+                      image - 1 >= 0 ? 'text-yellow-4' : 'text-gray-1/50'
+                    } -rotate-180 w-8 h-8 md:w-10 md:h-10`}
+                  />
                 </button>
 
                 <button
                   className="absolute right-6 md:right-16 top-1/2 -translate-y-1/2 p-3 hover:bg-white-1/10 dark:hover:bg-black-1/10 rounded-full transition-colors hidden md:block"
-                  onClick={() => setImage(image + 1 <= ((data?.img?.length ?? 0) - 1) ? image + 1 : image)}
-                  disabled={image + 1 > ((data?.img?.length ?? 0) - 1)}
+                  onClick={() =>
+                    setImage(
+                      image + 1 <= (data?.img?.length ?? 0) - 1
+                        ? image + 1
+                        : image
+                    )
+                  }
+                  disabled={image + 1 > (data?.img?.length ?? 0) - 1}
                 >
-                  <Next className={`${image + 1 <= ((data?.img?.length ?? 0) - 1) ? 'text-yellow-4' : 'text-gray-1'} w-8 h-8 md:w-10 md:h-10`} />
+                  <Next
+                    className={`${
+                      image + 1 <= (data?.img?.length ?? 0) - 1
+                        ? 'text-yellow-4'
+                        : 'text-gray-1'
+                    } w-8 h-8 md:w-10 md:h-10`}
+                  />
                 </button>
 
                 {/* Mobile Navigation Buttons */}
@@ -124,14 +142,30 @@ const Page = () => {
                     onClick={() => setImage(image - 1 >= 0 ? image - 1 : image)}
                     disabled={image - 1 < 0}
                   >
-                    <Next className={`${image - 1 >= 0 ? 'text-yellow-4' : 'text-gray-1/50'} -rotate-180 w-10 h-10`} />
+                    <Next
+                      className={`${
+                        image - 1 >= 0 ? 'text-yellow-4' : 'text-gray-1/50'
+                      } -rotate-180 w-10 h-10`}
+                    />
                   </button>
                   <button
                     className="p-4 bg-white-1/10 dark:bg-black-1/10 hover:bg-white-1/20 dark:hover:bg-black-1/20 rounded-full transition-colors"
-                    onClick={() => setImage(image + 1 <= ((data?.img?.length ?? 0) - 1) ? image + 1 : image)}
-                    disabled={image + 1 > ((data?.img?.length ?? 0) - 1)}
+                    onClick={() =>
+                      setImage(
+                        image + 1 <= (data?.img?.length ?? 0) - 1
+                          ? image + 1
+                          : image
+                      )
+                    }
+                    disabled={image + 1 > (data?.img?.length ?? 0) - 1}
                   >
-                    <Next className={`${image + 1 <= ((data?.img?.length ?? 0) - 1) ? 'text-yellow-4' : 'text-gray-1'} w-10 h-10`} />
+                    <Next
+                      className={`${
+                        image + 1 <= (data?.img?.length ?? 0) - 1
+                          ? 'text-yellow-4'
+                          : 'text-gray-1'
+                      } w-10 h-10`}
+                    />
                   </button>
                 </div>
               </div>
@@ -143,10 +177,12 @@ const Page = () => {
       <div className="hscreen max-lg:px-2">
         <h1 className="rampart-h1">{data?.name}</h1>
 
-        <div className="py-4">
-          <h1 className="amiko-h1 mb-2">Overview</h1>
-          <p>{data?.detail}</p>
-        </div>
+        {data?.detail && (
+          <div className="py-4">
+            <h1 className="amiko-h1 mb-2">Overview</h1>
+            <p>{data?.detail}</p>
+          </div>
+        )}
         <div className="flex justify-end sticky top-[61px] md:top-[69px] z-50 bg-white-1 dark:bg-black-1 md:text-xl px-3 gap-2 py-2  md:py-3">
           {data?.git && (
             <Link
@@ -174,46 +210,48 @@ const Page = () => {
           <h1 className="amiko-h1 mb-2">Description</h1>
           <ul className="list">
             {data?.description.map((desc, index) => (
-              <li key={index+10}>{desc}</li>
+              <li key={index + 10}>{desc}</li>
             ))}
           </ul>
         </div>
 
-        <div>
-          <h1 className="amiko-h1">Gallery</h1>
-          <div className="grid grid-cols-2 transition md:grid-cols-3 mx-auto gap-0.5 p-4 px-1">
-            {images?.map((img, index) => {
-              return (
-                <div
-                  key={index+10}
-                  className={`relative h-full cursor-pointer transition ${
-                    colors[index % length]
-                  } ${img.liked ? 'row-span-2 col-span-2' : ''}`}
-                >
-                  <Image
-                    onClick={() => setImage(index)}
-                    src={img.src}
-                    alt="test"
-                    className={`w-full min-h-full brightness-[40%] grayscale hover:grayscale-0 hover:brightness-100 transition `}
-                  />
-                  <button
-                    className="absolute bottom-2 right-2"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      toggleLike(index)
-                    }}
+        {data?.img && (
+          <div>
+            <h1 className="amiko-h1">Gallery</h1>
+            <div className="grid grid-cols-2 transition md:grid-cols-3 mx-auto gap-0.5 p-4 px-1">
+              {images?.map((img, index) => {
+                return (
+                  <div
+                    key={index + 10}
+                    className={`relative h-full cursor-pointer transition ${
+                      colors[index % length]
+                    } ${img.liked ? 'row-span-2 col-span-2' : ''}`}
                   >
-                    <Like
-                      className={`${
-                        img.liked ? 'text-red-500' : 'text-gray-500'
-                      }`}
+                    <Image
+                      onClick={() => setImage(index)}
+                      src={img.src}
+                      alt="test"
+                      className={`w-full min-h-full brightness-[40%] grayscale hover:grayscale-0 hover:brightness-100 transition `}
                     />
-                  </button>
-                </div>
-              )
-            })}
+                    <button
+                      className="absolute bottom-2 right-2"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleLike(index)
+                      }}
+                    >
+                      <Like
+                        className={`${
+                          img.liked ? 'text-red-500' : 'text-gray-500'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </StaggerAnimation>
   )

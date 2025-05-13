@@ -59,16 +59,9 @@ const Footer = () => {
             github
             <Arrow />
           </Link>
-          for more "code". Check
-          <Link
-            href={'/moments'}
-            className="link-text inline-block text-nowrap"
-            >
-            snaps<Arrow />
-          </Link>
+          for more "code".
         </div>
-        <div className="flex py-0.5 justify-between text-xs md:text-sm items-end text-gray-2">
-          <p>Made with ❤️ by Saquib</p>
+        <div className="flex py-0.5 justify-end text-xs md:text-sm items-end text-gray-2">
           <p className="text-yellow-4">{time}</p>
         </div>
       </FadeInAnimation>

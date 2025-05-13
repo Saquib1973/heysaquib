@@ -1,13 +1,14 @@
+import { cn } from '@/lib/utils'
 import React from 'react'
 
-const Arrow = () => {
+const Arrow = ({ className }: { className?: string }) => {
   return (
     <span>
 
       <svg
         stroke="currentColor"
         fill="none"
-        className="inline mb-0.5 animate-pulse"
+        className={cn(`inline mb-0.5 animate-pulse`, className)}
         strokeWidth="2"
         viewBox="0 0 24 24"
         strokeLinecap="round"

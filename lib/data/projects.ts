@@ -80,7 +80,7 @@ const Recall: ProjectInterface = {
 const Nyaylok: ProjectInterface = {
   id: 'nyaylokSIH',
   name: 'Nyaylok',
-  status: 'live',
+  status: 'archived',
 
   description: [
     'Nyaylok is a cutting-edge case management website developed for the Smart India Hackathon 2023.',
@@ -448,8 +448,8 @@ export const Projects: ProjectInterface[] = [
   { ...Blogig },
   { ...News4U },
   { ...Multimeter },
-  // { ...WeatherApp },
-  // { ...Ecommerce },
+  { ...WeatherApp },
+  { ...Ecommerce },
   // { ...QuillBot },
   // { ...FireBaseAuth },
   // { ...Portfolio },

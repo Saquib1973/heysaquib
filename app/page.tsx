@@ -7,11 +7,12 @@ import Tech from '@/components/techstack-home-section'
 import Projects from '@/components/projects-home-section'
 import Blogs from '@/components/blogs-home-section'
 import { links } from './about/page'
-import PenUnderline from '@/components/PenUnderline';
-import Experience from '@/components/experience-home-section';
+import PenUnderline from '@/components/PenUnderline'
+import Experience from '@/components/experience-home-section'
+import SkillsSectionHomeV2 from '@/components/skills-section-home-v2'
 export default function Home() {
-const allowedLinks = ['github', 'linkedin', 'leetcode', 'resume']
-const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
+  const allowedLinks = ['github', 'linkedin', 'leetcode', 'resume']
+  const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
 
   return (
     <div className="">
@@ -20,10 +21,7 @@ const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
         <AboutSection />
         <div className="flex text-light justify-end items-center pr-10 gap-1">
           {updatedLinks.map((link, index) => (
-            <div
-                key={index}
-                className="cursor-pointer"
-            >
+            <div key={index} className="cursor-pointer">
               <Link
                 href={link.href}
                 className="capitalize hover:link-text transition"
@@ -36,10 +34,11 @@ const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
           ))}
         </div>
         <div className="w-[80%] mt-8 mb-2 max-md:hidden h-[1px] dark:bg-gray-800 bg-gray-200 mx-auto" />
+        <Experience />
         {/* Skills Section */}
         <Tech />
+        <SkillsSectionHomeV2 />
         {/* Project */}
-        <Experience />
         <Projects />
         <Blogs />
         {/* <CertificateSection /> */}
