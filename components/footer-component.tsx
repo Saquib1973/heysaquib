@@ -32,13 +32,16 @@ const Footer = () => {
       <FadeInAnimation>
         <div className="flex gap-1 gap-y-2 amiko-p py-2 items-center flex-wrap">
           Contact me{' '}
-          <button onClick={sendEmail} className="flex items-center link-text">
+          <button
+            onClick={sendEmail}
+            className="flex items-center hover:link-text  underline underline-offset-4 transition"
+          >
             @saquibali353@gmail.com
           </button>
           ,{' '}
           <Link
             href={'https://twitter.com/sacubeli'}
-            className="flex items-center transition hover:link-text"
+            className="flex items-center transition hover:link-text  underline underline-offset-4"
           >
             twitter
             <Arrow />
@@ -46,7 +49,7 @@ const Footer = () => {
           or{' '}
           <Link
             href={'https://www.linkedin.com/in/saquib-ali-4a3235219/'}
-            className="flex items-center transition hover:link-text"
+            className="flex items-center transition hover:link-text underline underline-offset-4"
           >
             linkedIn
             <Arrow />
@@ -54,7 +57,7 @@ const Footer = () => {
           . Check out my{' '}
           <Link
             href={'https://github.com/Saquib1973'}
-            className="flex items-center transition hover:link-text"
+            className="flex items-center transition hover:link-text underline underline-offset-4"
           >
             github
             <Arrow />

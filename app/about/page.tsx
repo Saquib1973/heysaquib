@@ -70,11 +70,11 @@ const page = () => {
           </div>
           <div className="flex justify-end w-full">
             <Link
-            target="_blank"
+              target="_blank"
               href={
                 'https://drive.google.com/file/d/1a5tBPdkgfUi3My75upcW69VVQD8RPjwD/view'
               }
-              className='border border-dashed w-full text-center border-yellow-4 p-0.5 rounded-md px-2 shadow-inner bg-white-2 dark:bg-black-2 dark:text-gray-1 '
+              className="border border-dashed w-full text-center border-yellow-4 p-1 text-xl font-light rounded-md px-2 shadow-inner bg-white-2 dark:bg-black-2 dark:text-gray-1 "
             >
               Resume
             </Link>
@@ -140,7 +140,6 @@ const page = () => {
         </div>
       </div>
       <CertificateSection />
-      <QuickLinks />
     </div>
   )
 }

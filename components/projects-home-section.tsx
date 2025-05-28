@@ -8,7 +8,7 @@ import type { ProjectCardType } from '.'
 import { Badge } from './ui/badge'
 import { useRouter } from 'next/navigation'
 import Arrow from './svg/Arrow'
-
+import TextRevealWrapper from './text-reveal-wrapper'
 const page = () => {
   const featuredProjects: ProjectInterface[] = Projects.filter(
     (project) => project.featured
@@ -23,7 +23,9 @@ const page = () => {
       transition={{ delay: 0.4, duration: 1 }}
       className="section"
     >
-      <p className="rampart-h1 projects">Projects</p>
+      <p className="rampart-h1 projects">
+        <TextRevealWrapper>Projects</TextRevealWrapper>
+      </p>
       <div className="grid grid-cols-1 lg:mx-1 lg:grid-cols-2 h-full gap-4 md:gap-6 py-4 md:py-6 md:pt-16">
         {featuredProjects.map((project, index) => {
           return (
@@ -45,8 +47,8 @@ const page = () => {
       </div>
 
       <div className="py-4">
-        <h2 className="amiko-h1 mb-2">Minor Projects</h2>
-        <div className="space-y-2">
+        {/* <h2 className="amiko-h1 mb-2">Minor Projects</h2> */}
+        {/* <div className="space-y-2">
           {minorProject.map((project, index) => (
             <motion.div
               key={index}
@@ -102,7 +104,7 @@ const page = () => {
               </Link>
             </motion.div>
           ))}
-        </div>
+        </div> */}
         <div className="flex justify-end mt-6 items-center">
           <TransitionLink
             href="/projects"

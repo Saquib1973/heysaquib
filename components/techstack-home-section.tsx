@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import FadeInAnimation from './FadeInAnimation'
 import { motion } from 'framer-motion'
 import techstack from '@/lib/data/techstack'
+import TextRevealWrapper from './text-reveal-wrapper'
 const Tech = () => {
   const [page, setPage] = useState('frontend')
   const buttonList = [
@@ -15,9 +16,11 @@ const Tech = () => {
   ]
 
   return (
-    <div className="section md:hidden">
+    <div className="section">
       <FadeInAnimation>
-        <h1 className="rampart-h1">SKILLS</h1>
+        <h1 className="rampart-h1">
+          <TextRevealWrapper>SKILLS</TextRevealWrapper>
+        </h1>
       </FadeInAnimation>
       <div className="py-2">
         <div className="flex flex-wrap gap-3 txt">

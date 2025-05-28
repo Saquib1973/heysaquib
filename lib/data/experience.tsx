@@ -4,57 +4,92 @@ import Link from 'next/link';
 export const experiences: Experience[] = [
   {
     company: 'Cokub',
-    role: 'Freelance',
-    duration: 'Mar 2025 - Present',
-    location: 'Remote',
+    role: 'Fullstack Developer',
+    duration: 'Feb 2025 - Present',
+    location: 'Australia (Remote)',
     content: (
-      <div className="">
+      <div>
         <ul className="list-disc list-inside space-y-1 mb-3">
           <li>
-            Built a crypto on-ramping platform <Link href="https://amsafintech.com" className="link-text">amsafintech.com</Link> using Next.js for Australia-based Amsa Fintech.
+            Built a crypto on-ramping platform{' '}
+            <Link href="https://amsa-fintech.vercel.app/" className="link-text">
+              amsafintech.com
+            </Link>{' '}
+            for Amsa Fintech, using Next.js and TypeScript.
           </li>
           <li>
-            Integrated CoinGecko for live prices and Transak for fiat-to-crypto payments.
+            Worked closely with the client to understand their needs and
+            designed the full system from scratch, including frontend, backend,
+            and database.
           </li>
           <li>
-            Delivered a secure, scalable platform with smooth frontend-backend sync and API integration.
+            Integrated CoinGecko API for real-time crypto prices and Transak API
+            to allow users to buy crypto using fiat currency.
+          </li>
+          <li>
+            Used Prisma ORM to design and manage a PostgreSQL database,
+            including complete schema creation for users, transactions, and
+            more.
+          </li>
+          <li>
+            Built a basic notification system using long polling to alert users
+            about logins, transactions, and other important activities.
+          </li>
+          <li>
+            Added analytics so users can view their purchase history and track
+            activity through simple charts and summaries.
           </li>
         </ul>
       </div>
     ),
-    technologies: ['Next.js', 'TypeScript', 'CoinGecko API', 'Transak API'],
-    website: 'https://amsafintech.com/',
+    technologies: [
+      'Next.js',
+      'TypeScript',
+      'CoinGecko API',
+      'Transak API',
+      'Prisma',
+      'PostgreSQL',
+    ],
+    website: 'https://cokub.com/',
     images: [
       {
         src: '/assets/experience/amsa/amsa-1.png',
-        alt: 'Amsa Fintech Home Page'
+        alt: 'Amsa Fintech Home Page',
       },
       {
         src: '/assets/experience/amsa/amsa-2.png',
-        alt: 'Amsa Fintech Dashboard'
+        alt: 'Amsa Fintech Dashboard',
       },
       {
         src: '/assets/experience/amsa/amsa-3.png',
-        alt: 'Amsa Fintech Transactions'
-      }
-    ]
+        alt: 'Amsa Fintech Transactions',
+      },
+    ],
   },
   {
     company: 'Fursat Farms',
     role: 'Full Stack Intern',
-    duration: 'Feb 2025 - Present',
+    duration: 'Feb 2025 - Apr 2025',
     location: 'Remote',
     content: (
       <div className="">
         <ul className="list-disc list-inside space-y-1 mb-3">
           <li>
-            Contributed to the development of <Link href="https://beasportsai.com" className="link-text">beasportsai.com</Link> a football SaaS platform, by developing key features, including the landing page and multiple other pages, using Next.js for the frontend and Node.js for backend services.
+            Contributed to the development of{' '}
+            <Link href="https://beasportsai.com" className="link-text">
+              beasportsai.com
+            </Link>{' '}
+            a football SaaS platform, by developing key features, including the
+            landing page and multiple other pages, using Next.js for the
+            frontend and Node.js for backend services.
           </li>
           <li>
-            Developed a custom video streaming API with Next.js, reducing video load times by 5%.
+            Developed a custom video streaming API with Next.js, reducing video
+            load times by 5%.
           </li>
           <li>
-            It is a Saas which offering football courses with integrated AI to enhance user experience.
+            It is a Saas which offering football courses with integrated AI to
+            enhance user experience.
           </li>
         </ul>
       </div>
@@ -64,16 +99,16 @@ export const experiences: Experience[] = [
     images: [
       {
         src: '/assets/experience/beasportai/beasportai-1.png',
-        alt: 'BeaSports AI Home Page'
+        alt: 'BeaSports AI Home Page',
       },
       {
         src: '/assets/experience/beasportai/beasportai-2.png',
-        alt: 'BeaSports AI Courses'
+        alt: 'BeaSports AI Courses',
       },
       {
         src: '/assets/experience/beasportai/beasportai-3.png',
-        alt: 'BeaSports AI Video Streaming'
-      }
-    ]
+        alt: 'BeaSports AI Video Streaming',
+      },
+    ],
   },
 ]

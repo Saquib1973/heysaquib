@@ -51,7 +51,8 @@ export default function CustomSelect({
         {isOpen && (
           <motion.ul
             initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             exit={{ opacity: 0, y: -5 }}
             transition={{ duration: 0.2 }}
             className="absolute left-0 right-0 mt-1 rounded-md border border-gray-0 outline-none bg-white-0 text-black-0 py-2 text-sm shadow-md dark:border-black-0 dark:bg-black-2 dark:text-white-1"

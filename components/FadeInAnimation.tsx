@@ -32,6 +32,7 @@ const FadeInAnimation = ({
             initial: { opacity: 0, y: 5 , filter:"blur(5px)" },
             animate: { opacity: 1, y: 0, filter: "blur(0px)" },
           }}
+          viewport={{ once: true }}
           transition={{
             duration
           }}

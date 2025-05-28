@@ -4,18 +4,21 @@ import FadeInAnimation from './FadeInAnimation'
 import { Badge } from './ui/badge'
 import Link from 'next/link'
 import { experiences } from '@/lib/data/experience'
-import ExperienceGallery from './ExperienceGallery'
+import TextRevealWrapper from './text-reveal-wrapper'
 
 const ExperienceSection = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40, filter: "blur(5px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true }}
       transition={{ delay: 0.4, duration: 1 }}
       className="section"
     >
       <FadeInAnimation>
-        <h1 className="rampart-h1 mb-4">EXPERIENCE</h1>
+        <h1 className="rampart-h1 mb-4">
+          <TextRevealWrapper>EXPERIENCE</TextRevealWrapper>
+        </h1>
       </FadeInAnimation>
 
       <div className="py-4">
@@ -23,7 +26,8 @@ const ExperienceSection = () => {
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: index * 0.2, duration: 0.5 }}
             className="mb-8 last:mb-0"
           >
@@ -51,8 +55,6 @@ const ExperienceSection = () => {
             <div className='text-gray-700 px-4 py-2 pb-4 dark:text-gray-300'>
               {exp.content}
             </div>
-
-            {exp.images && <ExperienceGallery images={exp.images} />}
 
             <div className="flex flex-wrap gap-2 mt-4">
               {exp.technologies.map((tech, i) => (

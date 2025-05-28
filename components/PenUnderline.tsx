@@ -25,7 +25,8 @@ const PenUnderline = ({ text }: PenUnderlineProps) => {
           strokeWidth="2"
           strokeLinecap="round"
           initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
+          whileInView={{ pathLength: 1 }}
+          viewport={{ once: true }}
           transition={{
             duration: 1.2,
             ease: "easeOut"

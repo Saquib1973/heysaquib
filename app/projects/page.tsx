@@ -1,13 +1,12 @@
 'use client'
-import { Projects } from '@/lib/data/projects'
-import React, { useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
 import FadeInAnimation from '@/components/FadeInAnimation'
-import { useRouter } from 'next/navigation'
 import CustomSelect from '@/components/select'
+import { Badge } from '@/components/ui/badge'
 import type { ProjectType } from '@/lib/data'
+import { Projects } from '@/lib/data/projects'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 
 const Page = () => {

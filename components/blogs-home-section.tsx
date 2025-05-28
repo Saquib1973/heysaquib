@@ -7,7 +7,9 @@ const blogs = getAllPosts()
 export default async function HomePage() {
   return (
     <div className="max-md:px-4 section">
-      <h1 className="amiko-h1 mb-6">Latest Blogs</h1>
+      <h1 className="amiko-h1 mb-6">
+        Latest Blogs
+      </h1>
       <div className="grid w-full gap-0 pr-2">
         {blogs.map((blog, index) => (
           <Link
