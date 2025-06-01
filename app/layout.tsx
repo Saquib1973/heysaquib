@@ -5,7 +5,10 @@ import Footer from '@/components/footer-component'
 import Header from '@/components/header-component'
 import { ViewTransitions } from 'next-view-transitions'
 import { Analytics } from '@vercel/analytics/react'
-import Starfield from '@/components/Starfield'
+import { AudioPlayerProvider } from '@/context/AudioPlayerContext'
+import AudioPlayerComponent from '@/components/audio-player-component'
+import MiniAudioPlayer from '@/components/mini-audio-player'
+
 export const metadata: Metadata = {
   title: 'Hey! Saquib ☺️',
   description: 'Welcome to the portfolio site of Saquib Ali.',
@@ -13,7 +16,6 @@ export const metadata: Metadata = {
     icon: '/assets/logo.png',
   },
 }
-
 
 export default function RootLayout({
   children,
@@ -24,12 +26,16 @@ export default function RootLayout({
         <body
           className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} ${neue.variable} font-neue bg-white-1 dark:bg-black-1 dark:text-white antialiased mx-auto max-w-4xl transition`}
         >
-          <Analytics />
-          <Header />
-          <>
-            {/* <Starfield /> */}
-            {children}</>
-          <Footer />
+          <AudioPlayerProvider>
+            <Analytics />
+            <Header />
+            <>
+              {/* <Starfield /> */}
+              {children}
+            </>{' '}
+            <Footer />
+            <MiniAudioPlayer />
+          </AudioPlayerProvider>
         </body>
       </ViewTransitions>
     </html>

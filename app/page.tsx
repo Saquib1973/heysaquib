@@ -6,6 +6,7 @@ import Projects from '@/components/projects-home-section'
 import Tech from '@/components/techstack-home-section'
 import { Link } from 'next-view-transitions'
 import { links } from './about/page'
+
 export default function Home() {
   const allowedLinks = ['github', 'linkedin', 'leetcode', 'resume']
   const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
@@ -36,6 +37,7 @@ export default function Home() {
         {/* Project */}
         <Projects />
         <Blogs />
+        {/* <AudioPlayerComponent /> */}
         {/* <CertificateSection /> */}
       </StaggerAnimation>
     </div>

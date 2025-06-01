@@ -23,9 +23,9 @@ const page = () => {
       transition={{ delay: 0.4, duration: 1 }}
       className="section"
     >
-      <p className="rampart-h1 projects">
+      <div className="rampart-h1 projects">
         <TextRevealWrapper>Projects</TextRevealWrapper>
-      </p>
+      </div>
       <div className="grid grid-cols-1 lg:mx-1 lg:grid-cols-2 h-full gap-4 md:gap-6 py-4 md:py-6 md:pt-16">
         {featuredProjects.map((project, index) => {
           return (

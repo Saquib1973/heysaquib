@@ -35,7 +35,7 @@ const Timeline = () => {
             <h1 className="timeline-heading">2025 - Present</h1>
             <ul className="list-disc txt-light pl-6">
               <li>
-                💼 Full Stack Intern at{' '}
+                💼 Fullstack Intern at{' '}
                   Fursat Farms
               </li>
               <ul className="list-disc pl-6 text-light-2 text-sm">

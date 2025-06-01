@@ -68,7 +68,7 @@ export const experiences: Experience[] = [
   },
   {
     company: 'Fursat Farms',
-    role: 'Full Stack Intern',
+    role: 'Fullstack Intern',
     duration: 'Feb 2025 - Apr 2025',
     location: 'Remote',
     content: (
