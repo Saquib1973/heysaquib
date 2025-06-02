@@ -2,38 +2,42 @@ import React from 'react'
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/getPost'
 import BlogTimeComponent from './BlogTimeComponent'
+import FadeInAnimation from './FadeInAnimation'
 
 const blogs = getAllPosts()
-export default async function HomePage() {
+
+const BlogItem: React.FC<{ blog: any; index: number }> = ({ blog, index }) => {
   return (
-    <div className="max-md:px-4 section">
-      <h1 className="amiko-h1 mb-6">
-        Latest Blogs
-      </h1>
-      <div className="grid w-full gap-0 pr-2">
-        {blogs.map((blog, index) => (
-          <Link
-            href={`/blogs/${blog.slug}`}
-            key={"key"+index}
-            className="group relative overflow-hidden p-2 transition-colors duration-300"
-          >
-            <div className="flex flex-col">
-              <h1 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                {blog.title}
-              </h1>
-              <div className="flex items-center justify-between">
-                <div className="text-xs text-gray-600 dark:text-gray-400">
-                  <BlogTimeComponent date={blog.date} />
-                </div>
-                <div className="text-xs text-gray-500 dark:text-gray-500">
-                  →
-                </div>
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 h-[1px] w-full bg-gray-200 dark:bg-gray-700" />
-          </Link>
-        ))}
+    <div className="py-1 border-b border-dotted dark:border-gray-600 border-gray-300 last:border-b-0 transition-colors duration-150">
+      <Link
+        href={`/blogs/${blog.slug}`}
+        className="block font-sans dark:text-gray-200 text-gray-900 max-md:underline max-md:underline-offset-2 hover:underline transition-all truncate"
+        title={blog.title}
+      >
+        {blog.title}
+      </Link>
+      <div className="mt-1 flex flex-wrap items-center text-sm dark:text-gray-400 text-gray-600 gap-3 font-light">
+        <span className="dark:text-gray-400 text-gray-700">
+          Blog Post
+        </span>
+        <span>•</span>
+        <BlogTimeComponent date={blog.date} />
       </div>
     </div>
+  )
+}
+
+export default async function HomePage() {
+  return (
+    <FadeInAnimation>
+      <div className="md:px-4 p-6">
+        <h2 className="text-3xl font-bold mb-4 text-yellow-600">Latest Blogs</h2>
+        <div>
+          {blogs.map((blog, index) => (
+            <BlogItem key={"key"+index} blog={blog} index={index} />
+          ))}
+        </div>
+      </div>
+    </FadeInAnimation>
   )
 }
