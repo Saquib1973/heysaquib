@@ -125,7 +125,7 @@ const page = () => {
               See how I look on paper :{' '}
               <Link
                 className="link-text"
-                href="https://drive.google.com/file/d/1a5tBPdkgfUi3My75upcW69VVQD8RPjwD/view?usp=drive_link"
+                href="https://drive.google.com/file/d/1uy_pExXcnC35CJEACcN3DfigwJPFtd_o/view"
                 target="_blank"
                 rel="noopener noreferrer"
               >
