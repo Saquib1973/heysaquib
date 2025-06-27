@@ -25,26 +25,24 @@ interface PullRequestItemProps {
 const PullRequestItem: React.FC<PullRequestItemProps> = ({ pr }) => {
   const repo = getRepoInfo(pr);
   return (
-    <div
-      className="py-1 border-b border-dotted dark:border-gray-600 border-gray-300 last:border-b-0 transition-colors duration-150"
-    >
+    <div className="py-1 border-b border-dotted dark:border-gray-600 border-gray-300 last:border-b-0 transition-colors duration-150">
       <Link
         href={pr.html_url}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`View PR: ${pr.title}`}
-        className="block font-sans dark:text-gray-200 text-gray-900 max-md:underline max-md:underline-offset-2 hover:underline transition-all truncate"
+        className="block font-sans dark:text-gray-300 text-gray-600 max-md:underline hover:underline underline-offset-4 transition-all truncate decoration-gray-400 dark:decoration-gray-500"
         title={pr.title}
       >
         {pr.title}
       </Link>
-      <div className="mt-1 flex flex-wrap items-center text-sm dark:text-gray-400 text-gray-600 gap-3 font-light">
+      <div className="mt-1 flex flex-wrap items-center text-sm dark:text-gray-400 text-gray-600 gap-3 font-light decoration-gray-400 dark:decoration-gray-500">
         <Link
           href={`https://github.com/${repo.owner}/${repo.name}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`View repository: ${repo.owner}/${repo.name}`}
-          className="hover:underline dark:text-gray-400 text-gray-700"
+          className="hover:underline dark:text-gray-400 text-gray-500"
         >
           {repo.owner}/{repo.name}
         </Link>
@@ -54,7 +52,7 @@ const PullRequestItem: React.FC<PullRequestItemProps> = ({ pr }) => {
         <span>{formatDate(pr.created_at)}</span>
       </div>
     </div>
-  );
+  )
 };
 
 const formatDate = (dateString: string) => {

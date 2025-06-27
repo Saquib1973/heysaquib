@@ -11,12 +11,12 @@ const BlogItem: React.FC<{ blog: any; index: number }> = ({ blog, index }) => {
     <div className="py-1 border-b border-dotted dark:border-gray-600 border-gray-300 last:border-b-0 transition-colors duration-150">
       <Link
         href={`/blogs/${blog.slug}`}
-        className="block font-sans dark:text-gray-200 text-gray-900 max-md:underline max-md:underline-offset-2 hover:underline transition-all truncate"
+        className="block font-sans dark:text-gray-300 text-gray-600 max-md:underline underline-offset-4 hover:underline transition-all truncate decoration-gray-400 dark:decoration-gray-500"
         title={blog.title}
       >
         {blog.title}
       </Link>
-      <div className="mt-1 flex flex-wrap items-center text-sm dark:text-gray-400 text-gray-600 gap-3 font-light">
+      <div className="mt-1 flex flex-wrap items-center text-sm dark:text-gray-400 text-gray-600 gap-3 font-light decoration-gray-400 dark:decoration-gray-500">
         <span className="dark:text-gray-400 text-gray-700">
           Blog Post
         </span>

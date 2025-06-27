@@ -7,6 +7,7 @@ import Tech from '@/components/techstack-home-section'
 import { Link } from 'next-view-transitions'
 import { links } from './about/page'
 import GitHubPRComponent from '@/components/github-pr-component'
+import ContactHomeSection from '@/components/contact-home-section'
 export default function Home() {
   const allowedLinks = ['github', 'linkedin', 'leetcode', 'resume']
   const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
@@ -38,6 +39,7 @@ export default function Home() {
         <Projects />
         <GitHubPRComponent />
         <Blogs />
+        <ContactHomeSection />
         {/* <AudioPlayerComponent /> */}
         {/* <CertificateSection /> */}
       </StaggerAnimation>

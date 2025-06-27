@@ -1,16 +1,22 @@
 'use client'
 import { headerLinks } from '@/lib/header-links'
 import { Link } from 'next-view-transitions'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useAudioPlayer } from '@/context/AudioPlayerContext'
 import Moon from './svg/Moon'
 import Open from './svg/Open'
 import Sun from './svg/Sun'
+import Arrow from './svg/Arrow'
 
 const Header = () => {
   const [theme, setTheme] = useState<string | null>(null)
   const pathname = usePathname()
+  const router = useRouter()
+  const isHomePage = pathname === '/'
+  const isProjectDetailPage = pathname.startsWith('/projects/') && pathname !== '/projects/'
+  const isBlogDetailPage = pathname.startsWith('/blogs/') && pathname !== '/blogs/'
+  const showBackButton = isProjectDetailPage || isBlogDetailPage
   const {
     handlePlayPause,
     isPlaying,
@@ -65,6 +71,10 @@ const Header = () => {
     }
   }
 
+  const handleBackClick = () => {
+    router.back()
+  }
+
   return (
     <div
       className={`flex border-b transition bg-white-1 dark:bg-black-1 ${
@@ -72,30 +82,43 @@ const Header = () => {
       } mb-1 dark:border-black-0 justify-between items-center sticky top-0 left-0 z-50 h-fit font-neue p-3 md:p-4`}
     >
       <div className="flex gap-2 tracking-wide md:gap-4 max-sm:text-sm">
-        {headerLinks.map((link, index) => {
-          return (
-            <Link
-              key={index}
-              href={link.href}
-              target={link.name === 'Resume' ? '_blank' : undefined}
-              className={`flex gap-1 justify-center items-center ${
-                pathname === link.href
-                  ? 'text-yellow-600 dark:text-yellow-4'
-                  : ''
-              }`}
-              title={link.name}
-            >
-              {link.name}
-              {link.name === 'Resume' && !link.logo && <Open />}
-            </Link>
-          )
-        })}
-      </div>{' '}
+        {showBackButton ? (
+          <button
+            onClick={handleBackClick}
+            className="flex items-center gap-2 text-gray-600 dark:text-gray-300"
+            title="Go back"
+          >
+            <Arrow className="-rotate-[135deg] w-5 h-5" />
+            <span className="inline">Back</span>
+          </button>
+        ) : (
+          // Show header links on home page and other static pages
+          headerLinks.map((link, index) => {
+            return (
+              <Link
+                key={index}
+                href={link.href}
+                target={link.name === 'Resume' ? '_blank' : undefined}
+                className={`flex gap-1 justify-center items-center transition-all duration-300 ease-in-out ${
+                  pathname === link.href
+                    ? 'text-yellow-600 dark:text-yellow-4'
+                    : ''
+                }`}
+                title={link.name}
+              >
+                {link.name}
+                {link.name === 'Resume' && !link.logo && <Open />}
+              </Link>
+            )
+          })
+        )}
+      </div>
+
       <div className="flex items-center gap-3">
         {/* Music player toggle button */}
         <button
           onClick={handlePlayerToggle}
-          className={`flex items-center justify-center w-8 h-8 rounded-full transition-colors ${
+          className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ease-in-out transform hover:scale-110 ${
             showPlayer
               ? 'bg-yellow-400 text-black'
               : 'hover:bg-gray-100 dark:hover:bg-gray-800'
@@ -109,7 +132,7 @@ const Header = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={`w-5 h-5 ${
+            className={`w-5 h-5 transition-all duration-300 ${
               isPlaying ? 'text-yellow-600 animate-pulse' : ''
             }`}
           >
@@ -120,8 +143,12 @@ const Header = () => {
             />
           </svg>
         </button>
+
         {/* Theme toggle button */}
-        <button onClick={toggleTheme}>
+        <button
+          onClick={toggleTheme}
+          className="transition-all duration-300 ease-in-out transform hover:scale-110"
+        >
           {theme === 'light' ? <Moon /> : <Sun />}
         </button>
       </div>

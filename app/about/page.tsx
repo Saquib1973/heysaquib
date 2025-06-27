@@ -8,9 +8,8 @@ import Timeline from '@/components/timeline-about'
 import { getDateHelper } from '@/public/utils/helper'
 import Image from 'next/image'
 import Link from 'next/link'
-import FadeInAnimation from './../../components/FadeInAnimation'
-import CertificateSection from './../../components/certificates-section'
-import QuickLinks from '@/components/quick-links-section'
+import FadeInAnimation from '@/components/FadeInAnimation'
+import CertificateSection from '@/components/certificates-section'
 let lastUpdated = null
 export const links = [
   { name: 'github', href: 'https://github.com/Saquib1973', icon: <Github /> },

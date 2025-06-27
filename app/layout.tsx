@@ -5,13 +5,13 @@ import Footer from '@/components/footer-component'
 import Header from '@/components/header-component'
 import { ViewTransitions } from 'next-view-transitions'
 import { Analytics } from '@vercel/analytics/react'
-import { AudioPlayerProvider } from '@/context/AudioPlayerContext'
-import AudioPlayerComponent from '@/components/audio-player-component'
 import MiniAudioPlayer from '@/components/mini-audio-player'
+import ParticleFlowBackground from '@/components/ParticleFlowBackground'
+import ContextWrapper from '@/context/context-wrapper'
 
 export const metadata: Metadata = {
-  title: 'Hey! Saquib ☺️',
-  description: 'Welcome to the portfolio site of Saquib Ali.',
+  title: 'Saquib Ali',
+  description: 'Saquib Ali is a software engineer and a designer.',
   icons: {
     icon: '/assets/logo.png',
   },
@@ -26,16 +26,17 @@ export default function RootLayout({
         <body
           className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} ${neue.variable} font-neue bg-white-1 dark:bg-black-1 dark:text-white antialiased mx-auto max-w-4xl transition`}
         >
-          <AudioPlayerProvider>
+          <ContextWrapper>
             <Analytics />
             <Header />
             <>
               {/* <Starfield /> */}
+              <ParticleFlowBackground />
               {children}
             </>{' '}
             <Footer />
             <MiniAudioPlayer />
-          </AudioPlayerProvider>
+          </ContextWrapper>
         </body>
       </ViewTransitions>
     </html>

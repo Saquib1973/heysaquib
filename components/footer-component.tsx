@@ -1,12 +1,21 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { sendEmail } from '@/public/utils/helper'
-import Link from 'next/link'
 import FadeInAnimation from './FadeInAnimation'
-import Arrow from './svg/Arrow'
+import Link from 'next/link'
+import { Heart, Star } from 'lucide-react'
 
 const Footer = () => {
   const [time, setTime] = useState('')
+  const [visitorCount, setVisitorCount] = useState(0)
+  useEffect(() => {
+    const fetchVisitorCount = async () => {
+      const res = await fetch('/api/visitor?q=count')
+      const data = await res.json()
+      setVisitorCount(data.count)
+    }
+    const interval = setInterval(fetchVisitorCount, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const updateTime = () => {
@@ -27,45 +36,27 @@ const Footer = () => {
   }, [])
 
   return (
-    <div className="py-4 max-md:px-4 footer group">
+    <div className="py-4 px-4 footer group">
       <div className="w-[90%] h-px mx-auto md:group-hover:w-full transition-all mb-6 my-2 dark:bg-black-0 bg-gray-0 duration-500 " />
       <FadeInAnimation>
-        <div className="flex gap-1 gap-y-2 amiko-p py-2 items-center flex-wrap">
-          Contact me{' '}
-          <button
-            onClick={sendEmail}
-            className="flex items-center hover:link-text  underline underline-offset-4 transition"
-          >
-            @saquibali353@gmail.com
-          </button>
-          ,{' '}
-          <Link
-            href={'https://twitter.com/sacubeli'}
-            className="flex items-center transition hover:link-text  underline underline-offset-4"
-          >
-            twitter
-            <Arrow />
-          </Link>
-          or{' '}
-          <Link
-            href={'https://www.linkedin.com/in/saquib-ali-4a3235219/'}
-            className="flex items-center transition hover:link-text underline underline-offset-4"
-          >
-            linkedIn
-            <Arrow />
-          </Link>
-          . Check out my{' '}
-          <Link
-            href={'https://github.com/Saquib1973'}
-            className="flex items-center transition hover:link-text underline underline-offset-4"
-          >
-            github
-            <Arrow />
-          </Link>
-          for more "code".
-        </div>
-        <div className="flex py-0.5 justify-end text-xs md:text-sm items-end text-gray-2">
-          <p className="text-yellow-4">{time}</p>
+        <div className="flex justify-between items-center">
+          <div className="flex gap-2 justify-center items-center">
+            <Link
+              href="https://github.com/Saquib1973/saquib-ali-portfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 dark:text-gray-400 underline-offset-4 underline"
+            >
+              Github
+            </Link>
+          </div>
+
+          <div className="flex py-0.5 text-xs md:text-sm items-center justify-center text-gray-2">
+            <p className="text-gray-500 dark:text-gray-400">{time}</p>
+          </div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            {visitorCount > 1 ? `Visitors : ${visitorCount}` : 'Visitor : 1'}
+          </div>
         </div>
       </FadeInAnimation>
     </div>
