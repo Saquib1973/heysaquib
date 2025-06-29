@@ -8,6 +8,7 @@ import Moon from './svg/Moon'
 import Open from './svg/Open'
 import Sun from './svg/Sun'
 import Arrow from './svg/Arrow'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const Header = () => {
   const [theme, setTheme] = useState<string | null>(null)
@@ -82,21 +83,34 @@ const Header = () => {
       } mb-1 dark:border-black-0 justify-between items-center sticky top-0 left-0 z-50 h-fit font-neue p-3 md:p-4`}
     >
       <div className="flex gap-2 tracking-wide md:gap-4 max-sm:text-sm">
-        {showBackButton ? (
-          <button
+        <AnimatePresence mode='wait'>
+
+        {
+        showBackButton ? (
+
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.5 }}
             onClick={handleBackClick}
             className="flex items-center gap-2 text-gray-600 dark:text-gray-300"
             title="Go back"
           >
             <Arrow className="-rotate-[135deg] w-5 h-5" />
             <span className="inline">Back</span>
-          </button>
+          </motion.button>
         ) : (
-          // Show header links on home page and other static pages
           headerLinks.map((link, index) => {
             return (
-              <Link
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+              <Link
                 href={link.href}
                 target={link.name === 'Resume' ? '_blank' : undefined}
                 className={`flex gap-1 justify-center items-center transition-all duration-300 ease-in-out ${
@@ -109,9 +123,11 @@ const Header = () => {
                 {link.name}
                 {link.name === 'Resume' && !link.logo && <Open />}
               </Link>
+              </motion.div>
             )
           })
         )}
+        </AnimatePresence>
       </div>
 
       <div className="flex items-center gap-3">

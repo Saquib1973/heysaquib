@@ -2,20 +2,11 @@
 import { useEffect, useState } from 'react'
 import FadeInAnimation from './FadeInAnimation'
 import Link from 'next/link'
-import { Heart, Star } from 'lucide-react'
+import { Heart, Star, MessageCircle } from 'lucide-react'
 
 const Footer = () => {
   const [time, setTime] = useState('')
-  const [visitorCount, setVisitorCount] = useState(0)
-  useEffect(() => {
-    const fetchVisitorCount = async () => {
-      const res = await fetch('/api/visitor?q=count')
-      const data = await res.json()
-      setVisitorCount(data.count)
-    }
-    const interval = setInterval(fetchVisitorCount, 1000)
-    return () => clearInterval(interval)
-  }, [])
+  const [isLive, setIsLive] = useState(false)
 
   useEffect(() => {
     const updateTime = () => {
@@ -24,6 +15,8 @@ const Footer = () => {
       const minutes = now.getMinutes().toString().padStart(2, '0')
       const seconds = now.getSeconds().toString().padStart(2, '0')
       const ampm = hours >= 12 ? 'PM' : 'AM'
+
+      setIsLive(hours >= 10 && hours < 22)
 
       hours = hours % 12 || 12
       setTime(`${hours}:${minutes}:${seconds} ${ampm}`)
@@ -35,27 +28,24 @@ const Footer = () => {
     return () => clearInterval(interval)
   }, [])
 
+
   return (
     <div className="py-4 px-4 footer group">
       <div className="w-[90%] h-px mx-auto md:group-hover:w-full transition-all mb-6 my-2 dark:bg-black-0 bg-gray-0 duration-500 " />
       <FadeInAnimation>
-        <div className="flex justify-between items-center">
-          <div className="flex gap-2 justify-center items-center">
-            <Link
-              href="https://github.com/Saquib1973/saquib-ali-portfolio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 dark:text-gray-400 underline-offset-4 underline"
-            >
-              Github
-            </Link>
+        <div className="flex justify-end gap-2 items-center">
+          <div className="flex items-center gap-2">
+            <div
+              className={`w-2 h-2 rounded-full ${
+                isLive
+                  ? 'bg-green-500 animate-pulse shadow-lg shadow-green-500/50'
+                  : 'bg-orange-500 shadow-lg shadow-orange-500/50'
+              }`}
+            />
           </div>
 
           <div className="flex py-0.5 text-xs md:text-sm items-center justify-center text-gray-2">
             <p className="text-gray-500 dark:text-gray-400">{time}</p>
-          </div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">
-            {visitorCount > 1 ? `Visitors : ${visitorCount}` : 'Visitor : 1'}
           </div>
         </div>
       </FadeInAnimation>

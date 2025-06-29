@@ -8,6 +8,7 @@ import { Analytics } from '@vercel/analytics/react'
 import MiniAudioPlayer from '@/components/mini-audio-player'
 import ParticleFlowBackground from '@/components/ParticleFlowBackground'
 import ContextWrapper from '@/context/context-wrapper'
+import ContactHomeSection from '@/components/contact-home-section'
 
 export const metadata: Metadata = {
   title: 'Saquib Ali',
@@ -34,6 +35,7 @@ export default function RootLayout({
               <ParticleFlowBackground />
               {children}
             </>{' '}
+            <ContactHomeSection />
             <Footer />
             <MiniAudioPlayer />
           </ContextWrapper>
