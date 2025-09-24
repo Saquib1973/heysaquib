@@ -77,6 +77,40 @@ const Recall: ProjectInterface = {
   date: 'Jan 2025',
   featured: false,
 }
+const Escape: ProjectInterface = {
+  id: 'escape',
+  name: 'Escape',
+  status: 'live',
+  description: [
+    'Escape: A stress-relief and mindfulness web application developed to help users unwind and recharge.',
+    'Escape offers interactive relaxation activities, guided meditations, and soothing visuals designed for busy professionals and students.',
+    'The platform uses engaging UI, calming animations, and soundscapes to create immersive break sessions.',
+    'Built with NextJS for frontend, styled with TailwindCSS, animated with Framer Motion, and powered by NodeJS and MongoDB on the backend.',
+    'Escape makes it easy to take quick restorative breaks anywhere, on any device.',
+  ],
+  type: ['frontend', 'design', 'backend', 'fullstack'],
+  img: [
+    { src: blogig, text: 'Home Page' },
+    { src: blogig, text: 'Activity Page' },
+    { src: blogig, text: 'Meditation Page' },
+    { src: blogig, text: 'Profile Page' },
+  ],
+  detail:
+    'A cross-platform web application enabling users to relax and recharge through guided meditations, interactive activities, and soothing visuals.',
+  tags: [
+    'NextJS',
+    'MongoDB',
+    'TailwindCSS',
+    'NodeJS',
+    'Typescript',
+    'Framer-Motion',
+  ],
+  link: 'https://escape.sacube.xyz/',
+  git: 'https://github.com/Saquib1973/escape',
+  date: 'July 2025',
+  featured: false,
+}
+
 const Nyaylok: ProjectInterface = {
   id: 'nyaylokSIH',
   name: 'Nyaylok',
@@ -437,6 +471,7 @@ const QuillBot: ProjectInterface = {
   }
 
 export const Projects: ProjectInterface[] = [
+  {...Escape,featured:true},
   {...Recall,featured:true},
   { ...Urlwee,featured:true },
   { ...Vallet,minor:false },
