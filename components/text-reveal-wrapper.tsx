@@ -26,13 +26,13 @@ const TextRevealWrapper = ({ children }: { children: React.ReactNode }) => {
           variants={{
             hidden: {
               opacity: 0,
+              y: 10,
               x: 10,
-              scale: 0.6,
             },
             visible: {
               opacity: 1,
+              y: 0,
               x: 0,
-              scale: 1,
               transition: {
                 duration: 0.5,
                 ease: "easeOut",

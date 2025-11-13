@@ -1,14 +1,9 @@
-import type { Metadata } from 'next'
-import { rampart, amiko, happymonkey, neue } from '../public/utils/fonts'
-import './globals.css'
-import Footer from '@/components/footer-component'
-import Header from '@/components/header-component'
-import { ViewTransitions } from 'next-view-transitions'
-import { Analytics } from '@vercel/analytics/react'
-import MiniAudioPlayer from '@/components/mini-audio-player'
-import ParticleFlowBackground from '@/components/ParticleFlowBackground'
 import ContextWrapper from '@/context/context-wrapper'
-import ContactHomeSection from '@/components/contact-home-section'
+import { Analytics } from '@vercel/analytics/react'
+import type { Metadata } from 'next'
+import { ViewTransitions } from 'next-view-transitions'
+import { amiko, happymonkey, neue, rampart } from '../public/utils/fonts'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Saquib Ali',
@@ -25,19 +20,11 @@ export default function RootLayout({
     <html lang="en">
       <ViewTransitions>
         <body
-          className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} ${neue.variable} font-neue bg-white-1 dark:bg-black-1 dark:text-white antialiased mx-auto max-w-4xl transition`}
+          className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} ${neue.variable} font-neue bg-white-1 dark:bg-black-1 dark:text-white antialiased transition`}
         >
           <ContextWrapper>
             <Analytics />
-            <Header />
-            <>
-              {/* <Starfield /> */}
-              <ParticleFlowBackground />
-              {children}
-            </>{' '}
-            <ContactHomeSection />
-            <Footer />
-            <MiniAudioPlayer />
+            {children}
           </ContextWrapper>
         </body>
       </ViewTransitions>

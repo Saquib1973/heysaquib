@@ -8,10 +8,40 @@ import Moon from './svg/Moon'
 import Open from './svg/Open'
 import Sun from './svg/Sun'
 import Arrow from './svg/Arrow'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, Variants } from 'framer-motion'
+
+const navVariants: Variants = {
+  hidden: { x: '-100%' },
+  visible: {
+    x: 0,
+    transition: {
+      type: 'tween',
+      ease: 'easeInOut',
+      duration: 0.4,
+      staggerChildren: 0.1,
+    },
+  },
+  exit: {
+    x: '-100%',
+    transition: {
+      ease: 'easeInOut',
+      duration: 0.4,
+    },
+  },
+}
+
+const linkVariants: Variants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.4 },
+  },
+}
 
 const Header = () => {
   const [theme, setTheme] = useState<string | null>(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
   const isHomePage = pathname === '/'
@@ -76,13 +106,50 @@ const Header = () => {
     router.back()
   }
 
+  const handleMobileNavigation = (href: string) => {
+    setIsMobileMenuOpen(false)
+    setTimeout(() => {
+      router.push(href)
+    }, 500)
+  }
+
   return (
     <div
       className={`flex border-b transition bg-white-1 dark:bg-black-1 ${
         horizontal > 10 ? 'border-gray-0  ' : 'border-transparent'
       } mb-1 dark:border-black-0 justify-between items-center sticky top-0 left-0 z-50 h-fit font-neue p-3 md:p-4`}
     >
-      <div className="flex gap-2 tracking-wide md:gap-4 max-sm:text-sm">
+      {/* Mobile: show Back on detail pages, hamburger elsewhere */}
+      <div className="md:hidden">
+        {showBackButton ? (
+          <motion.button
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.5 }}
+            onClick={handleBackClick}
+            className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors"
+            title="Go back"
+            aria-label="Go back"
+          >
+            <Arrow className="-rotate-[135deg] w-5 h-5" />
+            <span className="text-sm">Back</span>
+          </motion.button>
+        ) : (
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="flex items-center justify-center w-8 h-8 transition-colors"
+            aria-label="Open menu"
+            title="Open menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        )}
+      </div>
+
+      <div className="flex gap-2 tracking-wide md:gap-4 max-sm:text-sm max-md:hidden">
         <AnimatePresence mode='wait'>
 
         {
@@ -168,6 +235,70 @@ const Header = () => {
           {theme === 'light' ? <Moon /> : <Sun />}
         </button>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            variants={navVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="fixed top-0 left-0 h-screen w-full bg-white-1 dark:bg-black-1 flex flex-col items-start pt-[80px] gap-6 px-6 z-[60] md:hidden"
+          >
+            {/* Close button inside sidebar */}
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute top-4 right-4 flex items-center justify-center w-8 h-8 transition-colors hover:text-gray-800 dark:hover:text-gray-100"
+              aria-label="Close menu"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {showBackButton ? (
+              <motion.button
+                variants={linkVariants}
+                onClick={() => {
+                  setIsMobileMenuOpen(false)
+                  handleBackClick()
+                }}
+                className="text-3xl font-medium hover:text-yellow-600 dark:hover:text-yellow-4 transition-colors flex items-center gap-3"
+              >
+                <Arrow className="-rotate-[135deg] w-6 h-6" />
+                <span>Back</span>
+              </motion.button>
+            ) : (
+              headerLinks.map((link, index) => (
+                <motion.div key={index} variants={linkVariants}>
+                  {link.name === 'Resume' ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-3xl font-medium hover:text-yellow-600 dark:hover:text-yellow-4 transition-colors flex items-center gap-2"
+                    >
+                      {link.name}
+                      <Open />
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => handleMobileNavigation(link.href)}
+                      className={`text-3xl font-medium hover:text-yellow-600 dark:hover:text-yellow-4 transition-colors ${
+                        pathname === link.href ? 'text-yellow-600 dark:text-yellow-4' : ''
+                      }`}
+                    >
+                      {link.name}
+                    </button>
+                  )}
+                </motion.div>
+              ))
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

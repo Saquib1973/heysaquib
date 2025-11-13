@@ -1,14 +1,16 @@
 "use client"
+import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import React from 'react';
 
 interface PenUnderlineProps {
   text: string;
+  className?:string
 }
 
-const PenUnderline = ({ text }: PenUnderlineProps) => {
+const PenUnderline = ({ text,className }: PenUnderlineProps) => {
   return (
-    <div className="inline-block relative">
+    <div className={cn(className,`inline-block relative`)}>
       <span className="relative inline-block">{text}</span>
       <motion.svg
         xmlns="http://www.w3.org/2000/svg"

@@ -1,3 +1,5 @@
+export { default as MomentsHomeSection } from './moments-home-section'
+
 export type ProjectCardType = {
   name: string
   detail: string

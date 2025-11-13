@@ -123,7 +123,7 @@ const AudioPlayerComponent: React.FC<AudioPlayerProps> = () => {
 
   // JSX return statement rendering the Audio Player UI
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="bg-white dark:bg-black rounded-xl shadow-2xl w-full max-w-lg mx-auto">
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-black dark:hover:text-white text-2xl"

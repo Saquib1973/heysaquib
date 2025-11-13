@@ -129,104 +129,202 @@ const MiniAudioPlayer: React.FC = () => {
 
   if (!showExpanded) {
     return (
-      <div
-        className="fixed bottom-6 max-md:rounded-full right-6 z-50 border aspect-square shadow-xl w-full max-w-[100px] md:max-w-[150px] flex flex-col items-center justify-end transition-all duration-300 ease-in-out"
-        style={playerBackgroundStyle}
-      >
-        <div className="flex flex-col items-center justify-center w-full gap-2">
-          <div className="flex items-center justify-center">
-            <button
-              onClick={handlePlayPause}
-              className="p-2 hover:bg-yellow-300 hover:text-black rounded-full shadow transition-colors text-yellow-300"
-              title={isPlaying ? 'Pause' : 'Play'}
-            >
-              {isPlaying ? (
-                <PauseIcon className="size-4" />
-              ) : (
-                <PlayIcon className="size-4" />
-              )}
-            </button>
+      <div className="fixed bottom-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out">
+        <div className="max-w-4xl mx-auto px-4 py-3 bg-white-1 dark:bg-black-1 backdrop-blur-sm">
+          <div className="flex items-center justify-between gap-4">
+            {/* Song Info */}
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <div className="w-12 h-12 rounded-md bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center flex-shrink-0">
+                <span className="text-lg font-bold text-black">
+                  {tracks[currentTrackIndex]?.title?.[0] || '?'}
+                </span>
+              </div>
+              <div className="flex flex-col min-w-0 flex-1">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                  {tracks[currentTrackIndex]?.title || 'Audio Title'}
+                </h3>
+                <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
+                  {tracks[currentTrackIndex]?.artist || 'Person Name'}
+                </p>
+              </div>
+            </div>
+
+            {/* Controls */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handlePrevTrack}
+                className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full transition-colors"
+                title="Previous"
+              >
+                <RewindIcon className="w-4 h-4" />
+              </button>
+              <button
+                onClick={handlePlayPause}
+                className="p-2.5 bg-yellow-300 hover:bg-yellow-400 text-black rounded-full shadow transition-colors"
+                title={isPlaying ? 'Pause' : 'Play'}
+              >
+                {isPlaying ? (
+                  <PauseIcon className="w-5 h-5" />
+                ) : (
+                  <PlayIcon className="w-5 h-5" />
+                )}
+              </button>
+              <button
+                onClick={handleNextTrack}
+                className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full transition-colors"
+                title="Next"
+              >
+                <FastForward className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setShowExpanded(true)}
+                className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full transition-colors ml-2"
+                title="Expand Player"
+              >
+                <ChevronUp className="w-4 h-4" />
+              </button>
+            </div>
           </div>
-          <button
-            onClick={() => setShowExpanded(true)}
-            className={expandCollapseButtonStyle}
-            title="Expand Player"
-          >
-            <ChevronUp className="size-4" />
-          </button>
+
+          {/* Progress Bar */}
+          <div className="mt-2">
+            <div
+              className="relative h-1 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800 cursor-pointer group"
+              onClick={(e) => {
+                const rect = (e.target as HTMLDivElement).getBoundingClientRect()
+                const clickPosition = (e.clientX - rect.left) / rect.width
+                const boundedPosition = Math.max(0, Math.min(1, clickPosition))
+                handleSeek(boundedPosition)
+              }}
+            >
+              <div
+                className="h-full bg-yellow-300 rounded-full transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="flex justify-between text-xs text-gray-500 dark:text-gray-500 mt-1">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div
-      className="fixed border bottom-6 right-6 z-50 shadow-xl flex flex-col items-center min-w-[300px] max-w-sm w-full transition-all duration-300 ease-in-out"
-      style={playerBackgroundStyle}
-    >
-      <div className="flex w-full justify-end items-center mb-4">
-        <button
-          onClick={() => setShowExpanded(false)}
-          className={expandCollapseButtonStyle}
-          title="Collapse Player"
-        >
-          <ChevronDown className="size-4" />
-        </button>
-        <button
-          onClick={closePlayer}
-          className="p-2 rounded-full text-xs text-gray-400 hover:text-white transition-colors"
-          title="Close"
-        >
-          ✕
-        </button>
-      </div>
-      <div className="flex flex-col p-2 items-center w-full transition-all duration-300 ease-in-out">
-        <div className="w-full flex flex-col gap-2">
-          <div className="flex justify-between text-sm text-gray-400 font-mono">
-            <span>{formatTime(currentTime)}</span>
-            <span>{formatTime(duration)}</span>
-          </div>
-          <div
-            className="relative h-2 w-full overflow-hidden rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer group shadow-sm"
-            onClick={(e) => {
-              const rect = (e.target as HTMLDivElement).getBoundingClientRect()
-              const clickPosition = (e.clientX - rect.left) / rect.width
-              const boundedPosition = Math.max(0, Math.min(1, clickPosition))
-              handleSeek(boundedPosition)
-            }}
-          >
-            <div
-              className="h-full bg-yellow-300 rounded-full transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center gap-6 mt-6 justify-center w-full transition-all duration-300 ease-in-out">
-        <PlayerControls
-          onPrev={handlePrevTrack}
-          onPlayPause={handlePlayPause}
-          onNext={handleNextTrack}
-          isPlaying={isPlaying}
-          size="lg"
-        />
-      </div>
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm pt-20">
+      <div className="h-full overflow-y-auto">
+        <div className="min-h-full flex items-start justify-center p-4 md:p-6">
+          <div className="w-full max-w-4xl bg-white dark:bg-gray-900 rounded-lg shadow-2xl">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Now Playing</h2>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setShowExpanded(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+                  title="Minimize"
+                >
+                  <ChevronDown className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={closePlayer}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                  title="Close"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
 
-      {/* Playlist Section */}
-      <div className="w-full mt-6 bg-white dark:bg-black  pt-4">
-        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 px-4">Playlist</h3>
-        <div className="max-h-[220px] overflow-y-auto transition-all duration-200">
-          <div className="flex flex-col">
-            {tracks.map((track, index) => (
-              <PlaylistItem
-                key={track.title + track.artist}
-                title={track.title}
-                artist={track.artist}
-                isActive={index === currentTrackIndex}
-                isPlaying={isPlaying && index === currentTrackIndex}
-                onClick={() => handleTrackSelectWithShow(index)}
-              />
-            ))}
+            {/* Main Content */}
+            <div className="p-6 md:p-8">
+              {/* Album Art / Title */}
+              <div className="flex flex-col items-center mb-8">
+                <div className="w-32 h-32 rounded-lg bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center shadow-lg mb-4">
+                  <span className="text-6xl font-bold text-black">
+                    {tracks[currentTrackIndex]?.title?.[0] || '?'}
+                  </span>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-1">
+                  {tracks[currentTrackIndex]?.title || 'Audio Title'}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 text-center">
+                  {tracks[currentTrackIndex]?.artist || 'Person Name'}
+                </p>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="mb-8">
+                <div
+                  className="relative h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800 cursor-pointer group"
+                  onClick={(e) => {
+                    const rect = (e.target as HTMLDivElement).getBoundingClientRect()
+                    const clickPosition = (e.clientX - rect.left) / rect.width
+                    const boundedPosition = Math.max(0, Math.min(1, clickPosition))
+                    handleSeek(boundedPosition)
+                  }}
+                >
+                  <div
+                    className="h-full bg-yellow-300 rounded-full transition-all"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mt-2">
+                  <span>{formatTime(currentTime)}</span>
+                  <span>{formatTime(duration)}</span>
+                </div>
+              </div>
+
+              {/* Controls */}
+              <div className="flex items-center justify-center gap-4 mb-8">
+                <button
+                  onClick={handlePrevTrack}
+                  className="p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+                  title="Previous"
+                >
+                  <RewindIcon className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={handlePlayPause}
+                  className="p-4 bg-yellow-300 hover:bg-yellow-400 text-black rounded-full shadow-lg transition-colors"
+                  title={isPlaying ? 'Pause' : 'Play'}
+                >
+                  {isPlaying ? (
+                    <PauseIcon className="w-8 h-8" />
+                  ) : (
+                    <PlayIcon className="w-8 h-8" />
+                  )}
+                </button>
+                <button
+                  onClick={handleNextTrack}
+                  className="p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+                  title="Next"
+                >
+                  <FastForward className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Playlist Section */}
+              <div className="border-t border-gray-200 dark:border-gray-800 pt-6">
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 px-2">Playlist</h3>
+                <div className="max-h-[280px] overflow-y-auto">
+                  <div className="flex flex-col gap-1">
+                    {tracks.map((track, index) => (
+                      <PlaylistItem
+                        key={track.title + track.artist}
+                        title={track.title}
+                        artist={track.artist}
+                        isActive={index === currentTrackIndex}
+                        isPlaying={isPlaying && index === currentTrackIndex}
+                        onClick={() => handleTrackSelectWithShow(index)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
