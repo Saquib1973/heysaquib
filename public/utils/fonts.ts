@@ -19,6 +19,15 @@ const amiko = localfont({
   ],
   variable: '--font-amiko',
 })
+const zalando = localfont({
+  src: [
+    {
+      path: '../fonts/ZalandoSansRegular.ttf',
+      weight: '400',
+    },
+  ],
+  variable: '--font-zalando',
+})
 
 const happymonkey = localfont({
   src: [
@@ -39,4 +48,4 @@ const neue = localfont({
   variable: '--font-neue',
 })
 
-export { rampart, amiko, happymonkey, neue }
+export { rampart, amiko, happymonkey, neue , zalando }

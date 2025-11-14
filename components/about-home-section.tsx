@@ -9,8 +9,8 @@ const AboutHomeSection = () => {
     return (
       <div className="flex max-md:flex-col section justify-center items-center px-1 gap-1">
         <Image
-          className="mx-auto aspect-square w-full max-md:hidden -z-10 rounded-sm md:w-44 saquib-image"
-          src="/assets/about-saquib.jpg"
+          className="mx-auto w-full max-md:hidden -z-10 rounded-sm md:w-44 saquib-image"
+          src="/assets/saquib.jpg"
           alt="Saquib Ali PFP"
           width={200}
           height={200}

@@ -75,10 +75,10 @@ const Page = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed w-full h-full inset-0 overflow-hidden select-none flex justify-center items-center bg-white-1 dark:bg-black-1 backdrop-blur-sm z-[1000]"
+            className="fixed w-full h-full inset-0 overflow-hidden select-none flex justify-center items-center bg-primary-1 dark:bg-neutral-1 backdrop-blur-sm z-[1000]"
           >
             <button
-              className="absolute top-4 right-4 z-10 p-2 hover:bg-white-1/10 dark:hover:bg-black-1/10 rounded-full transition-colors"
+              className="absolute top-4 right-4 z-10 p-2 hover:bg-primary-1/10 dark:hover:bg-neutral-1/10 rounded-full transition-colors"
               onClick={() => setImage(null)}
             >
               <Close />
@@ -104,7 +104,7 @@ const Page = () => {
 
                 {/* Desktop Navigation Buttons */}
                 <button
-                  className="absolute left-6 md:left-16 top-1/2 -translate-y-1/2 p-3 hover:bg-white-1/10 dark:hover:bg-black-1/10 rounded-full transition-colors z-[200] hidden md:block"
+                  className="absolute left-6 md:left-16 top-1/2 -translate-y-1/2 p-3 hover:bg-primary-1/10 dark:hover:bg-neutral-1/10 rounded-full transition-colors z-[200] hidden md:block"
                   onClick={() => setImage(image - 1 >= 0 ? image - 1 : image)}
                   disabled={image - 1 < 0}
                 >
@@ -116,7 +116,7 @@ const Page = () => {
                 </button>
 
                 <button
-                  className="absolute right-6 md:right-16 top-1/2 -translate-y-1/2 p-3 hover:bg-white-1/10 dark:hover:bg-black-1/10 rounded-full transition-colors hidden md:block"
+                  className="absolute right-6 md:right-16 top-1/2 -translate-y-1/2 p-3 hover:bg-primary-1/10 dark:hover:bg-neutral-1/10 rounded-full transition-colors hidden md:block"
                   onClick={() =>
                     setImage(
                       image + 1 <= (data?.img?.length ?? 0) - 1
@@ -129,8 +129,8 @@ const Page = () => {
                   <Next
                     className={`${
                       image + 1 <= (data?.img?.length ?? 0) - 1
-                        ? 'text-yellow-4'
-                        : 'text-gray-1'
+                        ? 'text-neutral-4'
+                        : 'text-secondary-1'
                     } w-8 h-8 md:w-10 md:h-10`}
                   />
                 </button>
@@ -138,18 +138,18 @@ const Page = () => {
                 {/* Mobile Navigation Buttons */}
                 <div className="flex justify-center items-center gap-8 mt-6 md:hidden">
                   <button
-                    className="p-4 bg-white-1/10 dark:bg-black-1/10 hover:bg-white-1/20 dark:hover:bg-black-1/20 rounded-full transition-colors"
+                    className="p-4 bg-primary-1/10 dark:bg-neutral-1/10 hover:bg-primary-1/20 dark:hover:bg-neutral-1/20 rounded-full transition-colors"
                     onClick={() => setImage(image - 1 >= 0 ? image - 1 : image)}
                     disabled={image - 1 < 0}
                   >
                     <Next
                       className={`${
-                        image - 1 >= 0 ? 'text-yellow-4' : 'text-gray-1/50'
+                        image - 1 >= 0 ? 'text-neutral-4' : 'text-secondary-1/50'
                       } -rotate-180 w-10 h-10`}
                     />
                   </button>
                   <button
-                    className="p-4 bg-white-1/10 dark:bg-black-1/10 hover:bg-white-1/20 dark:hover:bg-black-1/20 rounded-full transition-colors"
+                    className="p-4 bg-primary-1/10 dark:bg-neutral-1/10 hover:bg-primary-1/20 dark:hover:bg-neutral-1/20 rounded-full transition-colors"
                     onClick={() =>
                       setImage(
                         image + 1 <= (data?.img?.length ?? 0) - 1
@@ -162,8 +162,8 @@ const Page = () => {
                     <Next
                       className={`${
                         image + 1 <= (data?.img?.length ?? 0) - 1
-                          ? 'text-yellow-4'
-                          : 'text-gray-1'
+                          ? 'text-neutral-4'
+                          : 'text-secondary-1'
                       } w-10 h-10`}
                     />
                   </button>
@@ -183,7 +183,7 @@ const Page = () => {
             <p>{data?.detail}</p>
           </div>
         )}
-        <div className="flex justify-end sticky top-[61px] md:top-[69px] z-50 bg-white-1 dark:bg-black-1 md:text-xl px-3 gap-2 py-2  md:py-3">
+        <div className="flex justify-end sticky top-[61px] md:top-[69px] z-50 bg-primary-1 dark:bg-neutral-1 md:text-xl px-3 gap-2 py-2  md:py-3">
           {data?.git && (
             <Link
               target="_blank"

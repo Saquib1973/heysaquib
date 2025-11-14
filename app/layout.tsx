@@ -2,7 +2,7 @@ import ContextWrapper from '@/context/context-wrapper'
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import { ViewTransitions } from 'next-view-transitions'
-import { amiko, happymonkey, neue, rampart } from '../public/utils/fonts'
+import { amiko, happymonkey, neue, rampart,zalando } from '../public/utils/fonts'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <ViewTransitions>
         <body
-          className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} ${neue.variable} font-neue bg-white-1 dark:bg-black-1 dark:text-white antialiased transition`}
+          className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} ${zalando.variable} ${neue.variable} font-zalando bg-white-1 dark:bg-black-1 dark:text-white antialiased transition`}
         >
           <ContextWrapper>
             <Analytics />

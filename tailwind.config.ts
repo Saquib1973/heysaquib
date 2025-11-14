@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         rampart: ['var(--font-rampart)'],
         amiko: ['var(--font-amiko)'],
+        zalando: ['var(--font-zalando)'],
         happymonkey: ['var(--font-happymonkey)'],
         neue: ['var(--font-neue)'],
       },

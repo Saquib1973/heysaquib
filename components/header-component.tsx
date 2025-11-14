@@ -117,7 +117,7 @@ const Header = () => {
     <div
       className={`flex border-b transition bg-white-1 dark:bg-black-1 ${
         horizontal > 10 ? 'border-gray-0  ' : 'border-transparent'
-      } mb-1 dark:border-black-0 justify-between items-center sticky top-0 left-0 z-50 h-fit font-neue p-3 md:p-4`}
+      } mb-1 dark:border-black-0 justify-between items-center sticky top-0 left-0 z-50 h-fit p-3 md:p-4`}
     >
       {/* Mobile: show Back on detail pages, hamburger elsewhere */}
       <div className="md:hidden">
