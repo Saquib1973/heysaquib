@@ -5,6 +5,7 @@ import Experience from '@/components/experience-home-section'
 import GitHubPRComponent from '@/components/github-pr-component'
 import Projects from '@/components/projects-home-section'
 import Tech from '@/components/techstack-home-section'
+import LocationMap from '@/components/location-map'
 import { Link } from 'next-view-transitions'
 import { links } from './about/page'
 export default function Home() {
@@ -37,6 +38,7 @@ export default function Home() {
         <Projects />
         <GitHubPRComponent />
         <Blogs />
+        <LocationMap />
         {/* <CertificateSection /> */}
       </StaggerAnimation>
     </div>
