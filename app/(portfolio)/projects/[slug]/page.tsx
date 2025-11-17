@@ -201,7 +201,7 @@ const Page = () => {
               className="transition link-text flex gap-1 items-center"
             >
               {/* <LinkLogo /> */}
-              Live
+              {data.type.includes("react-native") ? 'Download App' : 'Live Site'}
             </Link>
           )}
         </div>

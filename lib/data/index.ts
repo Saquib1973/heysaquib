@@ -32,6 +32,7 @@ export type ProjectType =
   | 'web3'
   | 'core'
   | 'others'
+  | "react-native"
 
 export interface Experience {
   company: string

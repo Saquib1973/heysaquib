@@ -9,6 +9,7 @@ import { Badge } from './ui/badge'
 import { useRouter } from 'next/navigation'
 import Arrow from './svg/Arrow'
 import TextRevealWrapper from './text-reveal-wrapper'
+import { DownloadIcon } from 'lucide-react'
 const page = () => {
   const featuredProjects: ProjectInterface[] = Projects.filter(
     (project) => project.featured
@@ -30,6 +31,7 @@ const page = () => {
         {featuredProjects.map((project, index) => {
           return (
             <ProjectCard
+              type={project.type}
               key={index}
               index={index}
               id={project.id}
@@ -139,6 +141,7 @@ const ProjectCard = ({
   index,
   tags,
   id,
+  type,
   git: repoLink,
   liveLink,
   date,
@@ -153,7 +156,7 @@ const ProjectCard = ({
     >
       <div
         className={`relative mouse-pointer block h-full group bg-gray-200 dark:bg-black-0`}
-        // tabIndex="0"
+      // tabIndex="0"
       >
         <motion.div
           onClick={() => router.push(`/projects/${id}`)}
@@ -164,23 +167,21 @@ const ProjectCard = ({
               <h3 className="text-xl md:text-2xl flex items-center w-full mb-1">
                 {name}
                 <span
-                  className={`text-sm border ml-4 px-2 max-h-min rounded-md tracking-wide flex items-center gap-1 max-w-fit ${
-                    status === 'live'
-                      ? 'bg-green-50 text-green-500 border-green-500 dark:bg-green-600 dark:text-green-100 dark:border-green-300'
-                      : status === 'building'
+                  className={`text-sm border ml-4 px-2 max-h-min rounded-md tracking-wide flex items-center gap-1 max-w-fit ${status === 'live'
+                    ? 'bg-green-50 text-green-500 border-green-500 dark:bg-green-600 dark:text-green-100 dark:border-green-300'
+                    : status === 'building'
                       ? 'bg-yellow-50 text-yellow-600 border-yellow-600  dark:bg-yellow-600 dark:text-yellow-100 dark:border-yellow-300'
                       : 'bg-red-50 text-red-500 border-red-500  dark:bg-red-600 dark:text-red-100 dark:border-red-300'
-                  }`}
+                    }`}
                 >
                   {status}
                   <span
-                    className={`h-1.5 w-1.5 animate-pulse rounded-full ${
-                      status === 'live'
-                        ? 'bg-green-500'
-                        : status === 'building'
+                    className={`h-1.5 w-1.5 animate-pulse rounded-full ${status === 'live'
+                      ? 'bg-green-500'
+                      : status === 'building'
                         ? 'bg-yellow-600'
                         : 'bg-red-500'
-                    } animate-blink`}
+                      } animate-blink`}
                   />
                 </span>
               </h3>
@@ -221,8 +222,17 @@ const ProjectCard = ({
               className="link-text group"
               href={liveLink}
             >
-              Live
-              <Arrow className="animate-none" />
+              {type.includes("react-native") ?
+                <div className='flex gap-1 items-center justify-center'>
+                  Download
+                  <DownloadIcon className='size-5' />
+                </div> :
+                <div className='flex gap-1'>
+                  Live Site
+                  <Arrow className="animate-none" />
+
+                </div>
+              }
             </Link>
           </div>
         </motion.div>

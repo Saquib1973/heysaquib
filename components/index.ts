@@ -6,6 +6,7 @@ export type ProjectCardType = {
   detail: string
   index: number
   tags?: string[]
+  type: string[]
   id: string
   status?: 'live' | 'building' | 'archived'
   image?: { src: any; text: string }[]

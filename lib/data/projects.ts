@@ -40,6 +40,17 @@ import recalll4 from '@/public/assets/projects/recalll/4.png'
 import recalll5 from '@/public/assets/projects/recalll/5.png'
 import recalll6 from '@/public/assets/projects/recalll/6.png'
 import recalll7 from '@/public/assets/projects/recalll/7.png'
+
+
+// hydrated
+import hydrated1 from "@/public/assets/projects/hydrated/main.jpg"
+import hydrated2 from "@/public/assets/projects/hydrated/daily-goal.jpg"
+import hydrated3 from "@/public/assets/projects/hydrated/history.jpg"
+import hydrated4 from "@/public/assets/projects/hydrated/loading.jpg"
+import hydrated5 from "@/public/assets/projects/hydrated/drink.jpg"
+import hydrated6 from "@/public/assets/projects/hydrated/setting.jpg"
+
+
 //BreakBricks
 import breakbricks1 from "@/public/assets/projects/breakbricks/breakbricks1.gif"
 const Recall: ProjectInterface = {
@@ -75,6 +86,40 @@ const Recall: ProjectInterface = {
   link: 'https://recall.sacube.xyz/',
   git: 'https://github.com/Saquib1973/recall-fe',
   date: 'Jan 2025',
+  featured: false,
+}
+const Hydrated: ProjectInterface = {
+  id: 'hydrated',
+  name: 'Hydrated',
+  status: 'live',
+  description: [
+    'Hydrated: Your Ultimate Water Intake Tracker',
+    'Hydrated is a user-friendly web application designed to help you monitor and improve your daily water intake habits. With an intuitive interface and engaging features, Hydrated makes it easy to stay on top of your hydration goals.',
+    'Built with NextJS for Frontend , tailwindCSS for styling , Framer-Motion for animations ,NodeJS for backend and MongoDB for database. It is on Typescript to ensure type safety and better code quality.',
+    'Users can set daily water intake goals, log their consumption, and view their hydration history through interactive charts and statistics. Hydrated also offers customizable reminders to keep you motivated throughout the day.',
+  ],
+  type: ['frontend', 'design', 'backend', 'fullstack',"react-native"],
+  img: [
+    { src: hydrated1, text: 'Home Page' },
+    { src: hydrated2, text: 'Daily Goal Page' },
+    { src: hydrated3, text: 'History Page' },
+    { src: hydrated4, text: 'Loading Page' },
+    { src: hydrated5, text: 'Drink Page' },
+    { src: hydrated6, text: 'Setting Page' },
+  ],
+  detail:
+    'A web application designed to help users track and improve their daily water intake habits through goal setting, logging, and interactive statistics.',
+  tags: [
+    'NextJS',
+    'MongoDB',
+    'TailwindCSS',
+    'NodeJS',
+    'Typescript',
+    'Framer-Motion',
+  ],
+  link: 'https://github.com/Saquib1973/hydrate-app/releases/download/v1.0.0/hydrated-1.0.0.apk',
+  git: 'https://github.com/Saquib1973/hydrate-app',
+  date: 'October 2025',
   featured: false,
 }
 const Escape: ProjectInterface = {
@@ -471,6 +516,7 @@ const QuillBot: ProjectInterface = {
   }
 
 export const Projects: ProjectInterface[] = [
+  { ...Hydrated,featured:true },
   {...Escape,featured:true},
   {...Recall,featured:true},
   { ...Urlwee,featured:true },
