@@ -1,7 +1,6 @@
 import ContactHomeSection from '@/components/contact-home-section'
 import Footer from '@/components/footer-component'
 import Header from '@/components/header-component'
-import ParticleFlowBackground from '@/components/ParticleFlowBackground'
 
 
 export default function PortfolioLayout({
@@ -11,7 +10,7 @@ export default function PortfolioLayout({
         <div className='mx-auto max-w-4xl '>
             <Header />
             {/* <Starfield /> */}
-            <ParticleFlowBackground />
+            {/* <ParticleFlowBackground /> */}
             {children}
             <ContactHomeSection />
             <Footer />

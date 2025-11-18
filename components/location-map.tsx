@@ -46,7 +46,7 @@ const LocationMap = ({ className = '' }: LocationMapProps) => {
   }
 
   return (
-    <div className={`relative md:my-16 ${className}`}>
+    <div className={`relative md:my-16 max-md:px-4 ${className}`}>
       <Map />
       <div className="mt-3 text-sm text-gray-600 dark:text-gray-400">
         <p>📍 Based in Patna, Bihar, India</p>
