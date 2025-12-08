@@ -14,7 +14,7 @@ const AboutSection = () => {
         {/* Left Column: Text Content */}
         <div className="flex flex-col gap-6 order-2 md:order-1 text-center md:text-left">
           <StaggerItem>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight about">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight about">
               About Me
             </h2>
           </StaggerItem>

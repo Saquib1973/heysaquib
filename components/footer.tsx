@@ -2,8 +2,10 @@
 import Button from "@/components/ui/button"
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, Check, Mail } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { StaggerSection, StaggerItem } from './stagger-section'
+// Import the new isolated component
+import { StatusClock } from './status-clock' 
 
 const CONFIG = {
   email: "saquibali353@gmail.com",
@@ -17,26 +19,7 @@ const CONFIG = {
 }
 
 const Footer = () => {
-  const [timeData, setTimeData] = useState({ time: '', isLive: false })
   const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      const hours = now.getHours()
-      const minutes = now.getMinutes().toString().padStart(2, '0')
-      const ampm = hours >= 12 ? 'PM' : 'AM'
-      const displayHours = hours % 12 || 12
-
-      setTimeData({
-        time: `${displayHours}:${minutes} ${ampm}`,
-        isLive: hours >= 10 && hours < 22
-      })
-    }
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
-  }, [])
 
   const handleCopy = () => {
     navigator.clipboard.writeText(CONFIG.email)
@@ -65,6 +48,7 @@ const Footer = () => {
             <StaggerItem className="flex items-center gap-3 relative">
               <Button
                 variant="outline"
+                size="sm"
                 onClick={handleCopy}
                 className="peer w-[260px]"
               >
@@ -128,18 +112,10 @@ const Footer = () => {
         <StaggerItem>
           <div className="pt-8 border-t border-gray-200 dark:border-gray-800 flex flex-col-reverse md:flex-row justify-between items-center gap-4 text-sm font-amiko text-gray-500 dark:text-gray-400">
             <p>© {new Date().getFullYear()} Saquib Ali. All rights reserved.</p>
-
-            {timeData.time && (
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
-                <span className="relative flex h-2 w-2">
-                  <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${timeData.isLive ? 'bg-green-500' : 'bg-orange-500'}`}></span>
-                  <span className={`relative inline-flex rounded-full h-2 w-2 ${timeData.isLive ? 'bg-green-500' : 'bg-orange-500'}`}></span>
-                </span>
-                <span className="font-mono text-xs text-black dark:text-white min-w-[60px] text-right tabular-nums">
-                  {timeData.time}
-                </span>
-              </div>
-            )}
+            
+            {/* The Isolated Clock Component */}
+            <StatusClock />
+            
           </div>
         </StaggerItem>
       </StaggerSection>

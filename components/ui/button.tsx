@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'link'
-  size?: 'sm' | 'md' | 'lg' | 'icon'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
   isLoading?: boolean
   href?: string
   target?: string
@@ -23,88 +23,122 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   ...props
 }, ref) => {
 
-  // 1. Removed 'rounded' classes for the brutalist look
-  // 2. Added transition for the press effect
-  const baseStyles = "group relative inline-flex items-center justify-center gap-2 font-bold uppercase tracking-wider disabled:opacity-50 disabled:pointer-events-none transition-all duration-300 rounded-md"
+  // 1. CONTAINER (The Wrapper)
+  // Fixes Jitter: We add an invisible pseudo-element (before:) that covers the 
+  // "lifted" area (-4px). When the button moves down on hover, this ghost layer 
+  // stays compliant, keeping the hover state active.
+  const containerClasses = cn(
+    "relative inline-block group",
+    // The invisible hit-box extender:
+    "before:absolute before:top-[-4px] before:left-[-4px] before:w-full before:h-full before:content-[''] before:z-0"
+  )
 
-  const variants = {
+  // 2. SHADOW LAYER (The Background Block)
+  const shadowBase = "absolute inset-0 rounded-md select-none border-2 border-transparent"
+  const shadowVariants = {
+    primary: "bg-black dark:bg-white",
+    secondary: "bg-black dark:bg-yellow-50",
+    outline: "bg-black dark:bg-white", 
+    link: "bg-transparent hidden"
+  }
+
+  // 3. BUTTON LAYER (The Top Interactive Part)
+  const buttonBase = cn(
+    "relative block h-full w-full rounded-md font-bold uppercase tracking-wider",
+    "border-2 transition-all duration-150 ease-in-out", // Snappy transition
+    "disabled:opacity-50 disabled:pointer-events-none",
+    "z-10", // Ensure button is above the ghost layer
+    
+    // THE PHYSICS:
+    // Default: Lifted up (-4px)
+    "translate-x-[-4px] translate-y-[-4px]",
+    
+    // Hover: Presses down (to 0,0)
+    "group-hover:translate-x-0 group-hover:translate-y-0",
+    
+    // Active: Presses down (to 0,0) - redundant but good fallback
+    "active:translate-x-0 active:translate-y-0"
+  )
+
+  const buttonVariants = {
     primary: cn(
-      "bg-white-0 text-black-0 border-2 border-black-0",
-      "dark:bg-black-2 dark:text-white dark:border-white-2",
-      
-      // LIGHT MODE: Black Shadow
-      "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]",
-      
-      // DARK MODE FIX: Pure White Shadow (Matching Secondary)
-      "dark:shadow-[4px_4px_0px_0px] dark:shadow-white-0",
-
-      // HOVER: Press down effect
-      "hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none dark:hover:shadow-none"
+      "bg-white text-black border-black",
+      "dark:bg-zinc-900 dark:text-white dark:border-white",
     ),
-    
     secondary: cn(
-      "bg-yellow-400 text-black border-2 border-black-2 dark:border-black-2",
-      
-      // Shadow remains black here because it contrasts with the Yellow button
-      "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]",
-      
-      // DARK MODE FIX: Pure White Shadow
-      "dark:shadow-[4px_4px_0px_0px] dark:shadow-yellow-50", 
-
-      "hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none dark:hover:shadow-none"
+      "bg-yellow-400 text-black border-black",
+      "dark:bg-yellow-400 dark:border-yellow-100",
     ),
-    
     outline: cn(
-      "bg-transparent text-black border-2 border-black dark:text-white dark:border-white",
-      "hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black",
+      // 1. Background must be solid (White/Black) to hide the shadow layer behind it
+      "bg-white text-black border-black",
+      "dark:bg-zinc-950 dark:text-white dark:border-white",
       
     ),
-    
-    link: "text-black dark:text-white underline-offset-4 hover:underline !p-0 !h-auto shadow-none border-none"
+    link: "text-black dark:text-white hover:underline underline-offset-4 border-none shadow-none !translate-x-0 !translate-y-0 !p-0 bg-transparent"
   }
 
   const sizes = {
-    sm: "h-9 px-4 text-xs",
-    md: "h-12 px-8 text-sm",
-    lg: "h-14 px-10 text-base",
+    xs: "px-3 py-1.5 text-[10px]", 
+    sm: "px-4 py-2 text-xs",
+    md: "px-6 py-3 text-sm", // Adjusted padding slightly for better aspect ratio
+    lg: "px-8 py-4 text-base",
     icon: "h-12 w-12 flex items-center justify-center p-0"
   }
 
   const content = (
-    <>
-      {isLoading && (
-        <Loader2 className="h-4 w-4 animate-spin" />
-      )}
+    <span className="flex items-center justify-center gap-2">
+      {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
       {children}
-    </>
+    </span>
   )
 
-  const combinedClassName = cn(baseStyles, variants[variant], sizes[size], className)
+  // --- RENDER ---
 
-  // RENDER AS LINK
+  // Handle "Link" variant separately (no blocks)
+  if (variant === 'link') {
+    const linkClasses = cn("inline-flex items-center justify-center font-bold uppercase tracking-wider transition-colors", buttonVariants.link, className)
+    if (href) return <Link href={href} target={props.target} className={linkClasses}>{content}</Link>
+    return <button ref={ref} disabled={disabled || isLoading} className={linkClasses} {...props}>{content}</button>
+  }
+
+  // Handle Block Buttons
+  const appliedShadow = shadowVariants[variant]
+  const appliedButton = cn(buttonBase, buttonVariants[variant], sizes[size], className)
+
+  const Wrapper = ({ children }: { children: React.ReactNode }) => (
+    <div className={containerClasses}>
+      <span className={cn(shadowBase, appliedShadow)} />
+      {children}
+    </div>
+  )
+
   if (href) {
     return (
-      <Link
-        href={href}
-        className={cn(combinedClassName, (disabled || isLoading) && "pointer-events-none opacity-50")}
-        target={props.target}
-        aria-disabled={disabled || isLoading}
-      >
-        {content}
-      </Link>
+      <Wrapper>
+        <Link
+          href={href}
+          target={props.target}
+          className={cn(appliedButton, (disabled || isLoading) && "pointer-events-none opacity-50")}
+          aria-disabled={disabled || isLoading}
+        >
+          {content}
+        </Link>
+      </Wrapper>
     )
   }
 
-  // RENDER AS BUTTON
   return (
-    <button
-      ref={ref}
-      disabled={disabled || isLoading}
-      className={combinedClassName}
-      {...props}
-    >
-      {content}
-    </button>
+    <Wrapper>
+      <button
+        ref={ref}
+        disabled={disabled || isLoading}
+        className={appliedButton}
+        {...props}
+      >
+        {content}
+      </button>
+    </Wrapper>
   )
 })
 

@@ -31,15 +31,11 @@ export default function Home() {
           ))}
         </div>
         <ExperienceSection />
-        {/* Skills Section */}
         <TechnologySection />
-        {/* Project */}
         <ProjectsSection />
         <OsContributionSection />
-        {/* <Blogs /> */}
         <LatestBlogsSection />
         <MyLocationSection />
-        {/* <CertificateSection /> */}
       </StaggerAnimation>
     </div>
   )
