@@ -5,7 +5,7 @@ import { Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'link'
+  variant?: 'primary' | 'secondary' | 'outline' | 'link' | 'primary-s' | 'secondary-s' | 'outline-s'
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
   isLoading?: boolean
   href?: string
@@ -23,44 +23,43 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   ...props
 }, ref) => {
 
-  // 1. CONTAINER (The Wrapper)
-  // Fixes Jitter: We add an invisible pseudo-element (before:) that covers the 
-  // "lifted" area (-4px). When the button moves down on hover, this ghost layer 
-  // stays compliant, keeping the hover state active.
+  const isSimple = variant.endsWith('-s')
+
+  // 1. CONTAINER
   const containerClasses = cn(
     "relative inline-block group",
-    // The invisible hit-box extender:
-    "before:absolute before:top-[-4px] before:left-[-4px] before:w-full before:h-full before:content-[''] before:z-0"
+    !isSimple && "before:absolute before:top-[-4px] before:left-[-4px] before:w-full before:h-full before:content-[''] before:z-0"
   )
 
-  // 2. SHADOW LAYER (The Background Block)
+  // 2. SHADOW LAYER
   const shadowBase = "absolute inset-0 rounded-md select-none border-2 border-transparent"
   const shadowVariants = {
     primary: "bg-black dark:bg-white",
     secondary: "bg-black dark:bg-yellow-50",
     outline: "bg-black dark:bg-white", 
-    link: "bg-transparent hidden"
+    link: "hidden",
+    'primary-s': "hidden",
+    'secondary-s': "hidden",
+    'outline-s': "hidden"
   }
 
-  // 3. BUTTON LAYER (The Top Interactive Part)
+  // 3. BUTTON LAYER
   const buttonBase = cn(
-    "relative block h-full w-full rounded-md font-bold uppercase tracking-wider",
-    "border-2 transition-all duration-150 ease-in-out", // Snappy transition
+    "relative block h-full w-full font-bold uppercase tracking-wider",
+    "transition-colors duration-200 ease-in-out", // Changed to transition-colors for simple buttons
     "disabled:opacity-50 disabled:pointer-events-none",
-    "z-10", // Ensure button is above the ghost layer
+    "z-10",
     
-    // THE PHYSICS:
-    // Default: Lifted up (-4px)
-    "translate-x-[-4px] translate-y-[-4px]",
+    // RETRO LIFT PHYSICS (Square buttons)
+    !isSimple && "rounded-md border-2 transition-all translate-x-[-4px] translate-y-[-4px] group-hover:translate-x-0 group-hover:translate-y-0 active:translate-x-0 active:translate-y-0",
     
-    // Hover: Presses down (to 0,0)
-    "group-hover:translate-x-0 group-hover:translate-y-0",
-    
-    // Active: Presses down (to 0,0) - redundant but good fallback
-    "active:translate-x-0 active:translate-y-0"
+    // SIMPLE PILL PHYSICS (Rounded buttons)
+    // REMOVED: hover:scale-105 active:scale-95
+    isSimple && "rounded-full border-0" 
   )
 
   const buttonVariants = {
+    // --- RETRO VARIANTS ---
     primary: cn(
       "bg-white text-black border-black",
       "dark:bg-zinc-900 dark:text-white dark:border-white",
@@ -70,19 +69,42 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "dark:bg-yellow-400 dark:border-yellow-100",
     ),
     outline: cn(
-      // 1. Background must be solid (White/Black) to hide the shadow layer behind it
       "bg-white text-black border-black",
       "dark:bg-zinc-950 dark:text-white dark:border-white",
-      
     ),
-    link: "text-black dark:text-white hover:underline underline-offset-4 border-none shadow-none !translate-x-0 !translate-y-0 !p-0 bg-transparent"
+    
+    // --- SIMPLE VARIANTS ---
+    
+    // 1. Live Site Style (Solid Dark Pill)
+    'primary-s': cn(
+      "bg-gray-900 text-white shadow-lg shadow-black/5",
+      "dark:bg-white dark:text-black",
+      "hover:bg-gray-800 dark:hover:bg-zinc-200"
+    ),
+
+    // 2. Source Code Style (Light Gray Pill)
+    'secondary-s': cn(
+      "bg-gray-100 text-gray-900",
+      "dark:bg-white/10 dark:text-white",
+      "hover:bg-gray-200 dark:hover:bg-white/20"
+    ),
+
+    // 3. Gallery Button Style (Outline Pill)
+    'outline-s': cn(
+      "bg-transparent text-gray-600 border-2 border-gray-200",
+      "dark:text-gray-300 dark:border-white/10",
+      "hover:border-gray-900 hover:text-black",
+      "dark:hover:border-white dark:hover:text-white"
+    ),
+
+    link: "text-black dark:text-white hover:underline underline-offset-4 border-none shadow-none !translate-x-0 !translate-y-0 !p-0 bg-transparent rounded-none"
   }
 
   const sizes = {
     xs: "px-3 py-1.5 text-[10px]", 
     sm: "px-4 py-2 text-xs",
-    md: "px-6 py-3 text-sm", // Adjusted padding slightly for better aspect ratio
-    lg: "px-8 py-4 text-base",
+    md: "px-6 py-3 text-sm",
+    lg: "px-8 py-4 text-sm", 
     icon: "h-12 w-12 flex items-center justify-center p-0"
   }
 
@@ -95,20 +117,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
 
   // --- RENDER ---
 
-  // Handle "Link" variant separately (no blocks)
   if (variant === 'link') {
     const linkClasses = cn("inline-flex items-center justify-center font-bold uppercase tracking-wider transition-colors", buttonVariants.link, className)
     if (href) return <Link href={href} target={props.target} className={linkClasses}>{content}</Link>
     return <button ref={ref} disabled={disabled || isLoading} className={linkClasses} {...props}>{content}</button>
   }
 
-  // Handle Block Buttons
   const appliedShadow = shadowVariants[variant]
   const appliedButton = cn(buttonBase, buttonVariants[variant], sizes[size], className)
 
   const Wrapper = ({ children }: { children: React.ReactNode }) => (
     <div className={containerClasses}>
-      <span className={cn(shadowBase, appliedShadow)} />
+      {!isSimple && <span className={cn(shadowBase, appliedShadow)} />}
       {children}
     </div>
   )

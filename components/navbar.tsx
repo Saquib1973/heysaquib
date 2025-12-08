@@ -280,7 +280,7 @@ const Navbar = () => {
                             animate="open"
                             exit="closed"
                             className="
-                                fixed top-20 left-4 right-4 bottom-auto z-[70]
+                                fixed top-20 left-10 min-w-[350px] bottom-auto z-[70]
                                 w-auto max-w-sm mx-auto
                                 flex flex-col overflow-hidden rounded-[2rem]
                                 shadow-2xl
@@ -316,8 +316,6 @@ const Navbar = () => {
                                             <motion.div key={link.name} variants={linkItemVariants}>
                                                 <Link
                                                     href={link.href}
-                                                    target={link.name === 'Resume' ? '_blank' : undefined}
-                                                    // Explicitly close menu immediately on click to prevent lag
                                                     onClick={() => setIsMobileMenuOpen(false)}
                                                     className={`
                                                         group flex items-center gap-4 text-2xl font-semibold tracking-tight transition-colors
