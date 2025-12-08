@@ -8,18 +8,20 @@ export default function HomePage() {
 
   return (
     <FadeInAnimation className="">
-      <h1 className="rampart-h1 ml-2 my-2">Blogs</h1>
+      <h2 className=" blogs text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
+        Latest Blogs
+      </h2>
+      {/* <h1 className="rampart-h1 ml-2 my-2 blogHeading">Blogs</h1> */}
 
       <div className="grid md:grid-cols-2 p-2 md:px-0">
         {blogs.map((blog, index) => (
           <Link
             key={index}
             href={`/blogs/${blog.slug}`}
-            className={`hover:border-b-yellow-4 group dark:hover:border-b-yellow-4 border border-t-transparent border-r border-l-transparent dark:border-t-transparent dark:border-r dark:border-l-transparent ${
-              index % 2 === 0
+            className={`hover:border-b-yellow-4 group dark:hover:border-b-yellow-4 border border-t-transparent border-r border-l-transparent dark:border-t-transparent dark:border-r dark:border-l-transparent ${index % 2 === 0
                 ? ''
                 : 'border-r-transparent dark:border-r-transparent'
-            } p-6 md:p-4 hover:bg-white-2 transition justify-between group dark:hover:bg-black-2 border-b dark:border-black-0 border-gray-0 flex flex-col gap-2`}
+              } p-6 md:p-4 hover:bg-white-2 transition justify-between group dark:hover:bg-black-2 border-b dark:border-black-0 border-gray-0 flex flex-col gap-2`}
           >
             <div>
               <div className="w-full txt flex items-end gap-1">

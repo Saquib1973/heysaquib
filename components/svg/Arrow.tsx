@@ -8,7 +8,7 @@ const Arrow = ({ className }: { className?: string }) => {
       <svg
         stroke="currentColor"
         fill="none"
-        className={cn(`inline mb-0.5 animate-pulse`, className)}
+        className={cn(`inline mb-0.5`, className)}
         strokeWidth="2"
         viewBox="0 0 24 24"
         strokeLinecap="round"

@@ -1,66 +1,68 @@
 'use client'
 
 import { useEffect } from 'react'
-import { MapContainer, TileLayer, Circle, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 
-// Fix for default marker icon
-delete (L.Icon.Default.prototype as any)._getIconUrl
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-})
-
 const LocationMapClient = () => {
-  // Approximate coordinates for Anisabad area, Patna (not exact address)
-  const position: [number, number] = [25.6093, 85.1376]
-  const radius = 1500 // 1.5km radius to show general area
+  const patnaPosition: L.LatLngTuple = [25.6093, 85.1376]
 
+  // Minimal "Pulsing Dot" Marker (Tailwind only)
+  const pulseIcon = L.divIcon({
+    className: '', 
+    html: `
+      <div class="relative flex size-3 rounded-full">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+        <span class="relative inline-flex size-3 bg-primary border-2 rounded-full border-white dark:border-zinc-900"></span>
+      </div>
+    `,
+    iconSize: [16, 16],
+    iconAnchor: [8, 8], 
+    popupAnchor: [0, -10],
+  })
+
+  // Cleanup to prevent "Map already initialized" errors
   useEffect(() => {
-    // Cleanup function to prevent double initialization
     return () => {
-      const containers = document.querySelectorAll('.leaflet-container')
-      containers.forEach((container) => {
-        if ((container as any)._leaflet_id) {
-          ;(container as any)._leaflet_id = undefined
-        }
-      })
+      const container = document.getElementsByClassName('leaflet-container')[0] as HTMLElement
+      if (container && (container as any)._leaflet_id) {
+        (container as any)._leaflet_id = null
+      }
     }
   }, [])
 
   return (
-    <div className="w-full h-[300px] md:h-[400px] rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-lg">
+    <div className="h-full w-full 
+      /* TAILWIND MAP FILTERS: */
+      [&_.leaflet-tile-pane]:grayscale [&_.leaflet-tile-pane]:contrast-[1.1] 
+      dark:[&_.leaflet-tile-pane]:invert dark:[&_.leaflet-tile-pane]:hue-rotate-180 dark:[&_.leaflet-tile-pane]:brightness-75 dark:[&_.leaflet-tile-pane]:contrast-[1.2]
+      /* Hide default attribution for cleaner look */
+      [&_.leaflet-control-attribution]:hidden
+    ">
       <MapContainer
-        center={position}
-        zoom={13}
+        key="patna-map"
+        center={patnaPosition}
+        zoom={3} // Zoomed into Patna city level
         scrollWheelZoom={false}
-        className="w-full h-full"
-        style={{ height: '100%', width: '100%' }}
+        dragging={true}
+        doubleClickZoom={false}
+        
+        zoomControl={false} // Clean look, no buttons
+        className="h-full w-full outline-none z-10"
+        style={{ background: 'transparent' }}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Circle
-          center={position}
-          radius={radius}
-          pathOptions={{
-            color: '#FFB300',
-            fillColor: '#FFC107',
-            fillOpacity: 0.3,
-            weight: 2,
-          }}
-        >
-          <Popup>
-            <div className="text-center">
-              <p className="font-semibold text-lg">📍 Patna, Bihar</p>
-              <p className="text-sm text-gray-600">Anisabad Area</p>
-              <p className="text-xs text-gray-500 mt-1">India</p>
+        
+        <Marker position={patnaPosition} icon={pulseIcon}>
+          <Popup className="[&_.leaflet-popup-content-wrapper]:!bg-primary [&_.leaflet-popup-content-wrapper]:!p-0 [&_.leaflet-popup-content-wrapper]:!overflow-hidden">
+            <div className="px-3 py-2 text-xs font-bold text-gray-800">
+              Patna 
             </div>
           </Popup>
-        </Circle>
+        </Marker>
       </MapContainer>
     </div>
   )

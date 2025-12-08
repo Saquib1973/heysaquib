@@ -1,0 +1,78 @@
+Here is a blog post following the exact structure and metadata format you provided, but focused on a specific technical topic (React Server Components) rather than an "About Me" introduction.
+
+-----
+
+## title: "Why React Server Components Change Everything" description: "A deep dive into how RSCs are reshaping web development and reducing bundle sizes." slug: "react-server-components" date: "2025-02-15" author: "Saquib" image: "/server-components.webp" readingTime: "8 minutes"
+
+## The Shift in Mental Models
+
+If you have been working with **React** for the last few years, you are used to the standard flow: fetch data on the client (or via `getServerSideProps`), hydrate the page, and manage state.
+
+With the introduction of **React Server Components (RSC)**, specifically in frameworks like **Next.js App Router**, the paradigm has shifted. It is no longer just about "Server vs. Client" rendering; it is about **hybrid composition**.
+
+## What Problem Does It Solve? 🧩
+
+In traditional SPA (Single Page Application) architecture, the browser had to download the JavaScript for **every** component, even static ones.
+
+RSCs solve two main issues:
+
+1.  **Large Bundle Sizes:** Components that don't need interactivity (like a blog post body or a sidebar) never get sent to the browser as JavaScript.
+2.  **Waterfalls:** Instead of a chain of `useEffect` calls fetching data component-by-component, the server resolves data dependencies before the response even starts.
+
+## Server vs. Client Components ⚖️
+
+One of the biggest hurdles when adopting RSC is knowing **when** to use which. Here is my general rule of thumb:
+
+### Use Server Components When:
+
+  - You are fetching data from a database or API.
+  - You need to keep sensitive data (API keys) on the server.
+  - The UI is static and requires no user interaction (clicks, inputs).
+  - You want to reduce the client-side JavaScript bundle.
+
+### Use Client Components When:
+
+  - You need interactivity and event listeners (`onClick`, `onChange`).
+  - You need React Hooks (`useState`, `useEffect`, `useReducer`).
+  - You are using browser-only APIs (like `localStorage` or `window`).
+
+## Code Example 💻
+
+Here is a quick look at how clean data fetching becomes in a Server Component. No `useEffect`, no loading states—just `async/await`.
+
+```tsx
+// app/users/page.tsx (Server Component by default)
+import { db } from "@/lib/db";
+
+export default async function UsersPage() {
+  const users = await db.user.findMany();
+
+  return (
+    <main className="p-4">
+      <h1 className="text-2xl font-bold">User List</h1>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id} className="p-2 border-b">
+            {user.name}
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+}
+```
+
+## The Verdict 🚀
+
+Moving to Server Components feels like a return to the simplicity of PHP or Rails, but with the modern interactivity of React. While the learning curve for the **Next.js App Router** can be steep, the performance benefits are undeniable.
+
+I am currently refactoring my portfolio to fully utilize RSCs, and the lighthouse scores have improved significantly.
+
+### 🔗 Resources
+
+[Next.js Documentation](https://nextjs.org/docs)
+[React Team Blog](https://react.dev/blog)
+
+-----
+
+If you enjoyed this deep dive, check back next week where I will discuss **optimizing database queries with Prisma\!**

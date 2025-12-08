@@ -14,7 +14,35 @@
   box-sizing: border-box;
 }
 
+/* globals.css */
+
+/* 1. Make the map Black & White (Subtle) */
+.map-tiles {
+  filter: grayscale(100%) contrast(105%);
+}
+/* Dark Mode: Dark Grey Map */
+.dark .map-tiles {
+  filter: invert(100%) hue-rotate(180deg) brightness(75%) contrast(110%);
+}
+
+/* 2. Remove default Leaflet clutter */
+.leaflet-container {
+  background: transparent !important; /* Prevents white flash */
+}
+
+/* 3. Minimal Popup */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px !important;
+  padding: 4px !important;
+}
+.leaflet-popup-tip {
+  background: white;
+}
+
 @layer utilities {
+  .animate-mode {
+    @apply transition-colors duration-500;
+  }
   .hscreen {
     @apply min-h-[calc(100vh-235px)];
   }
@@ -145,8 +173,8 @@
   view-transition-name: saquib;
 }
 
-.blogTitle {
-  view-transition-name: blogTitle;
+.blogHeading {
+  view-transition-name: blogHeading;
 }
 
 .footer {
@@ -163,6 +191,10 @@
 
 .about {
   view-transition-name: about;
+}
+
+.footer {
+  view-transition-name: footer;
 }
 
 

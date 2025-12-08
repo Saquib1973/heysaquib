@@ -1,11 +1,11 @@
 import StaggerAnimation from '@/components/StaggerAnimation'
-import AboutHomeSection from '@/components/about-home-section'
-import Blogs from '@/components/blogs-home-section'
-import Experience from '@/components/experience-home-section'
-import GitHubPRComponent from '@/components/github-pr-component'
-import Projects from '@/components/projects-home-section'
-import Tech from '@/components/techstack-home-section'
-import LocationMap from '@/components/location-map'
+import AboutSection from '@/components/about-section'
+import ExperienceSection from '@/components/experience-section'
+import LatestBlogsSection from '@/components/latest-blogs-section'
+import MyLocationSection from '@/components/my-location-section'
+import OsContributionSection from '@/components/os-contribution-section'
+import ProjectsSection from '@/components/projects-section'
+import TechnologySection from '@/components/technology-section'
 import { Link } from 'next-view-transitions'
 import { links } from './about/page'
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="">
       <StaggerAnimation>
-        <AboutHomeSection />
+        <AboutSection />
         <div className="flex text-light justify-end items-center pr-10 gap-1">
           {updatedLinks.map((link, index) => (
             <div key={index} className="cursor-pointer">
@@ -30,15 +30,15 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="w-[80%] mt-8 mb-2 max-md:hidden h-[1px] dark:bg-gray-800 bg-gray-200 mx-auto" />
-        <Experience />
+        <ExperienceSection />
         {/* Skills Section */}
-        <Tech />
+        <TechnologySection />
         {/* Project */}
-        <Projects />
-        <GitHubPRComponent />
-        <Blogs />
-        <LocationMap />
+        <ProjectsSection />
+        <OsContributionSection />
+        {/* <Blogs /> */}
+        <LatestBlogsSection />
+        <MyLocationSection />
         {/* <CertificateSection /> */}
       </StaggerAnimation>
     </div>

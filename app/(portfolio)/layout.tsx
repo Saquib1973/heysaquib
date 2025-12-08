@@ -1,6 +1,5 @@
-import ContactHomeSection from '@/components/contact-home-section'
-import Footer from '@/components/footer-component'
-import Header from '@/components/header-component'
+import Footer from '@/components/footer'
+import Navbar from '@/components/navbar'
 
 
 export default function PortfolioLayout({
@@ -8,11 +7,8 @@ export default function PortfolioLayout({
 }: Readonly<{ children: React.ReactNode }>) {
     return (
         <div className='mx-auto max-w-4xl '>
-            <Header />
-            {/* <Starfield /> */}
-            {/* <ParticleFlowBackground /> */}
+            <Navbar />
             {children}
-            <ContactHomeSection />
             <Footer />
         </div>
     )

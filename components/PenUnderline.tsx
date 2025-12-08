@@ -1,14 +1,15 @@
 "use client"
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { delay, motion } from 'framer-motion';
 import React from 'react';
 
 interface PenUnderlineProps {
   text: string;
   className?:string
+  delay?:number
 }
 
-const PenUnderline = ({ text,className }: PenUnderlineProps) => {
+const PenUnderline = ({ text,className, delay }: PenUnderlineProps) => {
   return (
     <div className={cn(className,`inline-block relative`)}>
       <span className="relative inline-block">{text}</span>
@@ -17,7 +18,7 @@ const PenUnderline = ({ text,className }: PenUnderlineProps) => {
         width="100%"
         height="12"
         viewBox="0 0 100 12"
-        className="absolute -bottom-2 left-0 w-full"
+        className="absolute -bottom-0 left-0 w-full"
         preserveAspectRatio="none"
       >
         <motion.path
@@ -30,8 +31,9 @@ const PenUnderline = ({ text,className }: PenUnderlineProps) => {
           whileInView={{ pathLength: 1 }}
           viewport={{ once: true }}
           transition={{
-            duration: 1.2,
-            ease: "easeOut"
+            duration: 1.5,
+            delay:delay || 0,
+            ease: "easeInOut"
           }}
         />
       </motion.svg>

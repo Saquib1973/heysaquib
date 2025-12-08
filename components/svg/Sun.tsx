@@ -10,7 +10,7 @@ const Sun = () => {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"
-      className={`size-9 dark:text-gray-1 hover:shadow-inner transition p-1.5 border border-transparent hover:border-yellow-4 active:animate-spin rounded-full`}
+      className={`size-9 dark:text-gray-1 hover:shadow-inner transition p-1.5 border border-transparent  active:animate-spin rounded-full`}
     >
       <motion.path
         strokeLinecap="round"

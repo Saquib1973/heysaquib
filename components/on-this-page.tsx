@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import parse from 'html-react-parser'
 
 interface Heading {
   text: string | null

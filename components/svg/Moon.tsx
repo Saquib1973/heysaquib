@@ -10,7 +10,7 @@ const Moon = () => {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"
-      className="size-9  bg-white-1 fill-white-0 transition text-gray-2 border-transparent p-1.5 hover:border-yellow-4 border rounded-full"
+      className="size-9 fill-white-0 transition text-gray-2 border-transparent p-1.5 border rounded-full"
     >
       <motion.path
         strokeLinecap="round"
