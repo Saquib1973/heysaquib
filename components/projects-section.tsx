@@ -37,7 +37,7 @@ const ProjectCard = ({
         onClick={() => router.push(`/projects/${project.id}`)}
         className={`
           relative h-full flex flex-col justify-between
-          bg-white dark:bg-black border border-gray-200 dark:border-white/10 rounded-2xl p-6
+          bg-white-0 dark:bg-black-2 border border-gray-200 dark:border-white/10 rounded-2xl p-6
           cursor-pointer transition-all duration-300 ease-out
           
           /* The Retro "Lift" Effect */
@@ -51,7 +51,7 @@ const ProjectCard = ({
           {/* 1. Header: Status & Date */}
           <div className="flex items-center justify-between">
             <div className={`
-              px-2.5 py-1 rounded-md border text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5
+              px-2.5 py-1 rounded-xl border text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5
               ${getStatusColor(project.status || 'building')}
             `}>
               <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${project.status === 'live' ? 'bg-green-500' : 'bg-yellow-500'}`} />

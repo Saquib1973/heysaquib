@@ -30,6 +30,6 @@ export const headerLinks: HeaderLink[] = [
   },
   {
     name: 'Resume',
-    href: '/resume',
+    href: 'https://drive.google.com/file/d/1uy_pExXcnC35CJEACcN3DfigwJPFtd_o/view',
   },
 ]

@@ -2,7 +2,7 @@
 
 import { headerLinks } from '@/lib/header-links'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { ArrowRight, Menu, X } from 'lucide-react'
 import { Link } from 'next-view-transitions'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -70,8 +70,6 @@ const MobileThemeToggle = ({ theme, toggleTheme }: { theme: string | null, toggl
 
 // --- 2. ANIMATION CONFIGURATION ---
 
-// Optimized: We do NOT animate 'filter' (blur) as it causes lag. 
-// We animate Opacity + Scale for 60fps performance.
 const menuContainerVariants: Variants = {
     closed: {
         opacity: 0,
@@ -79,7 +77,7 @@ const menuContainerVariants: Variants = {
         y: 10,
         transition: {
             duration: 0.2,
-            ease: "easeInOut" // Fast exit
+            ease: "easeInOut"
         }
     },
     open: {
@@ -88,7 +86,7 @@ const menuContainerVariants: Variants = {
         y: 0,
         transition: {
             duration: 0.4,
-            ease: [0.16, 1, 0.3, 1], // "Apple-like" smooth entry
+            ease: [0.16, 1, 0.3, 1],
             staggerChildren: 0.05,
             delayChildren: 0.05
         }
@@ -97,8 +95,8 @@ const menuContainerVariants: Variants = {
 
 const linkItemVariants: Variants = {
     closed: { x: -10, opacity: 0 },
-    open: { 
-        x: 0, 
+    open: {
+        x: 0,
         opacity: 1,
         transition: { duration: 0.3, ease: "easeOut" }
     }
@@ -114,12 +112,11 @@ const Navbar = () => {
     const pathname = usePathname()
     const router = useRouter()
 
-    const showBackButton = (pathname.startsWith('/projects/') && pathname !== '/projects/') || 
-                           (pathname.startsWith('/blogs/') && pathname !== '/blogs/')
+    const showBackButton = (pathname.startsWith('/projects/') && pathname !== '/projects/') ||
+        (pathname.startsWith('/blogs/') && pathname !== '/blogs/')
 
     const resumeLink = headerLinks.find(link => link.name === 'Resume')
 
-    // Initialize Theme
     useEffect(() => {
         const currTheme = localStorage.getItem('sacube.theme') ?? 'light'
         setTheme(currTheme)
@@ -133,19 +130,16 @@ const Navbar = () => {
         document.documentElement.classList.toggle('dark', newTheme === 'dark')
     }
 
-    // Scroll Listener
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20)
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    // Lock Body Scroll
     useEffect(() => {
         if (isMobileMenuOpen) {
             document.body.style.overflow = 'hidden'
         } else {
-            // Small timeout allows exit animation to finish before unlocking
             const timer = setTimeout(() => { document.body.style.overflow = 'unset' }, 300)
             return () => clearTimeout(timer)
         }
@@ -165,7 +159,12 @@ const Navbar = () => {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5, ease: "circOut" }}
             >
-                <div className="max-w-5xl mx-auto px-4 md:px-0 h-14 flex items-center justify-between">
+                {/* UPDATED LAYOUT LOGIC:
+                   1. `justify-between` keeps mobile layout separated (Menu Left / Empty Right).
+                   2. `md:justify-start` forces desktop items to stack to the left.
+                   3. `md:gap-6` adds spacing between the Back Button/Controls and the Nav Links.
+                */}
+                <div className="max-w-5xl mx-auto px-4 md:px-0 h-14 flex items-center justify-between md:justify-start md:gap-6">
 
                     {/* Left: Controls */}
                     <div className="flex items-center gap-3">
@@ -213,6 +212,7 @@ const Navbar = () => {
                     </div>
 
                     {/* Center: Desktop Nav */}
+                    {/* Now sits naturally next to the Left Controls because of md:justify-start */}
                     <nav className="hidden md:flex items-center gap-1">
                         {!showBackButton && headerLinks.map((link) => {
                             const isActive = pathname === link.href
@@ -245,14 +245,15 @@ const Navbar = () => {
                         })}
                     </nav>
 
-                    {/* Right: Desktop Theme Toggle (Icon Only) */}
-                    <div className="hidden md:block">
+                    {/* Right: Desktop Theme Toggle */}
+                    {/* Added `ml-auto` to push this specific element to the far right */}
+                    <div className="hidden md:block ml-auto">
                         <button
                             onClick={toggleTheme}
                             className="rounded-full  hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
                             aria-label="Toggle Theme"
                         >
-                           <ThemeToggleIcon theme={theme} size={20} />
+                            <ThemeToggleIcon theme={theme} size={20} />
                         </button>
                     </div>
                 </div>
@@ -280,7 +281,7 @@ const Navbar = () => {
                             animate="open"
                             exit="closed"
                             className="
-                                fixed top-20 left-10 min-w-[350px] bottom-auto z-[70]
+                                fixed top-20 left-4 right-8 bottom-auto z-[70]
                                 w-auto max-w-sm mx-auto
                                 flex flex-col overflow-hidden rounded-[2rem]
                                 shadow-2xl
@@ -290,15 +291,11 @@ const Navbar = () => {
                                 md:hidden will-change-transform
                             "
                         >
-                            {/* Inner Gradient for Depth */}
                             <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent dark:from-white/5 dark:to-transparent pointer-events-none" />
 
                             <div className="relative z-10 flex flex-col p-6">
                                 {/* Menu Header */}
                                 <div className="flex items-center justify-between mb-8">
-                                    <span className="text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400">
-                                        Navigation
-                                    </span>
                                     <button
                                         onClick={() => setIsMobileMenuOpen(false)}
                                         className="p-2 -mr-2 rounded-full bg-white/20 dark:bg-white/5 hover:bg-white/40 dark:hover:bg-white/10 transition-colors"
@@ -325,19 +322,15 @@ const Navbar = () => {
                                                         }
                                                     `}
                                                 >
-                                                    {/* Yellow Dash Indicator */}
                                                     {isActive && (
                                                         <motion.div
                                                             layoutId="mobile-indicator"
-                                                            className="h-1 w-6 rounded-full bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.6)]"
-                                                        />
+                                                            className="p-1 rounded-full text-white dark:text-black bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.6)]"
+                                                        >
+                                                            <ArrowRight />
+                                                        </motion.div>
                                                     )}
-                                                    
                                                     <span>{link.name}</span>
-                                                    
-                                                    {link.name === 'Resume' && (
-                                                        <Open className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity mt-1" />
-                                                    )}
                                                 </Link>
                                             </motion.div>
                                         )
@@ -345,7 +338,7 @@ const Navbar = () => {
                                 </div>
 
                                 {/* Mobile Theme Toggle (Pill) */}
-                                <motion.div 
+                                <motion.div
                                     variants={linkItemVariants}
                                     className="pt-6 mt-2 border-t border-gray-200/20 dark:border-white/10"
                                 >

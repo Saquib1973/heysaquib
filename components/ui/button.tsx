@@ -35,7 +35,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const shadowBase = "absolute inset-0 rounded-md select-none border-2 border-transparent"
   const shadowVariants = {
     primary: "bg-black dark:bg-white",
-    secondary: "bg-black dark:bg-yellow-50",
+    secondary: "bg-black dark:bg-zinc-700",
     outline: "bg-black dark:bg-white", 
     link: "hidden",
     'primary-s': "hidden",
@@ -66,7 +66,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     ),
     secondary: cn(
       "bg-yellow-400 text-black border-black",
-      "dark:bg-yellow-400 dark:border-yellow-100",
+      "dark:bg-yellow-400 dark:border-black-2",
     ),
     outline: cn(
       "bg-white text-black border-black",
@@ -84,9 +84,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
 
     // 2. Source Code Style (Light Gray Pill)
     'secondary-s': cn(
-      "bg-gray-100 text-gray-900",
+      "bg-gray-200/90 text-gray-900",
       "dark:bg-white/10 dark:text-white",
-      "hover:bg-gray-200 dark:hover:bg-white/20"
+      "hover:bg-gray-200 dark:hover:bg-white/15"
     ),
 
     // 3. Gallery Button Style (Outline Pill)

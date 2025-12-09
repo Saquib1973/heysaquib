@@ -1,5 +1,16 @@
-import type { Experience } from '.';
-import Link from 'next/link';
+import Link from 'next/link'
+import React from 'react'
+
+export interface Experience {
+  company: string
+  role: string
+  duration: string
+  location: string
+  content: React.ReactNode
+  technologies: string[]
+  website?: string
+  images?: { src: string; alt: string }[]
+}
 
 export const experiences: Experience[] = [
   {
@@ -9,10 +20,10 @@ export const experiences: Experience[] = [
     location: 'Australia (Remote)',
     content: (
       <div>
-        <ul className="list-disc list-inside space-y-1 mb-3">
+        <ul className="list-disc list-inside space-y-2 mb-3">
           <li>
             Built a crypto on-ramping platform{' '}
-            <Link href="https://amsa-fintech.vercel.app/" className="link-text">
+            <Link href="https://amsa-fintech.vercel.app/" target="_blank" className="text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-600">
               amsafintech.com
             </Link>{' '}
             for Amsa Fintech, using Next.js and TypeScript.
@@ -73,10 +84,10 @@ export const experiences: Experience[] = [
     location: 'Remote',
     content: (
       <div className="">
-        <ul className="list-disc list-inside space-y-1 mb-3">
+        <ul className="list-disc list-inside space-y-2 mb-3">
           <li>
             Contributed to the development of{' '}
-            <Link href="https://beasportsai.com" className="link-text">
+            <Link href="https://beasportsai.com" target="_blank" className="text-black dark:text-white underline underline-offset-4 decoration-gray-300 dark:decoration-gray-600">
               beasportsai.com
             </Link>{' '}
             a football SaaS platform, by developing key features, including the

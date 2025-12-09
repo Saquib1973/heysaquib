@@ -8,6 +8,7 @@ import ProjectsSection from '@/components/projects-section'
 import TechnologySection from '@/components/technology-section'
 import { Link } from 'next-view-transitions'
 import { links } from './about/page'
+import Footer from '@/components/footer'
 export default function Home() {
   const allowedLinks = ['github', 'linkedin', 'leetcode', 'resume']
   const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
@@ -16,7 +17,7 @@ export default function Home() {
     <div className="">
       <StaggerAnimation>
         <AboutSection />
-        <div className="flex text-light justify-end items-center pr-10 gap-1">
+        <div className="flex text-light justify-end items-center border-b border-zinc-200 dark:border-zinc-800 pb-12 pr-10 gap-1">
           {updatedLinks.map((link, index) => (
             <div key={index} className="cursor-pointer">
               <Link
@@ -36,6 +37,7 @@ export default function Home() {
         <OsContributionSection />
         <LatestBlogsSection />
         <MyLocationSection />
+        <Footer />
       </StaggerAnimation>
     </div>
   )

@@ -53,6 +53,41 @@ import hydrated6 from "@/public/assets/projects/hydrated/setting.jpg"
 
 //BreakBricks
 import breakbricks1 from "@/public/assets/projects/breakbricks/breakbricks1.gif"
+
+
+import diaryof1 from "@/public/assets/projects/diaryof/landing-page.png"
+
+const DiaryOf: ProjectInterface = {
+  id: 'diaryof',
+  name: 'DiaryOf',
+  status: 'building',
+  description: [
+    'DiaryOf: A seamless cross-platform journaling ecosystem.',
+    'Currently under active development, DiaryOf bridges the gap between mobile and web. It allows users to document their daily lives, track moods, and save memories via a React Native mobile app and a comprehensive Next.js web dashboard.',
+    'The platform ensures real-time synchronization across devices using a robust Node.js backend. Key features include rich text editing, secure cloud backup, and media attachments.',
+    'Designed with a focus on privacy and user experience, ensuring your personal thoughts remain secure and accessible only to you.',
+  ],
+  type: ['fullstack', 'backend', 'frontend', 'react-native', 'design'],
+  // usage of 'null' for src if you don't have images yet, otherwise import them
+  img: [
+    { src: diaryof1, text: 'Landing Page' }, 
+  ],
+  detail:
+    'A cross-platform journaling solution featuring a React Native mobile app and Next.js web client, powered by a unified Node.js backend for seamless synchronization.',
+  tags: [
+    'NodeJS',
+    'React Native',
+    'NextJS',
+    'TypeScript',
+    'MongoDB',
+    'Express',
+  ],
+  link: '', // Leave empty if not deployed yet
+  git: 'https://github.com/Saquib1973/diaryof', // Update with actual repo link
+  date: 'March 2025',
+  featured: true,
+}
+
 const Recall: ProjectInterface = {
   id: 'recalll',
   name: 'Recalll',
@@ -516,6 +551,7 @@ const QuillBot: ProjectInterface = {
   }
 
 export const Projects: ProjectInterface[] = [
+  { ...DiaryOf,featured:true },
   { ...Hydrated,featured:true },
   {...Escape,featured:true},
   {...Recall,featured:true},

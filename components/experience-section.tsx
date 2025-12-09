@@ -1,214 +1,253 @@
 'use client'
 
 import { experiences } from '@/lib/data/experience'
-import Link from 'next/link'
+import { ArrowUpRight, Eye, X } from 'lucide-react'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { StaggerItem, StaggerSection } from './stagger-section'
-import { Badge } from './ui/badge'
-// Added ArrowRight for the list view interaction
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, Calendar, MapPin, X } from 'lucide-react'
+import { StaggerItem, StaggerSection } from './stagger-section'
+import Button from './ui/button'
 
 const ExperienceSection = () => {
   const [selectedExp, setSelectedExp] = useState<typeof experiences[0] | null>(null)
+  const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null)
 
   useEffect(() => {
-    if (selectedExp) {
+    if (selectedExp || selectedImage) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
     }
-  }, [selectedExp])
-
-  const selectedIndex = selectedExp ? experiences.indexOf(selectedExp) : -1
+    return () => { document.body.style.overflow = 'unset' }
+  }, [selectedExp, selectedImage])
 
   return (
-    <section className="experience px-4 py-24 max-w-4xl mx-auto relative">
+    <section className="experience px-6 py-24">
       <StaggerSection>
 
-        {/* Header */}
-        <StaggerItem className="flex items-center justify-between mb-16 border-b border-gray-200 dark:border-white/10 pb-6">
-          <div className="space-y-1">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
-              Experience
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              A timeline of my professional career.
-            </p>
-          </div>
+        <StaggerItem className="mb-12">
+          <h2 className="text-4xl font-semibold text-gray-900 dark:text-white tracking-tight">
+            Experience
+          </h2>
         </StaggerItem>
 
-        {/* The List (Collapsed State) - REDESIGNED */}
-        <div className="flex flex-col">
+        <div className="flex flex-col space-y-12 md:space-y-20">
           {experiences.map((exp, index) => (
-            <StaggerItem key={index} className="relative z-0">
-              <motion.div
-                layoutId={`card-${index}`}
-                onClick={() => setSelectedExp(exp)}
-                className="group relative cursor-pointer py-8 border-b border-gray-100 dark:border-white/5 transition-colors duration-300 hover:bg-white-2 dark:hover:bg-black-2 -mx-4 px-4 rounded-none"
-              >
-                <motion.div
-                  layout="position"
-                  className="grid grid-cols-1 md:grid-cols-[140px_1fr_auto] md:items-baseline gap-4 md:gap-8"
-                >
+            <StaggerItem key={index}>
+              <div className="group relative">
 
-                  {/* 1. Date (Left Column) */}
-                  <motion.div
-                    layoutId={`date-${index}`}
-                    className="text-sm font-mono text-gray-400 dark:text-gray-500 group-hover:text-gray-900 dark:group-hover:text-gray-300 transition-colors"
-                  >
-                    {exp.duration}
-                  </motion.div>
-
-                  {/* 2. Role & Company (Middle Column) */}
-                  <div className="flex flex-col gap-1">
-                    <motion.h3
-                      layoutId={`role-${index}`}
-                      className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors"
-                    >
+                {/* ================= MOBILE LAYOUT (< md) ================= */}
+                <div className="md:hidden flex flex-col gap-3 pb-8 border-b border-gray-100 dark:border-white/5 last:border-0 last:pb-0">
+                  {/* Top Row: Role + Eye Action */}
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white leading-tight">
                       {exp.role}
-                    </motion.h3>
-
-                    <motion.div
-                      layoutId={`company-${index}`}
-                      className="text-base text-gray-500 dark:text-gray-400"
+                    </h3>
+                    <button 
+                      onClick={() => setSelectedExp(exp)}
+                      className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 active:scale-95 transition-all"
+                      aria-label="View details"
                     >
+                      <Eye className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Bottom Row: Company & Date (Split for width utilization) */}
+                  <div className="flex flex-wrap items-center justify-between gap-y-2 text-sm">
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 font-medium">
+                      <span>{exp.company}</span>
+                      <span className="text-gray-300 dark:text-gray-700">/</span>
+                      <span>{exp.location}</span>
+                    </div>
+                    
+                    {/* Subtle Text Date (Removed the heavy pill background) */}
+                    <div className="font-mono text-xs text-gray-400 dark:text-gray-500 tabular-nums">
+                      {exp.duration}
+                    </div>
+                  </div>
+                </div>
+
+
+                {/* ================= DESKTOP LAYOUT (>= md) ================= */}
+                <div className="hidden md:block">
+                  {/* Header Row */}
+                  <div className="flex items-baseline justify-between gap-4 mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+                      {exp.role}
+                    </h3>
+                    <span className="text-sm font-mono text-gray-400 dark:text-gray-500 tabular-nums shrink-0">
+                      {exp.duration}
+                    </span>
+                  </div>
+
+                  {/* Sub-header */}
+                  <div className="flex items-center gap-2 mb-4 text-sm text-gray-500 dark:text-gray-400">
+                    <span className="font-medium text-gray-700 dark:text-gray-200">
                       {exp.company}
-                    </motion.div>
+                    </span>
+                    <span className="text-gray-300 dark:text-gray-700">/</span>
+                    <span>{exp.location}</span>
                   </div>
 
-                  {/* 3. Arrow Icon (Right Column - Visible on Hover) */}
-                  <div className="hidden md:flex items-center justify-end">
-                    <motion.div
-                      layout
-                      initial={{ opacity: 0, x: -10 }}
-                      whileHover={{ opacity: 1, x: 0 }} // This triggers when hovering the parent because of 'group' logic if handled via CSS, but framer requires explicit variants or direct styling. 
-                      // Simpler approach for Framer Motion inside a group hover:
-                      className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out text-gray-400 dark:text-gray-500"
-                    >
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.div>
+                  {/* Content */}
+                  <div className="text-sm leading-7 text-gray-600 dark:text-gray-300 mb-6 font-normal">
+                    {exp.content}
                   </div>
 
-                </motion.div>
-              </motion.div>
+                  {/* Images Grid */}
+                  {exp.images && exp.images.length > 0 && (
+                    <div className="flex gap-3 mb-6 overflow-y-hidden overflow-x-auto pb-2 scrollbar-none mask-fade-right">
+                      {exp.images.map((img, i) => (
+                        <motion.div
+                          key={`${index}-${i}`}
+                          layoutId={`image-${img.src}-desktop`}
+                          onClick={() => setSelectedImage(img)}
+                          className="relative flex-shrink-0 w-32 aspect-[4/3] rounded-lg overflow-hidden cursor-zoom-in border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-md transition-shadow"
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            className="object-cover"
+                          />
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Footer */}
+                  <div className="flex items-center justify-between gap-6">
+                    <div className="flex flex-wrap gap-2">
+                      {exp.technologies.map((tech, i) => (
+                        <span key={i} className="px-3 py-1 rounded-full text-[10px] font-medium tracking-wide uppercase text-gray-600 dark:text-gray-300 bg-white/40 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.02)] dark:shadow-none cursor-default">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    {exp.website && (
+                      <Button href={exp.website} variant='secondary-s' size='sm' target='_blank'>
+                        View Project
+                        <ArrowUpRight className="w-3 h-3" />
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+              </div>
             </StaggerItem>
           ))}
         </div>
-
       </StaggerSection>
 
-      {/* FULL SCREEN MODAL - (Unchanged logic, just layoutId matching) */}
+      {/* --- EXPERIENCE POPUP (Mobile Only) --- */}
       <AnimatePresence>
-        {selectedExp && selectedIndex !== -1 && (
-          <div className="fixed inset-0 z-[1000] flex flex-col">
+        {selectedExp && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[50] flex items-end sm:items-center justify-center sm:p-4"
+          >
+            {/* Backdrop */}
+            <div 
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
+              onClick={() => setSelectedExp(null)} 
+            />
+
+            {/* Modal Content */}
             <motion.div
-              layoutId={`card-${selectedIndex}`}
-              transition={{ type: "spring", bounce: 0.1, duration: 0.6 }}
-              className="w-full h-full bg-white-2 dark:bg-black-2 overflow-hidden shadow-none pointer-events-auto relative flex flex-col"
-              style={{ borderRadius: 0 }}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="relative w-full max-w-2xl bg-white dark:bg-[#111] rounded-t-2xl sm:rounded-2xl overflow-hidden max-h-[85vh] flex flex-col shadow-2xl"
             >
-
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ delay: 0.3, duration: 0.2 }}
-                onClick={(e) => { e.stopPropagation(); setSelectedExp(null); }}
-                className="fixed top-6 right-6 p-3 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors z-50 focus:outline-none"
-              >
-                <X className="w-6 h-6 text-black dark:text-white" />
-              </motion.button>
-
-              <div className="w-full h-full overflow-y-auto custom-scrollbar">
-                <div className="max-w-4xl mx-auto p-6 md:p-12 lg:p-20 pt-20 md:pt-24">
-
-                  {/* Modal Header */}
-                  <motion.div layout="position" className="mb-12">
-                    <motion.div
-                      layoutId={`date-${selectedIndex}`}
-                      className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-white/5 text-sm font-mono text-gray-600 dark:text-gray-300 w-fit"
-                    >
-                      <Calendar className="w-4 h-4" />
-                      {selectedExp.duration}
-                    </motion.div>
-
-                    <motion.h3
-                      layoutId={`role-${selectedIndex}`}
-                      className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 leading-tight"
-                    >
-                      {selectedExp.role}
-                    </motion.h3>
-
-                    <motion.div
-                      layoutId={`company-${selectedIndex}`}
-                      className="flex flex-wrap items-center gap-4 text-lg md:text-xl text-gray-600 dark:text-gray-300"
-                    >
-                      <span className="font-semibold text-black dark:text-white">{selectedExp.company}</span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600" />
-                      <span className="flex items-center gap-1.5 text-gray-500">
-                        <MapPin className="w-4 h-4" />
-                        {selectedExp.location}
-                      </span>
-                    </motion.div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                    className="w-full h-px bg-gray-200 dark:bg-white/10 mb-12 origin-left"
-                  />
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                    transition={{ delay: 0.35, duration: 0.5 }}
-                    className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 lg:gap-24"
-                  >
-                    <div className="text-gray-600 dark:text-gray-300 leading-relaxed font-light text-lg md:text-xl space-y-6">
-                      {selectedExp.content}
-                    </div>
-
-                    <div className="flex flex-col gap-8">
-                      <div>
-                        <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-4">Technologies</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedExp.technologies.map((tech, i) => (
-                            <Badge
-                              key={i}
-                              variant="outline"
-                              className="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-
-                      {selectedExp.website && (
-                        <div>
-                          <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-4">Link</h4>
-                          <Link
-                            href={selectedExp.website}
-                            target="_blank"
-                            className="inline-flex items-center gap-2 text-base font-bold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors underline underline-offset-4 decoration-gray-300 dark:decoration-white/20"
-                          >
-                            Visit Website
-                            <ArrowUpRight className="w-4 h-4" />
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  </motion.div>
-
+              <div className="p-6 border-b border-gray-100 dark:border-white/5 flex items-start justify-between bg-white dark:bg-[#111] sticky top-0 z-10">
+                <div className='pr-4'>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">{selectedExp.role}</h3>
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                     {selectedExp.company}
+                  </div>
                 </div>
+                <button 
+                  onClick={() => setSelectedExp(null)}
+                  className="p-2 -mr-2 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
+                >
+                  <X className="w-5 h-5 text-gray-500 dark:text-gray-300" />
+                </button>
+              </div>
+
+              <div className="p-6 overflow-y-auto custom-scrollbar">
+                <div className="text-sm leading-relaxed text-gray-600 dark:text-gray-300 mb-8 font-normal">
+                   {selectedExp.content}
+                </div>
+
+                {selectedExp.images && selectedExp.images.length > 0 && (
+                  <div className="flex gap-3 mb-8 overflow-x-auto pb-2 scrollbar-none">
+                    {selectedExp.images.map((img, i) => (
+                      <div
+                        key={i}
+                        onClick={() => setSelectedImage(img)}
+                        className="relative flex-shrink-0 w-40 aspect-[4/3] rounded-lg overflow-hidden border border-gray-100 dark:border-white/5 bg-gray-50 dark:bg-white/5"
+                      >
+                         <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {selectedExp.technologies.map((tech, i) => (
+                    <span key={i} className="px-3 py-1 rounded-full text-[10px] font-medium tracking-wide uppercase text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-white/5 border border-transparent dark:border-white/10">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {selectedExp.website && (
+                  <Button href={selectedExp.website} variant='primary-s' size='md' className="w-full justify-center" target='_blank'>
+                    View Project <ArrowUpRight className="w-4 h-4 ml-2" />
+                  </Button>
+                )}
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
+
+      {/* --- IMAGE ZOOM MODAL --- */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-white/90 dark:bg-black/90 backdrop-blur-md cursor-zoom-out"
+          >
+            <button className="absolute top-5 right-5 p-2 rounded-full bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors z-50">
+              <X className="w-5 h-5" />
+            </button>
+
+            <motion.div
+              layoutId={selectedExp ? undefined : `image-${selectedImage.src}-desktop`} 
+              className="relative w-full max-w-5xl aspect-video rounded-xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                fill
+                className="object-contain"
+                priority
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   )
 }
