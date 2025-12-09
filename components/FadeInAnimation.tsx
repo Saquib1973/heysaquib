@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 const FadeInAnimation = ({
   className,
   children,
-  duration = 0.2,
+  duration = 0.5,
   delay = 0.1,
 }: {
   className?: string

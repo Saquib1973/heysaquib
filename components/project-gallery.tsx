@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { cn } from '@/lib/utils'
 
 // --- Lightbox Component (Unchanged) ---
@@ -27,7 +28,11 @@ const Lightbox = ({
       if (e.key === 'ArrowLeft') onPrev()
     }
     window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = 'auto'
+    }
   }, [onClose, onNext, onPrev])
 
   return (
@@ -35,7 +40,7 @@ const Lightbox = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/95 dark:bg-black/95 backdrop-blur-xl"
+      className="fixed inset-0 z-[99999] flex items-center justify-center bg-white/95 dark:bg-black/95 backdrop-blur-xl"
       onClick={onClose}
     >
       <button
@@ -108,11 +113,20 @@ const Lightbox = ({
 }
 
 // --- Main Gallery Component ---
-const ProjectGallery = ({ images }: { images: { src: any; text: string }[] }) => {
+// FIX: Added default value (images = []) to props to prevent "undefined" map error
+const ProjectGallery = ({ images = [] }: { images?: { src: any; text: string }[] }) => {
   const [index, setIndex] = useState(0)
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0)
   const [isOpen, setIsOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Safety check: If images is still somehow empty or undefined, render nothing
+  if (!images || images.length === 0) return null;
 
   // Lightbox Handlers
   const nextImage = () => setIndex((prev) => (prev + 1 < images.length ? prev + 1 : prev))
@@ -141,7 +155,6 @@ const ProjectGallery = ({ images }: { images: { src: any; text: string }[] }) =>
     setMobileActiveIndex(closestIndex)
   }
 
-  // Click dot to scroll to image
   const scrollToImage = (idx: number) => {
       if (scrollContainerRef.current) {
           const container = scrollContainerRef.current
@@ -153,20 +166,23 @@ const ProjectGallery = ({ images }: { images: { src: any; text: string }[] }) =>
 
   return (
     <>
-      <AnimatePresence>
-        {isOpen && (
-          <Lightbox
-            images={images}
-            currentIndex={index}
-            onClose={() => setIsOpen(false)}
-            onNext={nextImage}
-            onPrev={prevImage}
-          />
-        )}
-      </AnimatePresence>
+      {mounted && createPortal(
+        <AnimatePresence>
+          {isOpen && (
+            <Lightbox
+              images={images}
+              currentIndex={index}
+              onClose={() => setIsOpen(false)}
+              onNext={nextImage}
+              onPrev={prevImage}
+            />
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
       {/* --- Responsive Layout Wrapper --- */}
-      <div className="mt-8 relative group">
+      <div className="mt-8 relative">
         
         {/* Mobile: Horizontal Carousel with Hidden Scrollbar */}
         <div 
@@ -175,7 +191,6 @@ const ProjectGallery = ({ images }: { images: { src: any; text: string }[] }) =>
           className="
             flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory -mx-4 px-4 
             md:grid md:grid-cols-2 md:gap-6 md:pb-0 md:overflow-visible md:mx-0 md:px-0
-            /* Hiding Scrollbars */
             scrollbar-hide 
             [&::-webkit-scrollbar]:hidden 
             [-ms-overflow-style:'none'] 
@@ -186,13 +201,8 @@ const ProjectGallery = ({ images }: { images: { src: any; text: string }[] }) =>
             <motion.div
               key={i}
               className={cn(
-                // Changed cursor-zoom-in to cursor-pointer
                 "group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-white/10 cursor-pointer",
-                
-                // Mobile Styling:
                 "shrink-0 w-[85vw] h-[60vw] snap-center",
-
-                // Desktop Styling:
                 "md:w-auto md:h-auto md:shrink",
                 i === 0 ? "md:col-span-2 md:aspect-[2.35/1]" : "md:aspect-[4/3]"
               )}
@@ -208,15 +218,12 @@ const ProjectGallery = ({ images }: { images: { src: any; text: string }[] }) =>
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               
-              {/* Hover Overlay */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               
-              {/* Maximize Icon */}
               <div className="absolute top-3 right-3 p-2 bg-black/30 backdrop-blur-md rounded-full text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                 <Maximize2 className="w-4 h-4" />
               </div>
 
-              {/* Caption */}
               {img.text && (
                 <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-300">
                   <p className="text-white text-sm font-medium truncate">
