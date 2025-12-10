@@ -9,7 +9,8 @@ import TechnologySection from '@/components/technology-section'
 import { Link } from 'next-view-transitions'
 import Footer from '@/components/footer'
 import { Github, Instagram, Leetcode, Linkedin, Twitter } from '@/components/svg'
-export const links = [
+
+const links = [
   { name: 'github', href: 'https://github.com/Saquib1973', icon: <Github /> },
   { name: 'twitter', href: 'https://x.com/sacubeli', icon: <Twitter /> },
   {
@@ -33,6 +34,7 @@ export const links = [
   //   icon: <>Resume</>,
   // },
 ]
+
 export default function Home() {
   const allowedLinks = ['github', 'linkedin', 'leetcode', 'resume']
   const updatedLinks = links.filter((link) => allowedLinks.includes(link.name))
