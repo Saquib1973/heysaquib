@@ -20,15 +20,17 @@ const AboutSection = () => {
 
           <StaggerItem className="space-y-5 text-lg font-light leading-relaxed text-gray-600 dark:text-gray-400">
             <div>
-              Hi, I’m <span className="font-medium text-gray-900 dark:text-white"><PenUnderline delay={0.5} text="Saquib Ali" /></span>.
-              I am a final-year B.Tech ECE (Hons) student at{' '}
+              Hi, I’m <span className="font-medium text-gray-900 dark:text-white"><PenUnderline delay={0.5} text="Saquib Ali" /></span>
+              , a B.Tech ECE (Hons) graduate from{' '}
+              <br />
               <Link
                 href="https://iiitranchi.ac.in/"
                 target="_blank"
                 className="text-gray-900 dark:text-white underline underline-offset-4 decoration-gray-200 dark:decoration-gray-700 hover:decoration-yellow-500 transition-all"
               >
                 IIIT Ranchi
-              </Link>.
+              </Link>
+              {" "}(Class of 2025).
             </div>
             <p>
               I am passionate about <span className="text-gray-900 dark:text-white font-medium">coding, problem-solving, and building software</span>.

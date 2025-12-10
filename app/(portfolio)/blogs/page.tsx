@@ -1,59 +1,42 @@
-import FadeInAnimation from '@/components/FadeInAnimation'
-import Like from '@/components/svg/Like'
+import React from 'react'
 import { getAllPosts } from '@/lib/getPost'
-import Link from 'next/link'
+import BlogList from '@/components/blog-list' // Import the client component
+import FadeInAnimation from '@/components/FadeInAnimation'
 
-export default function HomePage() {
+export const metadata = {
+  title: 'Blogs | Saquib Ali',
+  description: 'Thoughts on software engineering, design, and life.',
+}
+
+export default function BlogsPage() {
   const blogs = getAllPosts()
 
   return (
-    <FadeInAnimation className="">
-      <h2 className=" blogs text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
-        Latest Blogs
-      </h2>
-      {/* <h1 className="rampart-h1 ml-2 my-2 blogHeading">Blogs</h1> */}
-
-      <div className="grid md:grid-cols-2 p-2 md:px-0">
-        {blogs.map((blog, index) => (
-          <Link
-            key={index}
-            href={`/blogs/${blog.slug}`}
-            className={`hover:border-b-yellow-4 group dark:hover:border-b-yellow-4 border border-t-transparent border-r border-l-transparent dark:border-t-transparent dark:border-r dark:border-l-transparent ${index % 2 === 0
-                ? ''
-                : 'border-r-transparent dark:border-r-transparent'
-              } p-6 md:p-4 hover:bg-white-2 transition justify-between group dark:hover:bg-black-2 border-b dark:border-black-0 border-gray-0 flex flex-col gap-2`}
-          >
-            <div>
-              <div className="w-full txt flex items-end gap-1">
-                <span className="text-5xl md:text-7xl font-rampart mr-2">
-                  {index + 1}
-                </span>
-                <p className="text-2xl md:text-2xl line-clamp-1 ">
-                  {blog.title}
+    <div className="max-w-5xl mx-auto px-6 py-20 min-h-screen">
+      
+      {/* --- HEADER --- */}
+      <FadeInAnimation>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 border-b border-zinc-200 dark:border-zinc-800 pb-8">
+            <div className="space-y-2">
+            <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 dark:text-zinc-100">
+                Writings
+            </h1>
+            <p className="text-zinc-500 dark:text-zinc-400 text-base max-w-md">
+                Thoughts, tutorials, and rants about technology.
+            </p>
+            </div>
+            
+            <div className="text-right hidden md:block">
+                <p className="text-6xl font-black text-zinc-100 dark:text-zinc-800/50">
+                    {blogs.length < 10 ? `0${blogs.length}` : blogs.length}
                 </p>
-              </div>
-              <div className="h-0.5 group-hover:w-1/3 transition w-[20%] bg-gray-0 dark:bg-black-0 my-4 group-hover:bg-yellow-4" />
-              <p className="txt-light text-sm tracking-widest">
-                {blog.description}
-              </p>
             </div>
-            <div className="flex justify-between gap-2 items-center py-4">
-              <Like />
+        </div>
+      </FadeInAnimation>
 
-              <time
-                dateTime={blog.date}
-                className="whitespace-nowrap text-sm md:text-base amiko-p p-1 pb-0.5"
-              >
-                {new Date(blog.date).toLocaleDateString('en-GB', {
-                  day: '2-digit',
-                  month: 'long',
-                  year: 'numeric',
-                })}
-              </time>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </FadeInAnimation>
+      {/* --- CLIENT LIST --- */}
+      <BlogList blogs={blogs} />
+      
+    </div>
   )
 }

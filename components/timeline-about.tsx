@@ -1,120 +1,82 @@
+'use client'
+
 import React from 'react'
-import Link from 'next/link'
-import StaggerAnimation from '@/components/StaggerAnimation'
-import FadeInAnimation from './FadeInAnimation'
+import { motion } from 'framer-motion'
+
+const timelineData = [
+  {
+    year: '2025',
+    title: 'Fullstack Intern',
+    org: 'Fursat Farms',
+    description: 'Developing the frontend architecture for beasportsai.com, a SaaS platform for football analytics.',
+    current: true
+  },
+  {
+    year: '2021 — 2025',
+    title: 'B.Tech in ECE',
+    org: 'IIIT Ranchi',
+    description: 'Electronics & Communication Engineering. Maintained 8.97 CGPA. Tech Club Lead.',
+    current: false
+  },
+  {
+    year: '2020 — 2021',
+    title: 'JEE Preparation',
+    org: 'Gap Year',
+    description: 'Secured a top-percentile rank in JEE Mains to enter IIIT Ranchi.',
+    current: false
+  },
+  {
+    year: '2018 — 2020',
+    title: 'Higher Secondary',
+    org: 'Park Mount High School',
+    description: 'Class XII (Science Major) with 82% distinction.',
+    current: false
+  },
+]
 
 const Timeline = () => {
   return (
-    <div className="text-base py-10">
-      <FadeInAnimation>
-        <h1 className="amiko-h1 my-4">Timeline</h1>
-      </FadeInAnimation>
-      <div className="timeline-container">
-        <FadeInAnimation>
-          <div>
-            Here's a brief timeline of my life events. If you'd like to know
-            more about me professionally , check out {'my '}
-            <Link
-              href={
-                'https://drive.google.com/file/d/1a5tBPdkgfUi3My75upcW69VVQD8RPjwD/view?usp=drive_link'
+    <div className="relative border-l border-zinc-200 dark:border-zinc-800 ml-3 md:ml-6 space-y-12 py-2">
+      {timelineData.map((item, index) => (
+        <div key={index} className="relative pl-8 md:pl-12 group">
+          
+          {/* --- THE NODE (Visual Anchor) --- */}
+          <span 
+            className={`
+              absolute -left-[5px] top-2 h-[9px] w-[9px] rounded-full z-10 transition-all duration-300
+              ${item.current 
+                ? 'bg-yellow-500 ring-4 ring-yellow-500/20' 
+                : 'bg-zinc-200 dark:bg-zinc-800 border-2 border-white dark:border-zinc-950 group-hover:bg-zinc-400 dark:group-hover:bg-zinc-600'
               }
-              className="link-text"
-            >
-              resume
-            </Link>
-            , or take a sneak peak into my {`life `}
-            <Link href={'/moments'} className="link-text">
-              here
-            </Link>
-            .
-          </div>
-        </FadeInAnimation>
+            `} 
+          />
+          
+          {/* --- CONTENT --- */}
+          <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6">
+            
+            {/* Year (Fixed Width for alignment) */}
+            <span className={`
+              text-xs font-mono tracking-widest uppercase mb-1 sm:mb-0 w-24 flex-shrink-0
+              ${item.current ? 'text-yellow-600 dark:text-yellow-500 font-semibold' : 'text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors'}
+            `}>
+              {item.year}
+            </span>
 
-        <StaggerAnimation delay={0.2}>
-          <div className="timeline-block py-6 my-4 border-b border-gray-300 dark:border-gray-700">
-            <h1 className="timeline-heading">2025 - Present</h1>
-            <ul className="list-disc txt-light pl-6">
-              <li>
-                💼 Fullstack Intern at{' '}
-                  Fursat Farms
-              </li>
-              <ul className="list-disc pl-6 text-light-2 text-sm">
-                <li>
-                  Contributed to the development of <Link href="https://beasportsai.com" className="link-text">beasportsai.com</Link>
-                  , a football SaaS platform
-                </li>
-              </ul>
-            </ul>
+            {/* Details */}
+            <div className="flex flex-col gap-1">
+              <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 leading-none">
+                {item.title}
+              </h3>
+              <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                {item.org}
+              </span>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2 leading-relaxed max-w-md">
+                {item.description}
+              </p>
+            </div>
           </div>
-
-          {/* 2021–2025 */}
-          <div className="timeline-block py-6 my-4 border-b border-gray-300 dark:border-gray-700">
-            <h1 className="timeline-heading">2021–2025</h1>
-            <ul className="list-disc txt-light pl-6">
-              <li>🎓 B.Tech in Electronics and Communication Engineering</li>
-              <ul className="list-disc pl-6 text-light-2 text-sm">
-                <li>
-                  {'Student '}
-                  <Link
-                    href={'https://iiitranchi.ac.in/'}
-                    className="link-text"
-                  >
-                    @IIIT Ranchi
-                  </Link>
-                </li>
-                <li>Overall CGPA: 8.97</li>
-              </ul>
-            </ul>
-          </div>
-
-          {/* 2020–2021 */}
-          <div className="timeline-block py-6 mb-4 border-b border-gray-300 dark:border-gray-700">
-            <h1 className="timeline-heading">2020–2021</h1>
-            <ul className="list-disc txt-light pl-6">
-              <li>📚 Took a year drop to prepare for JEE</li>
-              <ul className="list-disc pl-6 text-light-2 text-sm">
-                <li>
-                  With a good score I manage to secure a seat in IIIT Ranchi.
-                </li>
-              </ul>
-            </ul>
-          </div>
-
-          {/* 2018–2020 */}
-          <div className="timeline-block py-6 mb-4 border-b border-gray-300 dark:border-gray-700">
-            <h1 className="timeline-heading">2018–2020</h1>
-            <ul className="list-disc txt-light pl-6">
-              <li>🏫 Completed Post-Matriculation (Class XII)</li>
-              <ul className="list-disc pl-6 text-light-2 text-sm">
-                <li>Student at Park Mount High School, Patna</li>
-                <li>Secured 82% (12th CLass)</li>
-              </ul>
-            </ul>
-          </div>
-
-          {/* 2015–2018 */}
-          <div className="timeline-block py-6 mb-4 border-b border-gray-300 dark:border-gray-700">
-            <h1 className="timeline-heading">2015–2018</h1>
-            <ul className="list-disc txt-light pl-6">
-              <li>🌍 Moved to Tanzania</li>
-              <ul className="list-disc pl-6 text-light-2 text-sm">
-                <li>Student at Indian School Dar es Salaam</li>
-                <li>
-                  Achieved Matriculation (Class X) with an aggregate of 87%.
-                </li>
-              </ul>
-            </ul>
-          </div>
-
-          {/* 2003–2015 */}
-          <div className="timeline-block py-6 mb-4">
-            <h1 className="timeline-heading">2003–2015</h1>
-            <ul className="list-disc txt-light pl-6">
-              <li>👶 Born and Raised in India</li>
-            </ul>
-          </div>
-        </StaggerAnimation>
-      </div>
+        </div>
+      ))}
     </div>
   )
 }
