@@ -135,50 +135,49 @@ const ProjectsSection = () => {
   const featuredProjects = Projects.filter((project) => project.featured)
 
   return (
-    <section className="projects px-4 py-24 max-w-5xl mx-auto">
-      <StaggerSection>
+    <StaggerSection
+      className="projects py-20">
 
-        {/* Header */}
-        <StaggerItem className="flex items-end justify-between mb-12 border-b border-gray-100 dark:border-white/5 pb-6">
-          <div className="space-y-1">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
-              Projects
-              <Folder className="w-6 h-6 text-gray-300 dark:text-gray-700" />
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Selected works and experiments.
-            </p>
-          </div>
-
-          <Button
-            href="/projects"
-            size='sm'
-            variant="secondary"
-            className="hidden sm:flex"
-          >
-            View All Projects
-            <ArrowUpRight className="ml-2 w-4 h-4" />
-          </Button>
-        </StaggerItem>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-          {featuredProjects.map((project, index) => (
-            <StaggerItem key={project.id || index}>
-              <ProjectCard project={project} index={index} />
-            </StaggerItem>
-          ))}
+      {/* Header */}
+      <StaggerItem className="flex items-end justify-between mb-12 pb-6">
+        <div className="space-y-1">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight flex items-end gap-3">
+            Projects
+            <Folder className="w-6 h-6 text-gray-300 dark:text-gray-700" />
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Selected works and personal project.
+          </p>
         </div>
 
-        {/* Mobile View All Button */}
-        <StaggerItem className="mt-8 sm:hidden">
-          <Button href="/projects" variant="secondary" className="w-full justify-center">
-            View All Projects
-          </Button>
-        </StaggerItem>
+        <Button
+          href="/projects"
+          size='sm'
+          variant="secondary"
+          className="hidden sm:flex"
+        >
+          View All Projects
+          <ArrowUpRight className="ml-2 w-4 h-4" />
+        </Button>
+      </StaggerItem>
 
-      </StaggerSection>
-    </section>
+      {/* Projects Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+        {featuredProjects.map((project, index) => (
+          <StaggerItem key={project.id || index}>
+            <ProjectCard project={project} index={index} />
+          </StaggerItem>
+        ))}
+      </div>
+
+      {/* Mobile View All Button */}
+      <StaggerItem className="mt-8 sm:hidden">
+        <Button href="/projects" variant="secondary" className="w-full justify-center">
+          View All Projects
+        </Button>
+      </StaggerItem>
+
+    </StaggerSection>
   )
 }
 

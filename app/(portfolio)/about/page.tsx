@@ -1,9 +1,9 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Github, Twitter, Linkedin, Code2, ArrowUpRight, Download,
   Star, BookOpen, Sparkles, Zap, GraduationCap
@@ -11,7 +11,6 @@ import {
 
 // --- IMPORTS ---
 import CertificateSection from '@/components/certificates-section'
-// Ensure this path matches where you saved the Stagger components
 import { StaggerSection, StaggerItem } from '@/components/stagger-section'
 import { moments } from '@/public/assets/moments'
 import { getDateHelper } from '@/public/utils/helper'
@@ -55,11 +54,65 @@ const timelineData = [
   },
 ]
 
+// --- COMPONENT: LETTER ROTATOR (The "Instagram" Effect) ---
+const LetterRotator = () => {
+  const words = [
+    "Saquib Ali", 
+    "a Software Developer", 
+    "based in Patna", 
+    ""
+  ]
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="inline-flex items-center justify-start overflow-hidden h-[1.2em] align-bottom">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.div
+          key={index}
+          layout // Smoothly animates width changes
+          className="flex whitespace-nowrap"
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{ y: "0%", opacity: 1 }}
+          exit={{ y: "-100%", opacity: 0 }}
+          transition={{
+            y: { type: "spring", stiffness: 100, damping: 20 },
+            opacity: { duration: 0.2 },
+            layout: { duration: 0.3 }
+          }}
+        >
+          {words[index].split("").map((letter, i) => (
+            <motion.span
+              key={`${index}-${i}`}
+              className="inline-block text-yellow-500"
+              initial={{ y: "100%" }}
+              animate={{ y: "0%" }}
+              transition={{
+                delay: i * 0.03,
+                type: "spring",
+                stiffness: 150,
+                damping: 25,
+              }}
+            >
+              {letter === " " ? "\u00A0" : letter}
+            </motion.span>
+          ))}
+          <span className="text-yellow-500">.</span>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
 // --- COMPONENT: SCATTERED COLLAGE ---
 const CollageMoments = () => {
   const items = moments.slice(0, 6)
-
-  // deterministic "random" positions
   const positions = [
     { top: '0%', left: '5%', rotate: -6, z: 1 },
     { top: '10%', left: '60%', rotate: 12, z: 2 },
@@ -72,8 +125,7 @@ const CollageMoments = () => {
   return (
     <StaggerSection className="py-20 relative w-full overflow-hidden">
       <div className="relative w-full h-[600px] md:h-[500px] mx-auto max-w-3xl">
-
-        {/* Decorative Background Elements */}
+        {/* Background Elements */}
         <motion.div initial={{ opacity: 0, scale: 0 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="absolute top-0 left-1/2 text-yellow-400"><Star className="w-8 h-8 fill-current opacity-50" /></motion.div>
         <motion.div initial={{ opacity: 0, scale: 0 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }} className="absolute bottom-10 left-10 text-blue-400"><BookOpen className="w-10 h-10 opacity-40 -rotate-12" /></motion.div>
         <motion.div initial={{ opacity: 0, scale: 0 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6 }} className="absolute top-20 right-10 text-pink-400"><Sparkles className="w-6 h-6 opacity-60" /></motion.div>
@@ -105,40 +157,21 @@ const CollageMoments = () => {
   )
 }
 
-// --- COMPONENT: CONNECTED TIMELINE (The Vibe Fix) ---
+// --- COMPONENT: CONNECTED TIMELINE ---
 const ConnectedTimeline = () => {
   return (
     <div className="relative border-l border-zinc-200 dark:border-zinc-800 ml-3 md:ml-6 space-y-12 py-2">
       {timelineData.map((item, index) => (
         <StaggerItem key={index} className="relative pl-8 md:pl-12 group">
-          {/* Visual Anchor Node */}
-          <span
-            className={`absolute -left-[5px] top-2 h-[9px] w-[9px] rounded-full z-10 transition-all duration-300 
-                        ${item.current
-                ? 'bg-yellow-500 ring-4 ring-yellow-500/20'
-                : 'bg-zinc-200 dark:bg-zinc-800 border-2 border-white dark:border-zinc-950 group-hover:bg-zinc-400 dark:group-hover:bg-zinc-600'
-              }`}
-          />
-
-          {/* Content */}
+          <span className={`absolute -left-[5px] top-2 h-[9px] w-[9px] rounded-full z-10 transition-all duration-300 ${item.current ? 'bg-yellow-500 ring-4 ring-yellow-500/20' : 'bg-zinc-200 dark:bg-zinc-800 border-2 border-white dark:border-zinc-950 group-hover:bg-zinc-400 dark:group-hover:bg-zinc-600'}`} />
           <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6">
-            {/* Year */}
-            <span className={`text-xs font-mono tracking-widest uppercase mb-1 sm:mb-0 w-24 flex-shrink-0 
-                            ${item.current ? 'text-yellow-600 dark:text-yellow-500 font-semibold' : 'text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors'}`}>
+            <span className={`text-xs font-mono tracking-widest uppercase mb-1 sm:mb-0 w-24 flex-shrink-0 ${item.current ? 'text-yellow-600 dark:text-yellow-500 font-semibold' : 'text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors'}`}>
               {item.year}
             </span>
-
-            {/* Details */}
             <div className="flex flex-col gap-1">
-              <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 leading-none">
-                {item.title}
-              </h3>
-              <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                {item.org}
-              </span>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2 leading-relaxed max-w-md">
-                {item.description}
-              </p>
+              <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 leading-none">{item.title}</h3>
+              <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{item.org}</span>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2 leading-relaxed max-w-md">{item.description}</p>
             </div>
           </div>
         </StaggerItem>
@@ -156,35 +189,52 @@ export default function AboutPage() {
 
       {/* --- 1. HERO SECTION --- */}
       <StaggerSection className="flex flex-col md:flex-row gap-10 md:items-start justify-between">
-        <StaggerItem className="space-y-6 max-w-lg">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-            Hi, I'm <span className="text-zinc-500">Saquib Ali.</span>
-          </h1>
-          <div className="space-y-4 text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            <p>
-              I'm a developer and student at <span className="text-zinc-900 dark:text-zinc-200 font-medium">IIIT Ranchi</span>. I like building software that feels solid and looks simple.
-            </p>
-            <p>
-              When I'm not coding, I'm usually playing Valorant, watching football, or sleeping.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-6 pt-2">
-            <Link
-              href="https://drive.google.com/file/d/1uy_pExXcnC35CJEACcN3DfigwJPFtd_o/view"
-              target="_blank"
-              className="flex items-center gap-2 text-sm font-medium text-zinc-900 dark:text-zinc-100 border-b border-zinc-300 hover:border-black dark:hover:border-white transition-colors pb-0.5"
+        
+        {/* WRAPPED IN MOTION.DIV WITH LAYOUT FOR SMOOTH HEIGHT TRANSITION */}
+        <StaggerItem>
+          <motion.div 
+            layout 
+            className="space-y-6 max-w-lg"
+            transition={{ layout: { duration: 0.3, ease: "easeInOut" } }}
+          >
+            
+            {/* Heading with Layout Prop */}
+            <motion.h1 
+              layout
+              className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 leading-tight"
             >
-              <Download className="w-4 h-4" /> Resume
-            </Link>
-            <div className="flex gap-4">
-              {links.map((link, i) => (
-                <a key={i} href={link.href} target="_blank" className="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-                  {link.icon}
-                </a>
-              ))}
-            </div>
-          </div>
+               <div className="flex flex-wrap gap-x-2.5 items-end">
+                <span className='block w-full'>Hi, I'm</span>
+                <LetterRotator />
+               </div>
+            </motion.h1>
+
+            <motion.div layout className="space-y-4 text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p>
+                I'm a developer and student at <span className="text-zinc-900 dark:text-zinc-200 font-medium">IIIT Ranchi</span>. I like building software that feels solid and looks simple.
+              </p>
+              <p>
+                When I'm not coding, I'm usually playing Valorant, watching football, or sleeping.
+              </p>
+            </motion.div>
+
+            <motion.div layout className="flex flex-wrap gap-6 pt-2">
+              <Link
+                href="https://drive.google.com/file/d/1uy_pExXcnC35CJEACcN3DfigwJPFtd_o/view"
+                target="_blank"
+                className="flex items-center gap-2 text-sm font-medium text-zinc-900 dark:text-zinc-100 border-b border-zinc-300 hover:border-black dark:hover:border-white transition-colors pb-0.5"
+              >
+                <Download className="w-4 h-4" /> Resume
+              </Link>
+              <div className="flex gap-4">
+                {links.map((link, i) => (
+                  <a key={i} href={link.href} target="_blank" className="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                    {link.icon}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
         </StaggerItem>
 
         <StaggerItem className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0 rounded-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
@@ -200,12 +250,9 @@ export default function AboutPage() {
       {/* --- 2. COLLAGE MOMENTS --- */}
       <CollageMoments />
 
-      {/* --- 3. TIMELINE (Revamped & Connected) --- */}
+      {/* --- 3. TIMELINE --- */}
       <StaggerSection>
-        <StaggerItem>
-          <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-8">Timeline</h2>
-        </StaggerItem>
-        {/* We render the timeline directly so StaggerSection controls the children delay */}
+        <StaggerItem><h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-8">Timeline</h2></StaggerItem>
         <ConnectedTimeline />
       </StaggerSection>
 
@@ -214,10 +261,8 @@ export default function AboutPage() {
         <StaggerItem className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Certificates</h2>
         </StaggerItem>
-
         <StaggerItem className="w-full">
           <CertificateSection />
-
           <div className="mt-8 pt-6 border-t border-zinc-200 dark:border-zinc-800 text-sm text-zinc-500 flex justify-between items-center">
             <span>Last updated: {lastUpdated}</span>
             <Link href="https://linkedin.com/in/saquibali1973" target="_blank" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors flex items-center gap-1">

@@ -1,5 +1,6 @@
 'use client'
 
+import { useThemeStore } from '@/lib/stores/themeStore'
 import { headerLinks } from '@/lib/header-links'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
 import { ArrowRight, Menu, X } from 'lucide-react'
@@ -10,8 +11,6 @@ import Arrow from './svg/Arrow'
 import Moon from './svg/Moon'
 import Open from './svg/Open'
 import Sun from './svg/Sun'
-
-// --- 1. REUSABLE COMPONENTS ---
 
 const ThemeToggleIcon = ({ theme, size = 20 }: { theme: string | null, size?: number }) => (
     <div className="relative flex items-center justify-center">
@@ -68,7 +67,6 @@ const MobileThemeToggle = ({ theme, toggleTheme }: { theme: string | null, toggl
     )
 }
 
-// --- 2. ANIMATION CONFIGURATION ---
 
 const menuContainerVariants: Variants = {
     closed: {
@@ -102,7 +100,6 @@ const linkItemVariants: Variants = {
     }
 }
 
-// --- 3. MAIN COMPONENT ---
 
 const Navbar = () => {
     const [theme, setTheme] = useState<string | null>(null)
@@ -159,11 +156,6 @@ const Navbar = () => {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5, ease: "circOut" }}
             >
-                {/* UPDATED LAYOUT LOGIC:
-                   1. `justify-between` keeps mobile layout separated (Menu Left / Empty Right).
-                   2. `md:justify-start` forces desktop items to stack to the left.
-                   3. `md:gap-6` adds spacing between the Back Button/Controls and the Nav Links.
-                */}
                 <div className="max-w-5xl mx-auto px-4 md:px-0 h-14 flex items-center justify-between md:justify-start md:gap-6">
 
                     {/* Left: Controls */}

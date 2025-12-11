@@ -27,7 +27,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="footer w-full pt-24 px-4 bg-transparent overflow-hidden">
+    <footer className="footer w-full pt-24 overflow-hidden">
       <StaggerSection className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="flex flex-col gap-8">

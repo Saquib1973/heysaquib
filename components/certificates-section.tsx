@@ -24,11 +24,7 @@ const certificates = [
 
 const CertificateSection = () => {
   return (
-    <div className="py-12">
-      <h2 className="text-sm font-semibold text-zinc-400 mb-6 uppercase tracking-wider">
-        Certifications
-      </h2>
-      
+    <div className="pb-12">
       <div className="flex flex-col group">
         {certificates.map((cert, index) => (
           <Link
@@ -60,7 +56,7 @@ const CertificateSection = () => {
             <ArrowUpRight className="w-5 h-5 text-zinc-800 dark:text-zinc-200 transition-all duration-300 ease-out
               opacity-100 translate-x-0
               md:opacity-0 md:-translate-x-4
-              md:group-hover/item:translate-x-0 md:group-hover/item:opacity-100" 
+              md:group-hover/item:translate-x-0 md:group-hover/item:opacity-100"
             />
           </Link>
         ))}

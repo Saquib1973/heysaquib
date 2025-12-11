@@ -50,7 +50,7 @@ interface ItemProps {
 export const StaggerItem = ({
   children,
   className = "",
-  duration = 1 // Default fast duration
+  duration = 1.5 // Default fast duration
 }: ItemProps) => {
   return (
     <motion.div
