@@ -33,7 +33,7 @@ export default function FilterDropdown<T extends string>({
   }, [])
 
   return (
-    <div className="relative z-50" ref={containerRef}>
+    <div className="relative" ref={containerRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-5 py-2.5 bg-zinc-100 dark:bg-zinc-800 rounded-full text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all active:scale-95"
@@ -52,7 +52,8 @@ export default function FilterDropdown<T extends string>({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 mt-2 w-56 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl overflow-hidden p-1.5"
+            // Removed bg-red-400, restored standard white/dark theme
+            className="absolute right-0 mt-2 w-56 z-[100] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl overflow-hidden p-1.5"
           >
             {/* 'All' Option */}
             <div
@@ -78,8 +79,8 @@ export default function FilterDropdown<T extends string>({
                 className={clsx(
                   'flex items-center justify-between px-3 py-2 text-sm rounded-lg cursor-pointer transition-colors capitalize',
                   selected === option
-                     ? 'bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white font-medium' 
-                     : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/50'
+                      ? 'bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white font-medium' 
+                      : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/50'
                 )}
               >
                 <span>{option}</span>

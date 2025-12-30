@@ -5,14 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { GitBranch, Globe, FolderOpen, ArrowUpRight } from 'lucide-react'
-
-// --- IMPORTS ---
 import { Badge } from '@/components/ui/badge'
 import FilterDropdown from '@/components/ui/filter-dropdown' 
 import { Projects } from '@/lib/data/projects'
 import type { ProjectType } from '@/lib/data'
 
-// --- CONFIG ---
 const CATEGORIES: ProjectType[] = [
   'fullstack', 
   'frontend', 

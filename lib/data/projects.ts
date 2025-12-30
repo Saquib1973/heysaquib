@@ -82,8 +82,8 @@ const DiaryOf: ProjectInterface = {
     'MongoDB',
     'Express',
   ],
-  link: '', // Leave empty if not deployed yet
-  git: 'https://github.com/Saquib1973/diaryof', // Update with actual repo link
+  link: 'https://diaryof.vercel.app/', // Leave empty if not deployed yet
+  git: 'https://github.com/Saquib1973', // Update with actual repo link
   date: 'March 2025',
   featured: true,
 }

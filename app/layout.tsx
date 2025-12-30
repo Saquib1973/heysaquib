@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@/components/providers/ThemeProvider'
+import { ThemeProvider } from '@/components/theme-provider'
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import { ViewTransitions } from 'next-view-transitions'
