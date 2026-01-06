@@ -1,6 +1,6 @@
 'use client'
 
-import { useThemeStore } from '@/lib/stores/themeStore'
+import { Theme, useThemeStore } from '@/lib/stores/themeStore'
 import { headerLinks } from '@/lib/header-links'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
 import { ArrowRight, Menu, X } from 'lucide-react'
@@ -12,7 +12,7 @@ import Moon from './svg/Moon'
 import Open from './svg/Open'
 import Sun from './svg/Sun'
 
-const ThemeToggleIcon = ({ theme, size = 20 }: { theme: string | null, size?: number }) => (
+const ThemeToggleIcon = ({ theme, size = 20 }: { theme: Theme, size?: number }) => (
     <div className="relative flex items-center justify-center">
         <AnimatePresence mode="wait">
             {theme === 'dark' ? (
@@ -40,7 +40,7 @@ const ThemeToggleIcon = ({ theme, size = 20 }: { theme: string | null, size?: nu
     </div>
 )
 
-const MobileThemeToggle = ({ theme, toggleTheme }: { theme: string | null, toggleTheme: () => void }) => {
+const MobileThemeToggle = ({ theme, toggleTheme }: { theme: Theme, toggleTheme: () => void }) => {
     const isDark = theme === 'dark'
     return (
         <button
@@ -102,9 +102,11 @@ const linkItemVariants: Variants = {
 
 
 const Navbar = () => {
-    const [theme, setTheme] = useState<string | null>(null)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
+
+    const theme = useThemeStore((state) => state.theme)
+    const toggleTheme = useThemeStore((state) => state.toggleTheme)
 
     const pathname = usePathname()
     const router = useRouter()
@@ -113,19 +115,6 @@ const Navbar = () => {
         (pathname.startsWith('/blogs/') && pathname !== '/blogs/')
 
     const resumeLink = headerLinks.find(link => link.name === 'Resume')
-
-    useEffect(() => {
-        const currTheme = localStorage.getItem('sacube.theme') ?? 'light'
-        setTheme(currTheme)
-        document.documentElement.classList.toggle('dark', currTheme === 'dark')
-    }, [])
-
-    const toggleTheme = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light'
-        setTheme(newTheme)
-        localStorage.setItem('sacube.theme', newTheme)
-        document.documentElement.classList.toggle('dark', newTheme === 'dark')
-    }
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20)
@@ -230,7 +219,7 @@ const Navbar = () => {
                                     )}
                                     <span className="flex items-center gap-1.5 relative z-10">
                                         {link.name}
-                                        {link.name === 'Resume' && !link.logo && <Open />}
+                                        {link.name === 'Resume' && !link.logo && <ArrowRight className='text-black dark:text-white size-4 -rotate-45' />}
                                     </span>
                                 </Link>
                             )

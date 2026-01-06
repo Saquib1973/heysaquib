@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist, StateStorage } from 'zustand/middleware'
 
 export type Theme = 'light' | 'dark'
 
@@ -7,7 +7,36 @@ interface ThemeStore {
   theme: Theme
   setTheme: (theme: Theme) => void
   toggleTheme: () => void
-  initTheme: () => void
+}
+
+// In-memory fallback for environments where localStorage fails (e.g., incognito/private mode quotas)
+const memoryStorage = new Map<string, string>()
+
+const safeStorage: StateStorage = {
+  getItem: (key) => {
+    if (typeof window === 'undefined') return null
+    try {
+      return window.localStorage.getItem(key)
+    } catch (error) {
+      return memoryStorage.get(key) ?? null
+    }
+  },
+  setItem: (key, value) => {
+    if (typeof window === 'undefined') return
+    try {
+      window.localStorage.setItem(key, value)
+    } catch (error) {
+      memoryStorage.set(key, value)
+    }
+  },
+  removeItem: (key) => {
+    if (typeof window === 'undefined') return
+    try {
+      window.localStorage.removeItem(key)
+    } catch (error) {
+      memoryStorage.delete(key)
+    }
+  },
 }
 
 export const useThemeStore = create<ThemeStore>()(
@@ -17,47 +46,26 @@ export const useThemeStore = create<ThemeStore>()(
 
       setTheme: (theme: Theme) => {
         set({ theme })
-        // Update DOM
+        // Apply changes to DOM immediately
         if (typeof document !== 'undefined') {
           document.documentElement.classList.toggle('dark', theme === 'dark')
         }
       },
 
       toggleTheme: () => {
-        const currentTheme = get().theme
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light'
-        get().setTheme(newTheme)
-      },
-
-      initTheme: () => {
-        if (typeof document !== 'undefined') {
-          const storedTheme = localStorage.getItem('sacube.theme') as Theme | null
-          const theme = storedTheme ?? 'light'
-          set({ theme })
-          document.documentElement.classList.toggle('dark', theme === 'dark')
-        }
+        const { theme } = get()
+        const newTheme = theme === 'light' ? 'dark' : 'light'
+        get().setTheme(newTheme) // Call setTheme to ensure DOM updates
       },
     }),
     {
       name: 'sacube.theme',
-      storage: {
-        getItem: (key) => {
-          if (typeof window === 'undefined') return null
-          const value = localStorage.getItem(key)
-          return value
-            ? JSON.parse(value)
-            : null
-        },
-        setItem: (key, value) => {
-          if (typeof window !== 'undefined') {
-            localStorage.setItem(key, JSON.stringify(value))
-          }
-        },
-        removeItem: (key) => {
-          if (typeof window !== 'undefined') {
-            localStorage.removeItem(key)
-          }
-        },
+      storage: createJSONStorage(() => safeStorage),
+      // This runs when the store finishes loading from local storage
+      onRehydrateStorage: () => (state) => {
+        if (typeof document !== 'undefined' && state) {
+          document.documentElement.classList.toggle('dark', state.theme === 'dark')
+        }
       },
     }
   )

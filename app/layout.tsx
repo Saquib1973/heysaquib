@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Saquib Ali - Portfolio',
   description: 'Saquib Ali is a software engineer and a designer.',
   icons: {
-    icon: '/assets/logo.png',
+    icon: '/saquib.jpg',
   },
 }
 

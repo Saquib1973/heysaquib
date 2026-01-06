@@ -3,6 +3,7 @@
 import { categories, techstack } from '@/lib/data/techstack'
 import Image from 'next/image'
 import { StaggerItem, StaggerSection } from './stagger-section'
+import SectionHeader from './section-header'
 
 const TechnologySection = () => {
   const displayCategories = categories.filter((c) => c !== 'all')
@@ -11,11 +12,7 @@ const TechnologySection = () => {
     <StaggerSection className="py-20 ">
 
       {/* Section Header */}
-      <StaggerItem className="mb-12 md:mb-16">
-        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white tracking-tight">
-          Tech Stack
-        </h2>
-      </StaggerItem>
+      <SectionHeader text='Tech Stack'  />
 
       <div className="flex flex-col gap-6 md:gap-8">
         {displayCategories.map((category) => {

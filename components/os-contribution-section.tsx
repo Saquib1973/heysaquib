@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { StaggerSection, StaggerItem } from './stagger-section'
 import Button from './ui/button'
+import SectionHeader from './section-header'
 
 // --- Types ---
 interface Label {
@@ -178,11 +179,7 @@ const OsContributionSection = () => {
     <StaggerSection className="py-20">
 
       {/* Header */}
-      <StaggerItem className="flex items-end justify-between mb-12 pb-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
-          Open Source Contributions
-        </h2>
-      </StaggerItem>
+      <SectionHeader text='OpenSource Contributions' />
 
       {/* PR List - Added 'group' class here to enable sibling dimming */}
       <div className="flex flex-col group border-t border-gray-100 dark:border-white/10">

@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { StaggerItem, StaggerSection } from './stagger-section'
 import { Badge } from './ui/badge'
 import Button from './ui/button'
+import SectionHeader from './section-header'
 
 // --- Project Card Component ---
 const ProjectCard = ({
@@ -139,27 +140,9 @@ const ProjectsSection = () => {
       className="projects py-20">
 
       {/* Header */}
-      <StaggerItem className="flex items-end justify-between mb-12 pb-6">
-        <div className="space-y-1">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight flex items-end gap-3">
-            Projects
-            <Folder className="w-6 h-6 text-gray-300 dark:text-gray-700" />
-          </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Selected works and personal project.
-          </p>
-        </div>
+      <SectionHeader text='Projects' />
 
-        <Button
-          href="/projects"
-          size='sm'
-          variant="secondary"
-          className="hidden sm:flex"
-        >
-          View All Projects
-          <ArrowUpRight className="ml-2 w-4 h-4" />
-        </Button>
-      </StaggerItem>
+
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
@@ -171,7 +154,7 @@ const ProjectsSection = () => {
       </div>
 
       {/* Mobile View All Button */}
-      <StaggerItem className="mt-8 sm:hidden">
+      <StaggerItem className="mt-8 flex justify-end ">
         <Button href="/projects" variant="secondary" className="w-full justify-center">
           View All Projects
         </Button>

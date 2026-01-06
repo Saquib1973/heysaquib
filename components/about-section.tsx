@@ -7,6 +7,7 @@ import PenUnderline from './PenUnderline'
 import { StaggerItem, StaggerSection } from './stagger-section'
 import Button from './ui/button'
 import { motion } from "framer-motion"
+import SectionHeader from "./section-header"
 
 const AboutSection = () => {
   return (
@@ -15,10 +16,7 @@ const AboutSection = () => {
       {/* Left Side */}
       <div className="flex flex-col gap-6 text-left">
         {/* Heading */}
-        <StaggerItem
-          className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
-          About Me
-        </StaggerItem>
+        <SectionHeader text="About" />
 
         {/* Content */}
         <StaggerItem className="space-y-5 text-lg font-light leading-relaxed text-gray-600 dark:text-gray-400">
@@ -85,7 +83,7 @@ const AboutSection = () => {
             alt="Saquib Ali"
             fill
             priority
-            className="rounded-full md:rounded-md object-cover"
+            className="rounded-full border-2 border-zinc-100 dark:border-zinc-900 animate-mode object-cover"
           />
         </div>
       </StaggerItem>

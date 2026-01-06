@@ -2,8 +2,6 @@ import FadeInAnimation from '@/components/FadeInAnimation'
 import AboutSection from '@/components/about-section'
 import ExperienceSection from '@/components/experience-section'
 import Footer from '@/components/footer'
-import LatestBlogsSection from '@/components/latest-blogs-section'
-import MyLocationSection from '@/components/my-location-section'
 import OsContributionSection from '@/components/os-contribution-section'
 import ProjectsSection from '@/components/projects-section'
 import { StaggerItem } from '@/components/stagger-section'
@@ -47,8 +45,6 @@ export default function Home() {
       <TechnologySection />
       <ProjectsSection />
       <OsContributionSection />
-      <LatestBlogsSection />
-      <MyLocationSection />
       <Footer />
     </FadeInAnimation>
   )

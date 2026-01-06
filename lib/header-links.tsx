@@ -1,5 +1,5 @@
+import { BracketsIcon, HomeIcon, UserIcon } from 'lucide-react'
 import type { ReactElement } from 'react'
-import { HomeIcon, UserIcon, BracketsIcon, BookOpenIcon } from 'lucide-react'
 
 interface HeaderLink {
   name: string
@@ -23,11 +23,11 @@ export const headerLinks: HeaderLink[] = [
     href: '/projects',
     logo: <BracketsIcon className="w-5 h-5" aria-hidden="true" />,
   },
-  {
-    name: 'Blogs',
-    href: '/blogs',
-    logo: <BookOpenIcon className="w-5 h-5" aria-hidden="true" />,
-  },
+  // {
+  //   name: 'Blogs',
+  //   href: '/blogs',
+  //   logo: <BookOpenIcon className="w-5 h-5" aria-hidden="true" />,
+  // },
   {
     name: 'Resume',
     href: 'https://drive.google.com/file/d/1uy_pExXcnC35CJEACcN3DfigwJPFtd_o/view',
