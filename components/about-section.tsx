@@ -1,13 +1,16 @@
 "use client"
+
 import ArrowDown from "@/public/arrow-down.png"
 import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from "framer-motion"
+
+// Custom Components
 import PenUnderline from './PenUnderline'
 import { StaggerItem, StaggerSection } from './stagger-section'
 import Button from './ui/button'
-import { motion } from "framer-motion"
-import SectionHeader from "./section-header"
+import NameAudio from "./name-audio"
 
 const AboutSection = () => {
   return (
@@ -15,13 +18,13 @@ const AboutSection = () => {
 
       {/* Left Side */}
       <div className="flex flex-col gap-6 text-left">
-        {/* Heading */}
-        <SectionHeader text="About" />
-
-        {/* Content */}
         <StaggerItem className="space-y-5 text-lg font-light leading-relaxed text-gray-600 dark:text-gray-400">
           <div>
-            Hi, I’m <span className="font-medium text-gray-900 dark:text-white"><PenUnderline delay={0.5} text="Saquib Ali" /></span>
+            Hi, I’m{' '}
+            <span className="inline-flex items-center font-medium text-gray-900 dark:text-white">
+              <PenUnderline delay={0.5} text="Saquib Ali" />
+              <NameAudio />
+            </span>
             , a B.Tech ECE (Hons) graduate from{' '}
             <br className="hidden md:block" />
 
@@ -34,8 +37,7 @@ const AboutSection = () => {
                 initial="initial"
                 whileHover="hover"
                 layout
-                className="
-                  relative inline-flex items-center justify-center px-0.5 text-black group-hover:text-white dark:text-white transition-all duration-500 dark:hover:bg-white-200 dark:group-hover:text-black dark:group-hover:bg-white-0 max-md:bg-black-2 dark:max-md:bg-white-0 dark:max-md:text-black max-md:text-white group-hover:bg-black-0"
+                className="relative inline-flex items-center justify-center px-0.5 text-black group-hover:text-white dark:text-white transition-all duration-500 dark:hover:bg-white-200 dark:group-hover:text-black dark:group-hover:bg-white-0 max-md:bg-black-2 dark:max-md:bg-white-0 dark:max-md:text-black max-md:text-white group-hover:bg-black-0"
               >
                 <motion.span layout className="font-semibold underline underline-offset-4 group-hover:no-underline transition-all duration-500">
                   IIIT Ranchi
@@ -76,6 +78,7 @@ const AboutSection = () => {
         </StaggerItem>
       </div>
 
+      {/* Right Side - Image */}
       <StaggerItem className="flex justify-start max-md:w-full md:justify-end">
         <div className="group relative w-36 sm:w-48 md:w-64 aspect-square">
           <Image

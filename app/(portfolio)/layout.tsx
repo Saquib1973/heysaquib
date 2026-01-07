@@ -1,4 +1,3 @@
-import FooterEnd from '@/components/footer-end'
 import Navbar from '@/components/navbar'
 
 
@@ -9,7 +8,6 @@ export default function PortfolioLayout({
         <div className='mx-auto max-w-4xl '>
             <Navbar />
             {children}
-            <FooterEnd />
         </div>
     )
 }

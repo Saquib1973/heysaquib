@@ -22,29 +22,31 @@ const links = [
 export default function Home() {
 
   return (
-    <FadeInAnimation className='px-4'>
-      <AboutSection />
-      <StaggerItem >
+    <FadeInAnimation>
+      <div className='px-4'>
+        <AboutSection />
+        <StaggerItem >
 
-        <div className="flex text-light justify-end items-center gap-1">
-          {links.map((link, index) => (
-            <div key={index} className="cursor-pointer">
-              <Link
-                href={link.href}
-                className="capitalize hover:link-text transition"
-                target="_blank"
-              >
-                {link.name}
-              </Link>
-              {index < links.length - 1 ? ` /` : ''}
-            </div>
-          ))}
-        </div>
-      </StaggerItem>
-      <ExperienceSection />
-      <TechnologySection />
-      <ProjectsSection />
-      <OsContributionSection />
+          <div className="flex text-light justify-end items-center gap-1">
+            {links.map((link, index) => (
+              <div key={index} className="cursor-pointer">
+                <Link
+                  href={link.href}
+                  className="capitalize hover:link-text transition"
+                  target="_blank"
+                >
+                  {link.name}
+                </Link>
+                {index < links.length - 1 ? ` /` : ''}
+              </div>
+            ))}
+          </div>
+        </StaggerItem>
+        <ExperienceSection />
+        <TechnologySection />
+        <ProjectsSection />
+        <OsContributionSection />
+      </div>
       <Footer />
     </FadeInAnimation>
   )

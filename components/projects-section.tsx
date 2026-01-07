@@ -155,7 +155,7 @@ const ProjectsSection = () => {
 
       {/* Mobile View All Button */}
       <StaggerItem className="mt-8 flex justify-end ">
-        <Button href="/projects" variant="secondary" className="w-full justify-center">
+        <Button href="/projects" size='sm' variant="secondary" className="w-full justify-center">
           View All Projects
         </Button>
       </StaggerItem>

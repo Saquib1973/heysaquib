@@ -1,23 +1,21 @@
 'use client'
-import Button from "@/components/ui/button"
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, Check, Mail } from 'lucide-react'
 import { useState } from 'react'
 import { StaggerItem, StaggerSection } from './stagger-section'
-// Import the new isolated component
+import Button from './ui/button'
 
 const CONFIG = {
   email: "saquibali353@gmail.com",
-  whatsapp: "https://wa.me/916202303022?text=Hi%20Saquib!%20I%20saw%20your%20portfolio...",
   socials: [
     { label: "Github", href: "https://github.com/Saquib1973" },
     { label: "Twitter", href: "https://twitter.com/sacubeli" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/saquib-ali-4a3235219/" },
-    { label: "WhatsApp", href: "https://wa.me/916202303022?text=Hi%20Saquib!" },
+    { label: "WhatsApp", href: "https://wa.me/916202303022" },
   ]
 }
 
-const Footer = () => {
+export default function Footer() {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = () => {
@@ -27,90 +25,52 @@ const Footer = () => {
   }
 
   return (
-    <footer className="footer w-full pt-24 overflow-hidden">
-      <StaggerSection className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="flex flex-col gap-8">
-            <div className="space-y-4">
-              <StaggerItem>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-black dark:text-white leading-[0.9]">
-                  Let's make something <span className="text-yellow-400 ">great.</span>
-                </h2>
-              </StaggerItem>
-              <StaggerItem>
-                <p className="text-lg font-amiko text-gray-500 dark:text-gray-400 max-w-md">
-                  Focusing on accessible, pixel-perfect, and performant web experiences.
-                </p>
-              </StaggerItem>
-            </div>
+    <footer className="relative w-full pt-20 pb-10 overflow-hidden">
+      <StaggerSection className="relative z-20 px-6 flex flex-col items-center text-center">
 
-            <StaggerItem className="flex items-center gap-3 relative">
-              <Button
-                variant="secondary-s"
-                size="sm"
-                onClick={handleCopy}
-                className="peer w-[260px]"
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  {copied ? (
-                    <motion.div
-                      key="copied"
-                      layout
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="flex items-center gap-2"
-                    >
-                      <Check size={18} />
-                      <span className="font-medium text-sm">Copied!</span>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="email"
-                      layout
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="flex items-center gap-3"
-                    >
-                      <Mail size={18} />
-                      <span className="font-mono text-sm">{CONFIG.email}</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </Button>
+        {/* HEADING */}
+        <StaggerItem>
+          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-neutral-800 dark:text-neutral-200 mb-6">
+            Have an idea? <span className="text-neutral-400 dark:text-neutral-500 italic font-light">Let's connect.</span>
+          </h2>
+        </StaggerItem>
+
+        {/* EMAIL BUTTON (Using Custom Button) */}
+        <StaggerItem className="mb-10">
+          <Button
+            variant="primary-s"
+            size="sm"
+            onClick={handleCopy}
+            className='w-80'
+
+          >
+            <div className="relative h-4 w-4 flex items-center justify-center mr-2">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={copied ? "check" : "mail"}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                >
+                  {copied ? <Check size={14} className="text-emerald-500" /> : <Mail size={14} className="text-neutral-400" />}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <span>{copied ? "Copied" : CONFIG.email}</span>
+          </Button>
+        </StaggerItem>
+
+        <div className="flex gap-8 mb-12">
+          {CONFIG.socials.map((link) => (
+            <StaggerItem key={link.label}>
+              <a href={link.href} target="_blank" className="text-[10px] uppercase tracking-[0.2em] font-bold text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1">
+                {link.label} <ArrowUpRight size={10} className="opacity-30" />
+              </a>
             </StaggerItem>
-          </div>
-
-          <div className="flex flex-col items-start md:items-end justify-center">
-            <div className="flex flex-col items-start md:items-end gap-1">
-              <StaggerItem>
-                <span className="text-xs font-bold uppercase tracking-wider underline underline-offset-4 mb-3 block">Connect</span>
-              </StaggerItem>
-
-              {CONFIG.socials.map((social) => (
-                <StaggerItem key={social.label} className="w-full flex md:justify-end">
-                  <Button
-                    variant="link"
-                    onClick={() => window.open(social.href, '_blank')}
-                    className="font-normal group flex items-center my-1 text-xs text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white animate-mode px-0">
-                    <span className="">{social.label}</span>
-                    <ArrowUpRight
-                      size={16}
-                      className="text-gray-400 group-hover:text-black dark:group-hover:text-yellow-400 origin-bottom-left !transition-all animate-mode group-hover:scale-125 ml-1"
-                    />
-                  </Button>
-                </StaggerItem>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
 
       </StaggerSection>
     </footer>
   )
 }
-
-export default Footer
