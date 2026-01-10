@@ -1,5 +1,5 @@
-export { default as MomentsHomeSection } from './moments-home-section'
-export { default as LocationMap } from './my-location-section'
+export { default as MomentsHomeSection } from './sections/moments-home-section'
+export { default as LocationMap } from './sections/my-location-section'
 
 export type ProjectCardType = {
   name: string

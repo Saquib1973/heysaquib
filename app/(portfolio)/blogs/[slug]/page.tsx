@@ -1,19 +1,17 @@
+import { StaggerSection } from '@/components/stagger-section'
+import { transformerCopyButton } from '@rehype-pretty/transformers'
 import fs from 'fs'
 import matter from 'gray-matter'
-import { notFound } from 'next/navigation'
+import path from 'path'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeDocument from 'rehype-document'
 import rehypeFormat from 'rehype-format'
+import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeSlug from 'rehype-slug'
 import rehypeStringify from 'rehype-stringify'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified } from 'unified'
-import rehypePrettyCode from 'rehype-pretty-code'
-import { transformerCopyButton } from '@rehype-pretty/transformers'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeSlug from 'rehype-slug'
-import OnThisPage from '@/components/on-this-page'
-import path from 'path'
-import FadeInAnimation from '@/components/FadeInAnimation'
 const postsDir = path.join(process.cwd(), 'content')
 
 type PageProps = {
@@ -23,7 +21,7 @@ export default async function Page({ params }: PageProps) {
   const param = await params;
   const { slug } = param;
   // const filepath = `blogs/${slug}.md`
-   const newFilePath = path.join(postsDir, `${slug}.mdx`)
+  const newFilePath = path.join(postsDir, `${slug}.mdx`)
   // console.log(filepath);
 
   if (!fs.existsSync(newFilePath)) {
@@ -32,8 +30,8 @@ export default async function Page({ params }: PageProps) {
     // notFound()
     // return
   }
-      const newFileContents = fs.readFileSync(newFilePath, 'utf8')
-  const { data:newData, content:newContent } = matter(newFileContents)
+  const newFileContents = fs.readFileSync(newFilePath, 'utf8')
+  const { data: newData, content: newContent } = matter(newFileContents)
   // const fileContent = fs.readFileSync(filepath, 'utf-8')
   // const { content, data } = matter(fileContent)
 
@@ -59,7 +57,7 @@ export default async function Page({ params }: PageProps) {
 
 
   return (
-    <FadeInAnimation duration={0.5}>
+    <StaggerSection>
 
       <div className="p-2 text-gray-800 dark:text-gray-100">
         {/* Blog Header */}
@@ -86,6 +84,6 @@ export default async function Page({ params }: PageProps) {
           </article>
         </div>
       </div>
-    </FadeInAnimation>
+    </StaggerSection>
   )
 }

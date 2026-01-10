@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <ViewTransitions>
         <body
-          className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} ${zalando.variable} ${neue.variable} font-zalando bg-white-1 dark:bg-black-1 dark:text-white antialiased transition`}
+          className={`${rampart.variable} ${amiko.variable} ${happymonkey.variable} ${zalando.variable} ${neue.variable} font-amiko bg-white-1 dark:bg-black-1 dark:text-white antialiased transition`}
         >
           <ThemeProvider>
             <Analytics />

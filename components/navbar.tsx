@@ -1,6 +1,6 @@
 'use client'
 
-import { Theme, useThemeStore } from '@/lib/stores/themeStore'
+import { Theme, useThemeStore } from '@/stores/themeStore'
 import { headerLinks } from '@/lib/header-links'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
 import { ArrowRight, Menu, X } from 'lucide-react'
@@ -145,7 +145,7 @@ const Navbar = () => {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5, ease: "circOut" }}
             >
-                <div className="max-w-5xl mx-auto px-4 md:px-0 h-14 flex items-center justify-between md:justify-start md:gap-6">
+                <div className="px-4 md:px-0 h-14 flex justify-between md:items-center">
 
                     {/* Left: Controls */}
                     <div className="flex items-center gap-3">
@@ -183,7 +183,7 @@ const Navbar = () => {
                             {showBackButton && (
                                 <button
                                     onClick={() => router.back()}
-                                    className="flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors"
+                                    className="flex items-center gap-2 text-sm font-normal px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors"
                                 >
                                     <Arrow className="-rotate-[135deg] w-4 h-4" />
                                     Back
@@ -194,7 +194,7 @@ const Navbar = () => {
 
                     {/* Center: Desktop Nav */}
                     {/* Now sits naturally next to the Left Controls because of md:justify-start */}
-                    <nav className="hidden md:flex items-center gap-1">
+                    <div className="hidden md:flex items-center px-1 gap-1">
                         {!showBackButton && headerLinks.map((link) => {
                             const isActive = pathname === link.href
                             return (
@@ -203,7 +203,7 @@ const Navbar = () => {
                                     href={link.href}
                                     target={link.name === 'Resume' ? '_blank' : undefined}
                                     className={`
-                                        relative px-4 py-1.5 text-sm font-medium transition-colors duration-300
+                                        relative px-4 py-1.5 text-sm font-normal transition-colors duration-300
                                         ${isActive
                                             ? 'text-gray-900 dark:text-white'
                                             : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
@@ -224,7 +224,7 @@ const Navbar = () => {
                                 </Link>
                             )
                         })}
-                    </nav>
+                    </div>
 
                     {/* Right: Desktop Theme Toggle */}
                     {/* Added `ml-auto` to push this specific element to the far right */}
@@ -324,7 +324,7 @@ const Navbar = () => {
                                     className="pt-6 mt-2 border-t border-gray-200/20 dark:border-white/10"
                                 >
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        <span className="text-sm font-normal text-gray-700 dark:text-gray-300">
                                             Appearance
                                         </span>
                                         <MobileThemeToggle theme={theme} toggleTheme={toggleTheme} />
