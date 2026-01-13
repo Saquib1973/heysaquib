@@ -1,5 +1,9 @@
 'use client'
 
+import CertificateSection from '@/components/certificates-section'
+import { StaggerItem, StaggerSection } from '@/components/stagger-section'
+import { moments } from '@/public/assets/moments'
+import { getDateHelper } from '@/public/utils/helper'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   ArrowUpRight,
@@ -16,10 +20,6 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-import CertificateSection from '@/components/certificates-section'
-import { StaggerItem, StaggerSection } from '@/components/stagger-section'
-import { moments } from '@/public/assets/moments'
-import { getDateHelper } from '@/public/utils/helper'
 
 const links = [
   { name: 'Github', href: 'https://github.com/Saquib1973', icon: <Github className="w-5 h-5" /> },
@@ -305,11 +305,9 @@ export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 space-y-24">
       <HeroSection />
-      <GallerySection />
-      <TimelineSection />
 
       {/* CERTIFICATES & FOOTER */}
-      <StaggerSection className="w-full">
+      {/* <StaggerSection className="w-full">
         <StaggerItem className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Certificates</h2>
         </StaggerItem>
@@ -322,7 +320,7 @@ export default function AboutPage() {
             </Link>
           </div>
         </StaggerItem>
-      </StaggerSection>
+      </StaggerSection> */}
     </div>
   )
 }

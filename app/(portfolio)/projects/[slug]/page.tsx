@@ -72,7 +72,7 @@ const Page = () => {
                 size="md"
                 className="w-full sm:w-auto"
               >
-                {data.type.includes("react-native") ? "Download App" : "Visit Live Site"}
+                {data.type.includes("react-native") && data.link.includes(".apk") ? "Download App" : "Visit Live Site"}
                 <ArrowUpRight className="w-4 h-4 ml-2" />
               </Button>
             </StaggerItem>

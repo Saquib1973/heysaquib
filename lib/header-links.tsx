@@ -13,11 +13,11 @@ export const headerLinks: HeaderLink[] = [
     href: '/',
     logo: <HomeIcon className="w-5 h-5" aria-hidden="true" />,
   },
-  {
-    name: 'About',
-    href: '/about',
-    logo: <UserIcon className="w-5 h-5" aria-hidden="true" />,
-  },
+  // {
+  //   name: 'About',
+  //   href: '/about',
+  //   logo: <UserIcon className="w-5 h-5" aria-hidden="true" />,
+  // },
   {
     name: 'Projects',
     href: '/projects',

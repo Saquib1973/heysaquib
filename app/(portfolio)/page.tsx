@@ -1,6 +1,6 @@
 import Footer from '@/components/footer'
 import AboutSection from '@/components/sections/about-section'
-import ExperienceSection from '@/components/sections/experience-section'
+import WorkHistorySection from '@/components/sections/work-history'
 import OsContributionSection from '@/components/sections/os-contribution-section'
 import ProjectsSection from '@/components/sections/projects-section'
 import TechnologySection from '@/components/sections/technology-section'
@@ -13,7 +13,7 @@ export default function Home() {
     <Section viewportAmount={0} className=''>
       <div className='px-4'>
         <AboutSection />
-        <ExperienceSection />
+        <WorkHistorySection />
         <TechnologySection />
         <ProjectsSection />
         <OsContributionSection />

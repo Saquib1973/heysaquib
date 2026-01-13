@@ -16,17 +16,15 @@ const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
       className="
         group/item
         block w-full py-5 px-2 -mx-2
-        border-b border-gray-100 dark:border-white/5
         transition-all duration-500 ease-out
         md:group-hover:opacity-30
-        md:hover:!opacity-100 md:hover:pl-6
+        md:hover:!opacity-100
       "
     >
       <article className="flex flex-col sm:grid sm:grid-cols-[180px_1fr_auto] gap-3 sm:gap-6 sm:items-center">
 
-        {/* Company Logo & Name */}
         <div className="flex items-center gap-3">
-          <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-zinc-200 dark:border-white/10">
+          <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0">
             <Image
               src={data.logo}
               alt={data.company}
@@ -43,7 +41,7 @@ const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
         </div>
 
         {/* Role & Tech */}
-        <div className="min-w-0 flex flex-col gap-1">
+        <div className="transition-all duration-500 min-w-0 flex flex-col gap-1">
           <h3 className="
             text-base sm:text-lg font-medium 
             text-zinc-900 dark:text-zinc-100 
@@ -61,7 +59,6 @@ const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
           </div>
         </div>
 
-        {/* Desktop Date & Arrow */}
         <div className="hidden sm:flex items-center gap-6 justify-end text-sm text-zinc-400 dark:text-zinc-500 font-mono shrink-0">
           <span className="transition-colors group-hover/item:text-zinc-600 dark:group-hover/item:text-zinc-300">
             {data.duration}
@@ -84,11 +81,11 @@ const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
   )
 }
 
-const ExperienceList = () => {
+const WorkHistory = () => {
   return (
     <Section className="py-20">
       <SectionHeader text="Work History" />
-      <div className="flex flex-col group border-t border-gray-100 dark:border-white/5">
+      <div className="flex flex-col group">
         {experiences.map((exp, index) => (
           <StaggerItem key={index} className="w-full">
             <ExperienceItem data={exp} />
@@ -99,4 +96,4 @@ const ExperienceList = () => {
   )
 }
 
-export default ExperienceList
+export default WorkHistory

@@ -110,7 +110,7 @@ const ProjectCard = ({
             target="_blank"
             className="flex items-center gap-2 text-xs font-bold text-gray-900 dark:text-white hover:text-yellow-600 dark:hover:text-yellow-500 transition-colors"
           >
-            {project.type.includes("react-native") ? (
+            {project.type.includes("react-native") && project.link.includes(".apk") ? (
               <>
                 Download App
                 <Download className="w-4 h-4" />

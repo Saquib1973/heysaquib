@@ -69,7 +69,7 @@ const AboutSection = () => {
             height={150}
             className="absolute -top-12 -right-20 z-10 w-28 md:w-24 rotate-12 p-1 dark:invert"
           />
-          <Button href="/about" variant="secondary" size="sm" className="w-fit">
+          <Button href="https://www.linkedin.com/in/saquibali1973/" variant="secondary" size="sm" className="w-fit">
             More about me <ArrowUpRight className="ml-2 w-4 h-4" />
           </Button>
         </BlurTranslateYItem>
