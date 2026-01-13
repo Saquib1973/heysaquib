@@ -4,15 +4,13 @@ import ExperienceSection from '@/components/sections/experience-section'
 import OsContributionSection from '@/components/sections/os-contribution-section'
 import ProjectsSection from '@/components/sections/projects-section'
 import TechnologySection from '@/components/sections/technology-section'
-import { StaggerItem, StaggerSection } from '@/components/stagger-section'
-import { socialLinks } from '@/lib/data/social-links'
-import { Link } from 'next-view-transitions'
+import { StaggerSection } from '@/components/stagger-section'
 
 
 export default function Home() {
 
   return (
-    <StaggerSection>
+    <StaggerSection viewportAmount={0}>
       <div className='px-4'>
         <AboutSection />
         {/* <StaggerItem >

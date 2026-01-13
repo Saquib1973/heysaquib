@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 
 const LocationMapClient = () => {
+  const [mounted, setMounted] = useState(false)
   const patnaPosition: L.LatLngTuple = [25.6093, 85.1376]
 
   // Minimal "Pulsing Dot" Marker (Tailwind only)
@@ -24,6 +25,7 @@ const LocationMapClient = () => {
 
   // Cleanup to prevent "Map already initialized" errors
   useEffect(() => {
+    setMounted(true)
     return () => {
       const container = document.getElementsByClassName('leaflet-container')[0] as HTMLElement
       if (container && (container as any)._leaflet_id) {
@@ -31,6 +33,13 @@ const LocationMapClient = () => {
       }
     }
   }, [])
+
+  // Don't render on server to avoid hydration issues
+  if (!mounted) {
+    return (
+      <div className="h-full w-full bg-gray-100 dark:bg-zinc-900 animate-pulse rounded-lg" />
+    )
+  }
 
   return (
     <div className="h-full w-full 

@@ -9,12 +9,12 @@ export default function MomentsHomeSection() {
 
   return (
     <StaggerSection>
-      <div className="md:px-4 p-6">
+      <div className="px-4 md:px-4">
         <div className="flex justify-between items-center mb-3">
           <h2 className="text-xl font-semibold dark:text-gray-300 text-gray-700">Memories</h2>
         </div>
-        <div className="overflow-x-auto -mx-2 px-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <div className="flex gap-2 pb-2">
+        <div className="overflow-x-auto -mx-4 px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex gap-2 pb-2 min-w-min">
             {displayedMoments.map((moment, index) => {
               const colors = [
                 'dark:bg-green-600 bg-green-400',

@@ -104,6 +104,7 @@ const linkItemVariants: Variants = {
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
+    const [mounted, setMounted] = useState(false)
 
     const theme = useThemeStore((state) => state.theme)
     const toggleTheme = useThemeStore((state) => state.toggleTheme)
@@ -115,6 +116,10 @@ const Navbar = () => {
         (pathname.startsWith('/blogs/') && pathname !== '/blogs/')
 
     const resumeLink = headerLinks.find(link => link.name === 'Resume')
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20)
@@ -130,6 +135,11 @@ const Navbar = () => {
             return () => clearTimeout(timer)
         }
     }, [isMobileMenuOpen])
+
+    // Prevent hydration mismatch by only rendering after mount
+    if (!mounted) {
+        return <nav className="h-14" />
+    }
 
     return (
         <>

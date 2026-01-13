@@ -67,7 +67,7 @@ const AboutSection = () => {
             alt="Arrow decoration"
             width={150}
             height={150}
-            className="absolute -top-12 -right-20 z-10 w-24 rotate-12 p-1 dark:invert"
+            className="absolute -top-12 -right-20 z-10 w-20 md:w-24 rotate-12 p-1 dark:invert"
           />
           <Button href="/about" variant="secondary" size="sm" className="w-fit">
             More about me <ArrowUpRight className="ml-2 w-4 h-4" />
@@ -75,8 +75,8 @@ const AboutSection = () => {
         </StaggerItem>
       </div>
 
-      <StaggerItem className="flex justify-start max-md:w-full md:justify-end">
-        <div className="group relative w-36 sm:w-48 md:w-52 aspect-square">
+      <StaggerItem className="flex justify-center max-md:w-full md:justify-end">
+        <div className="group relative w-32 sm:w-40 md:w-48 lg:w-52 aspect-square flex-shrink-0">
           <Image
             src="/assets/saquib.jpg"
             alt="Saquib Ali"
