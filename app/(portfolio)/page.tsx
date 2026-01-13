@@ -4,13 +4,13 @@ import ExperienceSection from '@/components/sections/experience-section'
 import OsContributionSection from '@/components/sections/os-contribution-section'
 import ProjectsSection from '@/components/sections/projects-section'
 import TechnologySection from '@/components/sections/technology-section'
-import { StaggerSection } from '@/components/stagger-section'
+import { Section } from '@/components/stagger-section'
 
 
 export default function Home() {
 
   return (
-    <StaggerSection viewportAmount={0}>
+    <Section viewportAmount={0} className=''>
       <div className='px-4'>
         <AboutSection />
         {/* <StaggerItem >
@@ -36,7 +36,7 @@ export default function Home() {
         <OsContributionSection />
       </div>
       <Footer />
-    </StaggerSection>
+    </Section>
   )
 }
 

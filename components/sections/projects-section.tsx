@@ -2,13 +2,13 @@
 
 import type { ProjectInterface } from '@/lib/data'
 import { Projects } from '@/lib/data/projects'
-import { ArrowUpRight, Calendar, Download, Folder, Github } from 'lucide-react'
+import { ArrowUpRight, Calendar, Download, Github } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { StaggerItem, StaggerSection } from '../stagger-section'
+import SectionHeader from '../section-header'
+import { Section, StaggerItem, StaggerSection } from '../stagger-section'
 import { Badge } from '../ui/badge'
 import Button from '../ui/button'
-import SectionHeader from '../section-header'
 
 // --- Project Card Component ---
 const ProjectCard = ({
@@ -136,7 +136,7 @@ const ProjectsSection = () => {
   const featuredProjects = Projects.filter((project) => project.featured)
 
   return (
-    <StaggerSection
+    <Section
       className="projects py-20">
 
       {/* Header */}
@@ -145,13 +145,13 @@ const ProjectsSection = () => {
 
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+      <StaggerSection className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
         {featuredProjects.map((project, index) => (
           <StaggerItem key={project.id || index}>
             <ProjectCard project={project} index={index} />
           </StaggerItem>
         ))}
-      </div>
+      </StaggerSection>
 
       {/* Mobile View All Button */}
       <StaggerItem className="mt-8 flex justify-end ">
@@ -160,7 +160,7 @@ const ProjectsSection = () => {
         </Button>
       </StaggerItem>
 
-    </StaggerSection>
+    </Section>
   )
 }
 

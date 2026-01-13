@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { StaggerSection, StaggerItem } from '../stagger-section'
+import { StaggerSection, StaggerItem, Section } from '../stagger-section'
 import Button from '../ui/button'
 import SectionHeader from '../section-header'
 
@@ -176,13 +176,13 @@ const OsContributionSection = () => {
   }
 
   return (
-    <StaggerSection className="py-20">
+    <Section className="py-20">
 
       {/* Header */}
       <SectionHeader text='OpenSource Contributions' />
 
       {/* PR List - Added 'group' class here to enable sibling dimming */}
-      <div className="flex flex-col group border-t border-gray-100 dark:border-white/10">
+      <StaggerSection className="flex flex-col group border-t border-gray-100 dark:border-white/10">
         {prs.map((pr) => (
           <StaggerItem key={pr.id} className="w-full">
             <PullRequestItem pr={pr} />
@@ -195,7 +195,7 @@ const OsContributionSection = () => {
             <PRSkeleton />
           </StaggerItem>
         ))}
-      </div>
+      </StaggerSection>
 
       {/* Load More Button */}
       {!loading && hasMore && (
@@ -210,7 +210,7 @@ const OsContributionSection = () => {
         </StaggerItem>
       )}
 
-    </StaggerSection>
+    </Section>
   )
 }
 

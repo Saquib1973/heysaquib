@@ -5,7 +5,7 @@ import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import SectionHeader from '../section-header'
-import { StaggerItem, StaggerSection } from '../stagger-section'
+import { Section, StaggerItem } from '../stagger-section'
 
 const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
   return (
@@ -23,23 +23,23 @@ const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
       "
     >
       <article className="flex flex-col sm:grid sm:grid-cols-[180px_1fr_auto] gap-3 sm:gap-6 sm:items-center">
-        
+
         {/* Company Logo & Name */}
         <div className="flex items-center gap-3">
-            <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-zinc-200 dark:border-white/10">
-                <Image 
-                    src={data.logo} 
-                    alt={data.company} 
-                    fill 
-                    className="object-cover"
-                    onError={(e) => {
-                        e.currentTarget.style.display = 'none'
-                    }} 
-                />
-            </div>
-            <span className="text-sm font-mono font-medium text-zinc-600 dark:text-zinc-400 truncate max-w-[120px]">
-                {data.company}
-            </span>
+          <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-zinc-200 dark:border-white/10">
+            <Image
+              src={data.logo}
+              alt={data.company}
+              fill
+              className="object-cover"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none'
+              }}
+            />
+          </div>
+          <span className="text-sm font-mono font-medium text-zinc-600 dark:text-zinc-400 truncate max-w-[120px]">
+            {data.company}
+          </span>
         </div>
 
         {/* Role & Tech */}
@@ -51,12 +51,12 @@ const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
           ">
             {data.role}
           </h3>
-          
+
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-zinc-400 mt-0.5">
             <span className="sm:hidden">{data.duration}</span>
             <span className="sm:hidden">•</span>
             <span className="font-mono text-zinc-500 dark:text-zinc-500">
-               {data.technologies.slice(0, 4).join(', ')}
+              {data.technologies.slice(0, 4).join(', ')}
             </span>
           </div>
         </div>
@@ -66,8 +66,8 @@ const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
           <span className="transition-colors group-hover/item:text-zinc-600 dark:group-hover/item:text-zinc-300">
             {data.duration}
           </span>
-          
-          <ArrowUpRight 
+
+          <ArrowUpRight
             size={18}
             className="
               text-zinc-900 dark:text-white
@@ -86,7 +86,7 @@ const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
 
 const ExperienceList = () => {
   return (
-    <StaggerSection className="py-20">
+    <Section className="py-20">
       <SectionHeader text="Work History" />
       <div className="flex flex-col group border-t border-gray-100 dark:border-white/5">
         {experiences.map((exp, index) => (
@@ -95,7 +95,7 @@ const ExperienceList = () => {
           </StaggerItem>
         ))}
       </div>
-    </StaggerSection>
+    </Section>
   )
 }
 

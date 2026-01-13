@@ -10,12 +10,11 @@ interface SectionProps {
   delay?: number
 }
 
-// 1. The Container
 export const StaggerSection = ({
   children,
   className = "",
   viewportAmount = 0.2,
-  staggerDuration = 0.1, // Fast stagger by default
+  staggerDuration = 0.15,
   delay = 0
 }: SectionProps) => {
   return (
@@ -43,14 +42,13 @@ export const StaggerSection = ({
 interface ItemProps {
   children: React.ReactNode
   className?: string
-  duration?: number // Now controls the spring speed
+  duration?: number
 }
 
-// 2. The Item (Spring Physics)
 export const StaggerItem = ({
   children,
   className = "",
-  duration = 1.5 // Default fast duration
+  duration = 1.5
 }: ItemProps) => {
   return (
     <motion.div
@@ -70,10 +68,50 @@ export const StaggerItem = ({
       }}
       transition={{
         type: "spring",
-        // When using 'spring', duration is calculated roughly from stiffness/damping
-        // But if we provide 'duration', Framer calculates the physics to match that time.
         duration: duration, 
-        bounce: 0.2, // Subtle bounce for "alive" feel, set to 0 for no bounce
+        bounce: 0.2,
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+interface SectionProps {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+  duration?: number
+  viewportAmount?: number
+}
+
+export const Section = ({
+  children,
+  className = "",
+  delay = 0,
+  duration = 1,
+  viewportAmount = 0.2
+}: SectionProps) => {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: viewportAmount }}
+      variants={{
+        hidden: { 
+          opacity: 0, 
+          filter: 'blur(8px)'
+        },
+        visible: { 
+          opacity: 1, 
+          filter: 'blur(0px)' 
+        }
+      }}
+      transition={{
+        duration: duration,
+        delay: delay,
+        ease: "easeOut" 
       }}
       className={className}
     >

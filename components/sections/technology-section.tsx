@@ -2,19 +2,19 @@
 
 import { categories, techstack } from '@/lib/data/techstack'
 import Image from 'next/image'
-import { StaggerItem, StaggerSection } from '../stagger-section'
 import SectionHeader from '../section-header'
+import { Section, StaggerItem, StaggerSection } from '../stagger-section'
 
 const TechnologySection = () => {
   const displayCategories = categories.filter((c) => c !== 'all')
 
   return (
-    <StaggerSection className="py-20 ">
+    <Section className="py-20 ">
 
       {/* Section Header */}
-      <SectionHeader text='Tech Stack'  />
+      <SectionHeader text='Tech Stack' />
 
-      <div className="flex flex-col gap-6 md:gap-8">
+      <StaggerSection className="flex flex-col gap-6 md:gap-8">
         {displayCategories.map((category) => {
           // Filter items for this category
           const items = techstack.filter((tech) => tech.type.includes(category))
@@ -62,9 +62,9 @@ const TechnologySection = () => {
             </StaggerItem>
           )
         })}
-      </div>
+      </StaggerSection>
 
-    </StaggerSection>
+    </Section>
   )
 }
 
