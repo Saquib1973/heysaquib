@@ -53,7 +53,7 @@ export default function FilterDropdown<T extends string>({
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             // Removed bg-red-400, restored standard white/dark theme
-            className="absolute right-0 mt-2 w-56 z-[100] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl overflow-hidden p-1.5"
+            className="absolute max-md:left-0 md:right-0 mt-2 w-56 z-[100] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl overflow-hidden p-1.5"
           >
             {/* 'All' Option */}
             <div

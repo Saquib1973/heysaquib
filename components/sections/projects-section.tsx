@@ -32,13 +32,13 @@ const ProjectCard = ({
 
   return (
     <div
-      className="relative h-full bg-gray-200 dark:bg-zinc-800 rounded-2xl"
+      className="relative h-full bg-gray-200 dark:bg-zinc-800 rounded-3xl"
     >
       <div
         onClick={() => router.push(`/projects/${project.id}`)}
         className={`
           relative h-full flex flex-col justify-between
-          bg-white-0 dark:bg-black-2 border border-gray-200 dark:border-white/10 rounded-2xl p-6
+          bg-white-0 dark:bg-black-2 border border-gray-200 dark:border-white/10 rounded-3xl p-6
           cursor-pointer transition-all duration-300 ease-out
           
           /* The Retro "Lift" Effect */

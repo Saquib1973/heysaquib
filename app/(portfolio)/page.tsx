@@ -13,23 +13,6 @@ export default function Home() {
     <Section viewportAmount={0} className=''>
       <div className='px-4'>
         <AboutSection />
-        {/* <StaggerItem >
-
-          <div className="flex text-light justify-end items-center gap-1">
-            {socialLinks.map((link, index) => (
-              <div key={index} className="cursor-pointer">
-                <Link
-                  href={link.href}
-                  className="capitalize hover:text-black dark:hover:text-white  transition-all duration-500"
-                  target="_blank"
-                >
-                  {link.name}
-                </Link>
-                {index < socialLinks.length - 1 ? ` /` : ''}
-              </div>
-            ))}
-          </div>
-        </StaggerItem> */}
         <ExperienceSection />
         <TechnologySection />
         <ProjectsSection />

@@ -16,14 +16,11 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-
-// --- IMPORTS ---
 import CertificateSection from '@/components/certificates-section'
 import { StaggerItem, StaggerSection } from '@/components/stagger-section'
 import { moments } from '@/public/assets/moments'
 import { getDateHelper } from '@/public/utils/helper'
 
-// --- DATA ---
 const links = [
   { name: 'Github', href: 'https://github.com/Saquib1973', icon: <Github className="w-5 h-5" /> },
   { name: 'Twitter', href: 'https://x.com/sacubeli', icon: <Twitter className="w-5 h-5" /> },

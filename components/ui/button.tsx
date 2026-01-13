@@ -32,7 +32,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   )
 
   // 2. SHADOW LAYER
-  const shadowBase = "absolute inset-0 rounded-md select-none border-2 border-transparent"
+  const shadowBase = "absolute inset-0 rounded-xl select-none border-2 border-transparent"
   const shadowVariants = {
     primary: "bg-black dark:bg-white",
     secondary: "bg-black dark:bg-zinc-700",
@@ -51,7 +51,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     "z-10",
     
     // RETRO LIFT PHYSICS (Square buttons)
-    !isSimple && "rounded-md border-2 transition-all translate-x-[-4px] translate-y-[-4px] group-hover:translate-x-0 group-hover:translate-y-0 active:translate-x-0 active:translate-y-0",
+    !isSimple && "rounded-xl border-2 transition-all translate-x-[-4px] translate-y-[-4px] group-hover:translate-x-0 group-hover:translate-y-0 active:translate-x-0 active:translate-y-0",
     
     // SIMPLE PILL PHYSICS (Rounded buttons)
     // REMOVED: hover:scale-105 active:scale-95

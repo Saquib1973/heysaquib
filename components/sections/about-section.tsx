@@ -5,8 +5,9 @@ import { motion } from "framer-motion"
 import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { BlurTranslateYItem, StaggerSection } from "../animations/stagger"
 import PlayName from "../play-name"
-import { StaggerItem, StaggerSection } from '../stagger-section'
+import { Section } from '../stagger-section'
 import Button from '../ui/button'
 import Underline from '../underline'
 
@@ -14,9 +15,8 @@ const AboutSection = () => {
   return (
     <StaggerSection className="py-20 flex flex-col-reverse gap-12 items-center md:flex-row md:justify-between">
 
-      {/* Left Side */}
       <div className="flex flex-col gap-6 text-left">
-        <StaggerItem className="space-y-5 font-light leading-relaxed text-gray-600 dark:text-gray-400">
+        <BlurTranslateYItem className="space-y-5 font-light leading-relaxed text-gray-600 dark:text-gray-400">
           <div>
             Hi, I’m{' '}
             <span className="inline-flex items-center font-normal text-gray-900 dark:text-white">
@@ -59,23 +59,23 @@ const AboutSection = () => {
             I enjoy tackling challenges and building meaningful solutions.
           </p>
 
-        </StaggerItem>
+        </BlurTranslateYItem>
 
-        <StaggerItem className="relative w-fit pt-2 flex justify-start">
+        <BlurTranslateYItem className="relative w-fit pt-2 flex justify-start">
           <Image
             src={ArrowDown}
             alt="Arrow decoration"
             width={150}
             height={150}
-            className="absolute -top-12 -right-20 z-10 w-20 md:w-24 rotate-12 p-1 dark:invert"
+            className="absolute -top-12 -right-20 z-10 w-28 md:w-24 rotate-12 p-1 dark:invert"
           />
           <Button href="/about" variant="secondary" size="sm" className="w-fit">
             More about me <ArrowUpRight className="ml-2 w-4 h-4" />
           </Button>
-        </StaggerItem>
+        </BlurTranslateYItem>
       </div>
 
-      <StaggerItem className="flex justify-center max-md:w-full md:justify-end">
+      <Section className="flex justify-center max-md:w-full md:justify-end">
         <div className="group relative w-32 sm:w-40 md:w-48 lg:w-52 aspect-square flex-shrink-0">
           <Image
             src="/assets/saquib.jpg"
@@ -85,7 +85,7 @@ const AboutSection = () => {
             className="rounded-full border-2 border-zinc-100 dark:border-zinc-900 animate-mode object-cover"
           />
         </div>
-      </StaggerItem>
+      </Section>
 
     </StaggerSection>
   )

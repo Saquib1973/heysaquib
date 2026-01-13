@@ -1,74 +1,66 @@
 'use client'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight, Check, Mail } from 'lucide-react'
+import { Check, Mail } from 'lucide-react'
 import { useState } from 'react'
+import SocialLinks from './social-links'
 import { StaggerItem, StaggerSection } from './stagger-section'
 import Button from './ui/button'
 
-const CONFIG = {
-  email: "saquibali353@gmail.com",
-  socials: [
-    { label: "Github", href: "https://github.com/Saquib1973" },
-    { label: "Twitter", href: "https://twitter.com/sacubeli" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/saquib-ali-4a3235219/" },
-    { label: "WhatsApp", href: "https://wa.me/916202303022" },
-  ]
-}
+const email = "saquibali353@gmail.com"
 
 export default function Footer() {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(CONFIG.email)
+    navigator.clipboard.writeText(email)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
   return (
-    <footer className="relative w-full pt-20 pb-10 overflow-hidden">
-      <StaggerSection className="relative z-20 px-6 flex flex-col items-center text-center">
+    <footer className="w-full py-16 px-6">
+      <StaggerSection className="max-w-2xl mx-auto flex flex-col items-center text-center gap-6">
 
-        {/* HEADING */}
         <StaggerItem>
-          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-neutral-800 dark:text-neutral-200 mb-6">
-            Have an idea? <span className="text-neutral-400 dark:text-neutral-500 italic font-light">Let's connect.</span>
-          </h2>
+          <p className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base">
+            For inquiries or to connect, feel free to drop me an email.
+          </p>
         </StaggerItem>
 
-        {/* EMAIL BUTTON (Using Custom Button) */}
-        <StaggerItem className="mb-10">
+        <StaggerItem>
           <Button
-            variant="primary-s"
+            variant="outline-s"
             size="sm"
             onClick={handleCopy}
-            className='w-80'
-
+            className='w-[250px]'
           >
-            <div className="relative h-4 w-4 flex items-center justify-center mr-2">
+            <div className="flex items-center gap-3">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={copied ? "check" : "mail"}
-                  initial={{ opacity: 0, scale: 0.5 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
                 >
-                  {copied ? <Check size={14} className="text-emerald-500" /> : <Mail size={14} className="text-neutral-400" />}
+                  {copied ? (
+                    <Check size={16} className="text-emerald-500" />
+                  ) : (
+                    <Mail size={16} className="text-neutral-500" />
+                  )}
                 </motion.div>
               </AnimatePresence>
+              <span className="text-neutral-800 dark:text-neutral-200 font-medium">
+                {copied ? "Address Copied" : email}
+              </span>
             </div>
-            <span>{copied ? "Copied" : CONFIG.email}</span>
           </Button>
         </StaggerItem>
 
-        <div className="flex gap-8 mb-12">
-          {CONFIG.socials.map((link) => (
-            <StaggerItem key={link.label}>
-              <a href={link.href} target="_blank" className="text-[10px] uppercase tracking-[0.2em] font-bold text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1">
-                {link.label} <ArrowUpRight size={10} className="opacity-30" />
-              </a>
-            </StaggerItem>
-          ))}
-        </div>
+        <StaggerItem className="w-full flex flex-col items-center gap-6 mt-4">
+          <div className="w-12 h-[1px] bg-neutral-200 dark:bg-neutral-800" />
+          <SocialLinks />
+        </StaggerItem>
+
 
       </StaggerSection>
     </footer>

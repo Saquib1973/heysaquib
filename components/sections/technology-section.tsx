@@ -38,7 +38,7 @@ const TechnologySection = () => {
                           relative flex items-center gap-2 px-3 py-2 md:py-1.5 
                           bg-white-0 dark:bg-white/5 
                           border border-gray-100 dark:border-white/5 
-                          rounded-lg md:rounded-full
+                          rounded-full
                           transition-colors duration-200 
                           hover:bg-white dark:hover:bg-white/10
                         "
@@ -52,7 +52,7 @@ const TechnologySection = () => {
                         />
                       </div>
 
-                      <span className="text-sm md:text-xs font-medium text-gray-700 dark:text-gray-300 cursor-default">
+                      <span className="text-xs font-medium text-gray-700 dark:text-gray-300 cursor-default">
                         {tech.name}
                       </span>
                     </div>
