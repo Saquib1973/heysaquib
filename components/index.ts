@@ -11,6 +11,7 @@ export type ProjectCardType = {
   status?: 'live' | 'building' | 'archived'
   image?: { src: any; text: string }[]
   git: string
-  liveLink: string
+  website?: string // Updated
+  app?: string     // Updated
   date: string
 }

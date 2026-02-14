@@ -5,9 +5,9 @@ Project content format :
         id: '', name: '', description: [
             "","",""
         ]
-        , detail: '', tags: ['', '', ''], link: '', git: '', img: , date: '',
+        , detail: '', tags: ['', '', ''], website: '', app: '', git: '', img: , date: '',
         type: ['frontend' , 'backend' , 'design' , 'fullstack' , 'core' ,devops],
-           "featured": bool
+            "featured": bool
     },
 */
   id: string
@@ -16,14 +16,16 @@ Project content format :
   type: ProjectType[]
   detail: string
   tags?: string[]
-  link: string
-  status?: 'live' | 'building' |'archived'
+  website?: string // Changed from 'link'
+  app?: string     // Added new field
+  status?: 'live' | 'building' | 'archived'
   git: string
   img?: { src: any; text: string }[]
   date: string
   featured: boolean
   minor?: boolean
 }
+
 export type ProjectType =
   | 'frontend'
   | 'backend'

@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowLeft, ArrowUpRight, Github, ImageIcon } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, Github, ImageIcon, Download, Globe } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 
 // --- Data & Components ---
@@ -15,10 +15,9 @@ const Page = () => {
   const router = useRouter()
   // 1. Get ID synchronously
   const pathname = usePathname()
-  // Safe check to ensure we have a pathname before splitting
   const projectId = pathname ? pathname.split('/')[2] : null
 
-  // 2. Find Data Immediately (No useEffect needed for static data)
+  // 2. Find Data Immediately
   const data = Projects.find((project) => project.id === projectId)
 
   const scrollToGallery = () => {
@@ -28,8 +27,7 @@ const Page = () => {
     }
   }
 
-  // 3. Handle Loading / Not Found States
-  if (!projectId) return null // Wait for router
+  if (!projectId) return null
   if (!data) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-black text-gray-500">
@@ -62,18 +60,36 @@ const Page = () => {
         {/* BUTTONS */}
         <StaggerSection className="flex flex-wrap items-stretch gap-4 pt-2 w-full sm:w-auto">
 
-          {/* Live Link */}
-          {data.link && (
+          {/* Website Link */}
+          {data.website && (
             <StaggerItem className="flex-1 sm:flex-none">
               <Button
-                href={data.link}
+                href={data.website}
                 target="_blank"
                 variant="primary-s"
                 size="md"
                 className="w-full sm:w-auto"
               >
-                {data.type.includes("react-native") && data.link.includes(".apk") ? "Download App" : "Visit Live Site"}
-                <ArrowUpRight className="w-4 h-4 ml-2" />
+                <Globe className="w-4 h-4 mr-2" />
+                Visit Website
+                <ArrowUpRight className="w-4 h-4 ml-2 opacity-50" />
+              </Button>
+            </StaggerItem>
+          )}
+
+          {/* App Link */}
+          {data.app && (
+            <StaggerItem className="flex-1 sm:flex-none">
+              <Button
+                href={data.app}
+                target="_blank"
+                variant="primary-s" // Same visual weight as website, or use secondary if preferred
+                size="md"
+                className="w-full sm:w-auto"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Download App
+                <ArrowUpRight className="w-4 h-4 ml-2 opacity-50" />
               </Button>
             </StaggerItem>
           )}
@@ -89,7 +105,7 @@ const Page = () => {
                 className="w-full sm:w-auto"
               >
                 <Github className="w-4 h-4 mr-2" />
-                View Source
+                Source Code
               </Button>
             </StaggerItem>
           )}
@@ -104,7 +120,7 @@ const Page = () => {
                 className="w-full sm:w-auto"
               >
                 <ImageIcon className="w-4 h-4 mr-2" />
-                View Gallery
+                Gallery
               </Button>
             </StaggerItem>
           )}
@@ -158,7 +174,6 @@ const Page = () => {
             </span>
           </div>
 
-          {/* Passed empty array as fallback if img is somehow undefined */}
           <ProjectGallery images={data.img || []} />
         </section>
       )}

@@ -2,7 +2,7 @@
 
 import type { ProjectInterface } from '@/lib/data'
 import { Projects } from '@/lib/data/projects'
-import { ArrowUpRight, Calendar, Download, Github } from 'lucide-react'
+import { ArrowUpRight, Calendar, Download, Github, Globe } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import SectionHeader from '../section-header'
@@ -21,7 +21,6 @@ const ProjectCard = ({
   const router = useRouter()
 
   // Helper for Status Badge Colors
-  // FIXED: Added fallback for undefined status
   const getStatusColor = (status: string = 'building') => {
     switch (status) {
       case 'live': return 'bg-green-100 text-green-700 border-green-200 dark:bg-green-500/10 dark:text-green-400 dark:border-green-500/20'
@@ -92,7 +91,7 @@ const ProjectCard = ({
         </div>
 
         {/* 4. Footer: Links (Subtle & Clean) */}
-        <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100 dark:border-white/5" onClick={(e) => e.stopPropagation()}>
+        <div className="flex flex-wrap items-center justify-between mt-6 pt-4 border-t border-gray-100 dark:border-white/5 gap-y-2" onClick={(e) => e.stopPropagation()}>
 
           {/* GitHub Link */}
           <Link
@@ -101,27 +100,33 @@ const ProjectCard = ({
             className="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors"
           >
             <Github className="w-4 h-4" />
-            Source Code
+            Source
           </Link>
 
-          {/* Live / Download Link */}
-          <Link
-            href={project.link}
-            target="_blank"
-            className="flex items-center gap-2 text-xs font-bold text-gray-900 dark:text-white hover:text-yellow-600 dark:hover:text-yellow-500 transition-colors"
-          >
-            {project.type.includes("react-native") && project.link.includes(".apk") ? (
-              <>
-                Download App
-                <Download className="w-4 h-4" />
-              </>
-            ) : (
-              <>
-                Live Demo
+          {/* Right Side: Website & App Links */}
+          <div className="flex items-center gap-4">
+            {project.website && (
+              <Link
+                href={project.website}
+                target="_blank"
+                className="flex items-center gap-2 text-xs font-bold text-gray-900 dark:text-white hover:text-yellow-600 dark:hover:text-yellow-500 transition-colors"
+              >
+                Website
                 <ArrowUpRight className="w-4 h-4" />
-              </>
+              </Link>
             )}
-          </Link>
+            
+            {project.app && (
+              <Link
+                href={project.app}
+                target="_blank"
+                className="flex items-center gap-2 text-xs font-bold text-gray-900 dark:text-white hover:text-yellow-600 dark:hover:text-yellow-500 transition-colors"
+              >
+                App
+                <Download className="w-4 h-4" />
+              </Link>
+            )}
+          </div>
 
         </div>
 
@@ -141,8 +146,6 @@ const ProjectsSection = () => {
 
       {/* Header */}
       <SectionHeader text='Projects' />
-
-
 
       {/* Projects Grid */}
       <StaggerSection className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">

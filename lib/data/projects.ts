@@ -30,8 +30,6 @@ import news4u3 from '@/public/assets/projects/news4u/news4u3.png'
 import urhr1 from '@/public/assets/projects/urhr/urhr1.png'
 import urhr2 from '@/public/assets/projects/urhr/urhr2.png'
 import urhr3 from '@/public/assets/projects/urhr/urhr3.png'
-//quillBot
-import quillBot from '@/public/assets/projects/others/quillbot.png'
 //recalll
 import recalll1 from '@/public/assets/projects/recalll/1.png'
 import recalll2 from '@/public/assets/projects/recalll/2.png'
@@ -68,7 +66,6 @@ const DiaryOf: ProjectInterface = {
     'Designed with a focus on privacy and user experience, ensuring your personal thoughts remain secure and accessible only to you.',
   ],
   type: ['fullstack', 'backend', 'frontend', 'react-native', 'design'],
-  // usage of 'null' for src if you don't have images yet, otherwise import them
   img: [
     { src: diaryof1, text: 'Landing Page' }, 
   ],
@@ -82,8 +79,9 @@ const DiaryOf: ProjectInterface = {
     'MongoDB',
     'Express',
   ],
-  link: 'https://diaryof.vercel.app/', // Leave empty if not deployed yet
-  git: 'https://github.com/Saquib1973', // Update with actual repo link
+  website: 'https://diaryof.vercel.app/',
+  // app: 'LINK_TO_APK_IF_AVAILABLE', 
+  git: 'https://github.com/Saquib1973',
   date: 'March 2025',
   featured: true,
 }
@@ -98,7 +96,7 @@ const Recall: ProjectInterface = {
     'It is built with NextJS for Frontend , tailwindCSS for styling , Framer-Motion for animations ,NodeJS for backend and MongoDB for database. It is on Typescript to ensure type safety and better code quality.',
     'User can save links and content .User will be able to preview Instagram , Pinterest , Youtube and Twitter posts directly on the website .Will be adding more soon.',
   ],
-  type: ['frontend', 'design', 'backend', 'fullstack'],
+  type: ['frontend', 'design', 'backend', 'fullstack', "react-native"],
   img: [
     { src: recalll1, text: 'Home Page' },
     { src: recalll2, text: 'Page 2' },
@@ -118,7 +116,8 @@ const Recall: ProjectInterface = {
     'Typescript',
     'Framer-Motion',
   ],
-  link: 'https://recall.sacube.xyz/',
+  website: 'https://recalll.vercel.app/',
+  app:"https://github.com/Saquib1973/recall-app/releases/download/v1.0.0/app-release.apk",
   git: 'https://github.com/Saquib1973/recall-fe',
   date: 'Jan 2025',
   featured: false,
@@ -152,7 +151,7 @@ const Hydrated: ProjectInterface = {
     'Typescript',
     'Framer-Motion',
   ],
-  link: 'https://github.com/Saquib1973/hydrate-app/releases/download/v1.0.0/hydrated-1.0.0.apk',
+  app: 'https://github.com/Saquib1973/hydrate-app/releases/download/v1.0.0/hydrated-1.0.0.apk',
   git: 'https://github.com/Saquib1973/hydrate-app',
   date: 'October 2025',
   featured: false,
@@ -185,7 +184,7 @@ const Escape: ProjectInterface = {
     'Typescript',
     'Framer-Motion',
   ],
-  link: 'https://escape.sacube.xyz/',
+  website: 'https://escape.sacube.xyz/',
   git: 'https://github.com/Saquib1973/escape',
   date: 'July 2025',
   featured: false,
@@ -210,7 +209,7 @@ const Nyaylok: ProjectInterface = {
   detail:
     'Streamlined case management system developed for Smart India Hackathon 2023. Prioritized cases, facilitated resolutions, and enhanced judiciary efficiency.',
   tags: ['ReactJS', 'Redux', 'TailwindCSS', 'Express', 'Redis', 'MongoDB'],
-  link: 'https://nyaylok.onrender.com/',
+  website: 'https://nyaylok.onrender.com/',
   git: 'https://github.com/Saquib1973/Nyaylok-Frontend',
   date: `Mar-Aug 2023`,
   featured: false,
@@ -240,7 +239,7 @@ const Vallet: ProjectInterface = {
     'ed25519-hd-key',
     'tweetnacl',
   ],
-  link: 'https://vallet-sacube.vercel.app/',
+  website: 'https://vallet-sacube.vercel.app/',
   git: 'https://github.com/Saquib1973/vallet',
   date: 'Sep 2024',
   featured: false,
@@ -278,7 +277,7 @@ const Urlwee: ProjectInterface = {
     'Framer Motion',
     'zod',
   ],
-  link: 'https://urlwee.sacube.xyz/',
+  website: 'https://urlwee.sacube.xyz/',
   git: 'https://github.com/Saquib1973/urlwee',
   date: 'May-Aug 2024',
   featured: false,
@@ -299,7 +298,7 @@ const AcademiaStacks: ProjectInterface = {
   detail:
     'Crafted college note aggregation website in 20 days. Led frontend development, connecting backend for seamless user experience.',
   tags: ['scss', 'react', 'framer-motion'],
-  link: 'https://academia-stacks.vercel.app/',
+  website: 'https://academia-stacks.vercel.app/',
   git: 'https://github.com/hellovaibhav/AcademiaStacks',
   date: '2021-25',
   featured: false,
@@ -322,7 +321,7 @@ const YourHR: ProjectInterface = {
   detail:
     'yourHR simplifies job searching by matching opportunities to your saved skills. Find and apply for jobs aligned with your expertise all in one place.',
   tags: ['NextJS', 'Framer Motion', 'TailwindCSS', 'Prisma', 'Postgresql'],
-  link: 'https://urhr.vercel.app/',
+  website: 'https://urhr.vercel.app/',
   git: 'https://github.com/Saquib1973/yourHR',
   date: '2021-25',
   featured: false,
@@ -352,7 +351,7 @@ const IssueTracker: ProjectInterface = {
     'aws-sdk',
     'firebase',
   ],
-  link: 'https://issuehelp.vercel.app/',
+  website: 'https://issuehelp.vercel.app/',
   git: 'https://github.com/Saquib1973/tracker',
   date: '2023-24',
   featured: false,
@@ -386,7 +385,7 @@ const Blogig: ProjectInterface = {
     'aws-sdk',
     'firebase',
   ],
-  link: 'https://blogig.vercel.app/',
+  website: 'https://blogig.vercel.app/',
   git: 'https://github.com/Saquib1973/bloggingWebsite',
   date: '2021-25',
   featured: false,
@@ -412,7 +411,7 @@ const News4U: ProjectInterface = {
   detail:
     'Designed and developed a news website template with an integrated admin dashboard. The project, named News4U, offers a user-friendly interface for both general users browsing news articles and administrators managing the platform.',
   tags: ['tailwind', 'react'],
-  link: 'https://news4u-sacube.vercel.app/',
+  website: 'https://news4u-sacube.vercel.app/',
   git: 'https://github.com/Saquib1973/AssignmentSiddi',
   date: '2021-25',
   featured: false,
@@ -437,7 +436,7 @@ const Multimeter: ProjectInterface = {
   detail:
     'This project is a multimeter designed using Tinkercad, capable of measuring various electrical parameters like voltage, amperage, and inductance. It involves circuit design and instrumentation and was created with Tinkercad',
   tags: ['tinkercad', 'instrumentation', 'circuit design', 'electronics'],
-  link: 'https://www.tinkercad.com/things/dHty7Bh3smO-multimeter-damsel?sharecode=tNV00u_XPG_uG3V-U6_6Mzi_pB9--S2HS9EFFJrgTRw',
+  website: 'https://www.tinkercad.com/things/dHty7Bh3smO-multimeter-damsel?sharecode=tNV00u_XPG_uG3V-U6_6Mzi_pB9--S2HS9EFFJrgTRw',
   git: '',
   date: '2021-25',
   featured: false,
@@ -453,7 +452,6 @@ const WeatherApp: ProjectInterface = {
   ],
   detail: '',
   tags: ['tailwind', 'react', 'express', 'mongoDb'],
-  link: '',
   git: 'https://github.com/Saquib1973/WatherWebApp',
   date: '2021-25',
   featured: false,
@@ -467,7 +465,6 @@ const Ecommerce: ProjectInterface = {
   type: ['frontend', 'backend', 'design', 'fullstack'],
   detail: '',
   tags: ['tailwind', 'redux', 'react', 'express', 'mongoDb'],
-  link: '',
   git: 'https://github.com/Saquib1973/Ecommerce',
   date: '2021-25',
   featured: false,
@@ -488,7 +485,7 @@ const QuillBot: ProjectInterface = {
   detail:
     'Quill Bot streamlines research article discovery with a user-friendly interface utilizing backend APIs. It aids scholars in efficiently accessing relevant material, simplifying their academic endeavors effectively and collaboratively.',
   tags: ['tailwind', 'react'],
-  link: 'https://renderquillbot.onrender.com/',
+  website: 'https://renderquillbot.onrender.com/',
   git: 'https://github.com/Saquib1973/QuillBotSearch',
   date: '2021-25',
   featured: false,
@@ -504,7 +501,7 @@ const QuillBot: ProjectInterface = {
     ],
     detail: '',
     tags: ['react', 'scss', 'firebase'],
-    link: 'https://fir-authentication-app-f9489.web.app/',
+    website: 'https://fir-authentication-app-f9489.web.app/',
     git: 'https://github.com/Saquib1973/Firebase_Authentication_App',
     date: '2021-25',
     featured: false,
@@ -518,7 +515,7 @@ const QuillBot: ProjectInterface = {
     type: ['frontend', 'design'],
     detail: '',
     tags: ['tailwind', 'react-redux', 'react', 'framer-motion'],
-    link: 'https://heysaquib.vercel.app/',
+    website: 'https://heysaquib.vercel.app/',
     git: 'https://github.com/Saquib1973/portfolio',
     img: [{ src: null, text: 'test' }],
     date: '2021-25',
@@ -544,17 +541,17 @@ const QuillBot: ProjectInterface = {
       'TypeScript',
       'Canvas API',
     ],
-    link: 'https://breakbricks.vercel.app/',
+    website: 'https://breakbricks.vercel.app/',
     git: 'https://github.com/Saquib1973/breakout',
     date: 'Feb 2025',
     featured: false,
   }
 
 export const Projects: ProjectInterface[] = [
-  { ...DiaryOf,featured:true },
+  {...Recall,featured:true},
   { ...Hydrated,featured:true },
   {...Escape,featured:true},
-  {...Recall,featured:true},
+  { ...DiaryOf,featured:true },
   { ...Urlwee,featured:true },
   { ...Vallet,minor:false },
   { ...Nyaylok,featured:true },
