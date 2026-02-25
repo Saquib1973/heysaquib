@@ -55,6 +55,10 @@ import breakbricks1 from "@/public/assets/projects/breakbricks/breakbricks1.gif"
 
 import diaryof1 from "@/public/assets/projects/diaryof/landing-page.png"
 
+// hallucinate-ai
+import hallucinate1 from "@/public/assets/projects/hallucinate-ai/chat-page.png"
+import hallucinate2 from "@/public/assets/projects/hallucinate-ai/new-chat.png"
+
 const DiaryOf: ProjectInterface = {
   id: 'diaryof',
   name: 'DiaryOf',
@@ -67,7 +71,7 @@ const DiaryOf: ProjectInterface = {
   ],
   type: ['fullstack', 'backend', 'frontend', 'react-native', 'design'],
   img: [
-    { src: diaryof1, text: 'Landing Page' }, 
+    { src: diaryof1, text: 'Landing Page' },
   ],
   detail:
     'A cross-platform journaling solution featuring a React Native mobile app and Next.js web client, powered by a unified Node.js backend for seamless synchronization.',
@@ -89,7 +93,7 @@ const DiaryOf: ProjectInterface = {
 const Recall: ProjectInterface = {
   id: 'recalll',
   name: 'Recalll',
-  status:'live',
+  status: 'live',
   description: [
     'Recalll: Your Second Brain, Organized and Effortless',
     'Recalll is a powerful web application designed to help you capture, organize, and revisit content from across the web. Whether it’s tweets, YouTube videos, Pinterest pins, Instagram posts, or custom links, Recalll acts as your personal knowledge hub, making it easy to save everything in one place and access it later with just a few clicks.',
@@ -117,7 +121,7 @@ const Recall: ProjectInterface = {
     'Framer-Motion',
   ],
   website: 'https://recalll.vercel.app/',
-  app:"https://github.com/Saquib1973/recall-app/releases/download/v1.0.0/app-release.apk",
+  app: "https://github.com/Saquib1973/recall-app/releases/download/v1.0.0/app-release.apk",
   git: 'https://github.com/Saquib1973/recall-fe',
   date: 'Jan 2025',
   featured: false,
@@ -132,7 +136,7 @@ const Hydrated: ProjectInterface = {
     'Built with NextJS for Frontend , tailwindCSS for styling , Framer-Motion for animations ,NodeJS for backend and MongoDB for database. It is on Typescript to ensure type safety and better code quality.',
     'Users can set daily water intake goals, log their consumption, and view their hydration history through interactive charts and statistics. Hydrated also offers customizable reminders to keep you motivated throughout the day.',
   ],
-  type: ['frontend', 'design', 'backend', 'fullstack',"react-native"],
+  type: ['frontend', 'design', 'backend', 'fullstack', "react-native"],
   img: [
     { src: hydrated1, text: 'Home Page' },
     { src: hydrated2, text: 'Daily Goal Page' },
@@ -490,74 +494,104 @@ const QuillBot: ProjectInterface = {
   date: '2021-25',
   featured: false,
 }
-  const FireBaseAuth: ProjectInterface = {
-    id: 'firebaseAuth',
-    status: 'archived',
+const FireBaseAuth: ProjectInterface = {
+  id: 'firebaseAuth',
+  status: 'archived',
 
-    name: 'Firebase Authentication App',
-    type: ['frontend', 'backend', 'design', 'fullstack'],
-    description: [
-      'I was asked by a company to develop a Firebase authentication app by a company on internshala as a project . Without any prior experience in Firebase I was able to make it within the given time span with the help of documentations and tutorials .',
-    ],
-    detail: '',
-    tags: ['react', 'scss', 'firebase'],
-    website: 'https://fir-authentication-app-f9489.web.app/',
-    git: 'https://github.com/Saquib1973/Firebase_Authentication_App',
-    date: '2021-25',
-    featured: false,
+  name: 'Firebase Authentication App',
+  type: ['frontend', 'backend', 'design', 'fullstack'],
+  description: [
+    'I was asked by a company to develop a Firebase authentication app by a company on internshala as a project . Without any prior experience in Firebase I was able to make it within the given time span with the help of documentations and tutorials .',
+  ],
+  detail: '',
+  tags: ['react', 'scss', 'firebase'],
+  website: 'https://fir-authentication-app-f9489.web.app/',
+  git: 'https://github.com/Saquib1973/Firebase_Authentication_App',
+  date: '2021-25',
+  featured: false,
 }
 
-  const Portfolio: ProjectInterface = {
-    id: 'portfolio',
-    name: 'Portfolio',
-    status: 'archived',
-    description: [],
-    type: ['frontend', 'design'],
-    detail: '',
-    tags: ['tailwind', 'react-redux', 'react', 'framer-motion'],
-    website: 'https://heysaquib.vercel.app/',
-    git: 'https://github.com/Saquib1973/portfolio',
-    img: [{ src: null, text: 'test' }],
-    date: '2021-25',
-    featured: false,
+const Portfolio: ProjectInterface = {
+  id: 'portfolio',
+  name: 'Portfolio',
+  status: 'archived',
+  description: [],
+  type: ['frontend', 'design'],
+  detail: '',
+  tags: ['tailwind', 'react-redux', 'react', 'framer-motion'],
+  website: 'https://heysaquib.vercel.app/',
+  git: 'https://github.com/Saquib1973/portfolio',
+  img: [{ src: null, text: 'test' }],
+  date: '2021-25',
+  featured: false,
 }
-  const BreakBricks: ProjectInterface = {
-    id: 'breakbricks',
-    name: 'BreakBricks',
-    status: 'live',
-    description: [
-      'BreakBricks: The Ultimate Browser-Based Gaming Experience',
-      'BreakBricks is a fully interactive web-based gaming platform that lets users play engaging arcade-style games right in their browser. The project features a dynamic gaming experience with real-time leaderboards, smooth animations, and an adaptive UI.',
-      'It is built with Next.js for the frontend, Tailwind CSS for styling, Framer Motion for animations, and Node.js for the backend. The game mechanics are implemented using the HTML5 Canvas API for smooth rendering. TypeScript ensures type safety and enhances code maintainability.',
-    ],
-    type: ['frontend', 'design'],
-    img: [{ src: breakbricks1, text: 'Gameplay' }],
-    detail:
-      'An interactive gaming platform that lets users play and compete in arcade-style browser games with real-time score tracking and an engaging UI.',
-    tags: [
-      'Next.js',
-      'Tailwind CSS',
-      'Framer Motion',
-      'TypeScript',
-      'Canvas API',
-    ],
-    website: 'https://breakbricks.vercel.app/',
-    git: 'https://github.com/Saquib1973/breakout',
-    date: 'Feb 2025',
-    featured: false,
-  }
+const BreakBricks: ProjectInterface = {
+  id: 'breakbricks',
+  name: 'BreakBricks',
+  status: 'live',
+  description: [
+    'BreakBricks: The Ultimate Browser-Based Gaming Experience',
+    'BreakBricks is a fully interactive web-based gaming platform that lets users play engaging arcade-style games right in their browser. The project features a dynamic gaming experience with real-time leaderboards, smooth animations, and an adaptive UI.',
+    'It is built with Next.js for the frontend, Tailwind CSS for styling, Framer Motion for animations, and Node.js for the backend. The game mechanics are implemented using the HTML5 Canvas API for smooth rendering. TypeScript ensures type safety and enhances code maintainability.',
+  ],
+  type: ['frontend', 'design'],
+  img: [{ src: breakbricks1, text: 'Gameplay' }],
+  detail:
+    'An interactive gaming platform that lets users play and compete in arcade-style browser games with real-time score tracking and an engaging UI.',
+  tags: [
+    'Next.js',
+    'Tailwind CSS',
+    'Framer Motion',
+    'TypeScript',
+    'Canvas API',
+  ],
+  website: 'https://breakbricks.vercel.app/',
+  git: 'https://github.com/Saquib1973/breakout',
+  date: 'Feb 2025',
+  featured: false,
+}
+
+const HallucinateAi: ProjectInterface = {
+  id: 'hallucinate-ai',
+  name: 'Hallucinate AI',
+  status: 'building',
+  description: [
+    'Hallucinate AI is an intelligent chat agent allowing users to select and converse with various AI models via OpenRouter.',
+    'The platform features secure user authentication powered by BetterAuth to ensure a seamless experience.',
+    'Upcoming features include chat summarization, public sharing for community discussions, and payment integration.',
+  ],
+  type: ['frontend', 'design', 'fullstack'],
+  img: [
+    { src: hallucinate1, text: 'Chat Interface' },
+    { src: hallucinate2, text: 'New Chat' },
+  ],
+  detail:
+    'An AI chat agent supporting multiple models from OpenRouter, featuring secure BetterAuth authentication and planned community-sharing capabilities.',
+  tags: [
+    'Next.js',
+    'Tailwind CSS',
+    'TypeScript',
+    'BetterAuth',
+    'OpenRouter',
+  ],
+  website: 'https://hallucinate-ai.vercel.app/',
+  git: 'https://github.com/Saquib1973',
+  date: 'Feb 2025',
+  featured: true,
+}
 
 export const Projects: ProjectInterface[] = [
-  {...Recall,featured:true},
-  { ...Hydrated,featured:true },
-  {...Escape,featured:true},
-  { ...DiaryOf,featured:true },
-  { ...Urlwee,featured:true },
-  { ...Vallet,minor:false },
-  { ...Nyaylok,featured:true },
-  {...BreakBricks,minor:true},
+  { ...HallucinateAi, featured: true },
+  { ...Recall, featured: true },
+  { ...Hydrated, featured: true },
+  { ...Escape, featured: true },
+  { ...DiaryOf, featured: true },
+  { ...Urlwee, featured: true },
+  { ...Vallet, minor: false },
+  { ...Nyaylok, featured: true },
+  { ...BreakBricks, minor: true },
   { ...YourHR },
-  { ...AcademiaStacks,featured:true },
+  { ...AcademiaStacks, featured: true },
   { ...IssueTracker },
   { ...Blogig },
   { ...News4U },
