@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { experiences } from '@/lib/data/experience'
 import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
@@ -8,6 +9,8 @@ import SectionHeader from '../section-header'
 import { Section, StaggerItem } from '../stagger-section'
 
 const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
+  const [imageError, setImageError] = useState(!data.logo)
+
   return (
     <Link
       href={data.website}
@@ -24,17 +27,21 @@ const ExperienceItem = ({ data }: { data: typeof experiences[0] }) => {
       <article className="flex flex-col sm:grid sm:grid-cols-[180px_1fr_auto] gap-3 sm:gap-6 sm:items-center">
 
         <div className="flex items-center gap-3">
-          <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0">
-            <Image
-              src={data.logo}
-              alt={data.company}
-              fill
-              className="object-cover"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none'
-              }}
-            />
-          </div>
+          {imageError ? (
+            <div className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-mono font-bold text-sm select-none uppercase border border-zinc-200 dark:border-zinc-700">
+              {data.company.charAt(0)}
+            </div>
+          ) : (
+            <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0">
+              <Image
+                src={data.logo}
+                alt={data.company}
+                fill
+                className="object-cover"
+                onError={() => setImageError(true)}
+              />
+            </div>
+          )}
           <span className="text-sm font-mono font-medium text-zinc-600 dark:text-zinc-400 truncate max-w-[120px]">
             {data.company}
           </span>

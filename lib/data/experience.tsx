@@ -11,12 +11,12 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
-    company: 'Cokub',
+    company: 'Pleesh',
     role: 'Fullstack Developer',
-    duration: '2025 - Present', // Shortened date looks cleaner
-    location: 'Remote, United States',
-    website: 'https://cokub.com/',
-    logo: '/assets/experience/cokub-logo.png',
+    duration: 'May 2025 - May 2026',
+    location: 'Remote, Australia',
+    website: 'https://pleesh.com/',
+    logo: '',
     technologies: ['Next.js', 'TypeScript', 'Node.js', 'MongoDB'],
   },
   {
