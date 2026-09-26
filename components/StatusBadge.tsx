@@ -3,10 +3,10 @@
 import { motion } from 'framer-motion'
 
 interface StatusBadgeProps {
-    status: 'live' | 'building' | string
+    status?: 'live' | 'building' | string
 }
 
-export function StatusBadge({ status }: StatusBadgeProps) {
+export function StatusBadge({ status = 'live' }: StatusBadgeProps) {
     const isLive = status === 'live'
     const isBuilding = status === 'building'
 

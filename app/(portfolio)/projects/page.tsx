@@ -24,7 +24,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 
 // --- 3D INTERACTIVE STATUS BADGE ---
-function StatusBadge({ status }: { status: string }) {
+function StatusBadge({ status = 'live' }: { status?: string }) {
   const isLive = status === 'live'
   const isBuilding = status === 'building'
 
