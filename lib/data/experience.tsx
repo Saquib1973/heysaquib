@@ -11,6 +11,15 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    company: 'Eximpedia',
+    role: 'Fullstack Developer',
+    duration: 'Sept 2026 - Present',
+    location: 'Noida, Delhi, India',
+    website: 'https://www.eximpedia.app/',
+    logo: '/assets/experience/eximpedia',
+    technologies: ['React', 'Next']
+  },
+  {
     company: 'Pleesh',
     role: 'Fullstack Developer',
     duration: 'May 2025 - May 2026',
