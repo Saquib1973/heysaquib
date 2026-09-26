@@ -124,7 +124,7 @@ export default function ProjectsPage() {
     }
   }, [selectedOption])
 
-  // Keyboard Navigation: Up/Down / J/K to switch active project
+  // Keyboard navigation
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (filteredProjects.length === 0) return
@@ -168,8 +168,8 @@ export default function ProjectsPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-20 min-h-screen">
-      {/* --- HEADER --- */}
-      <StaggerSection className="relative z-50 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 border-b border-zinc-200 dark:border-zinc-800 pb-8">
+      {/* --- HEADER (Lowered to z-20 to avoid navbar collisions) --- */}
+      <StaggerSection className="relative z-20 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 border-b border-zinc-200 dark:border-zinc-800 pb-8">
         <div className="space-y-2">
           <BlurTranslateYItem>
             <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 dark:text-zinc-100">
@@ -265,10 +265,10 @@ export default function ProjectsPage() {
                   }
                 `}
               >
-                {/* 3D Prismatic Top Sheen (Simulates glass bezel highlight) */}
+                {/* 3D Prismatic Top Sheen */}
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 dark:via-white/20 to-transparent" />
 
-                {/* Mouse Spotlight (Works in both Light & Dark Mode) */}
+                {/* Mouse Spotlight */}
                 {isActive && (
                   <>
                     <div
@@ -286,7 +286,7 @@ export default function ProjectsPage() {
                   </>
                 )}
 
-                {/* Big Background Number (Glass-etched subtle look) */}
+                {/* Big Background Number */}
                 <div
                   className={`
                     absolute right-2 md:-right-2 -bottom-4 md:-bottom-10 font-black leading-none tracking-tighter pointer-events-none select-none z-0 
@@ -380,7 +380,7 @@ export default function ProjectsPage() {
                         </div>
                       </div>
 
-                      {/* Action Links with Frosted Finish */}
+                      {/* Action Links */}
                       <div className="flex flex-wrap items-center gap-2.5 shrink-0 pt-2 md:pt-0">
                         {project.git && (
                           <Link
